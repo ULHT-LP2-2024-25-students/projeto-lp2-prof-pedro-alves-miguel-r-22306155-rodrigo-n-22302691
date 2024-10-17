@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-import pt.ulusofona.lp2.guiSimulator.*;
-
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -173,7 +171,6 @@ public class GameManager {
     }
 
     public String getCreatureInfoAsString(int id){
-
         return creatures.get(id).toString();
     }
 
@@ -211,6 +208,5 @@ public class GameManager {
 
     public static void main(String[] args) {
 
-        AppLauncher.main(null);
     }
 }
