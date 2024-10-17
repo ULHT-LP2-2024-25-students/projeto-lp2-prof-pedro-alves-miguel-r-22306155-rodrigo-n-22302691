@@ -182,7 +182,7 @@ public class GameManager {
     }
 
     public String getEquipmentInfoAsString(int id){
-        return "";
+        return equipments.get(id).toString();
     }
 
     public boolean hasEquipment(int creatureId, int equipmentTypeId){
