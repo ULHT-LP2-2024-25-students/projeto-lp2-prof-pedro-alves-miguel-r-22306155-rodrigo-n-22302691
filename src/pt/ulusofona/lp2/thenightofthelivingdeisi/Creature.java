@@ -44,4 +44,9 @@ public class Creature {
 
         return id + " | " + tipoDeCreatura + " | " + nome + " | " + valor + " @ " + "(" + posicaoX + "," + posicaoY + ")";
         }
+
+        int obterId(){
+
+            return this.id;
+        }
 }

@@ -1,8 +1,11 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
+import pt.ulusofona.lp2.guiSimulator.*;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 import static java.lang.Integer.parseInt;
 
@@ -11,6 +14,8 @@ public class GameManager {
     int[] worldSize = new int[2];
     int initialID;
     int currentID;
+    int nrCriaturas;
+    int nrEquipamentos;
     ArrayList<Creature> creatures = new ArrayList<>();
     ArrayList<Equipment> equipments = new ArrayList<>();
 
@@ -35,7 +40,6 @@ public class GameManager {
         if (tabuleiro.length == 2) {
 
             try {
-
                 worldSize[0] = parseInt(tabuleiro[0]);
                 worldSize[1] = parseInt(tabuleiro[1]);
             } catch (NumberFormatException e) {
@@ -52,10 +56,8 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
-        int teamID;
-
         try{
-            teamID = Integer.parseInt(linha);
+            initialID = Integer.parseInt(linha);
         } catch (NumberFormatException e){
             return false;
         }
@@ -66,15 +68,13 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
-        int nrCreatures;
-
         try{
-            nrCreatures = Integer.parseInt(linha);
+            nrCriaturas = Integer.parseInt(linha);
         } catch (NumberFormatException e){
             return false;
         }
 
-        for (int i = 0; i < nrCreatures; i++) {
+        for (int i = 0; i < nrCriaturas; i++) {
 
             try {
                 linha = reader.readLine();
@@ -104,8 +104,6 @@ public class GameManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        int nrEquipamentos;
 
         try {
             nrEquipamentos = Integer.parseInt(linha);
@@ -146,15 +144,15 @@ public class GameManager {
     }
 
     public int[] getWorldSize(){
-        return null;
+        return worldSize;
     }
 
     public int getInitialTeamId(){
-        return  0;
+        return  initialID;
     }
 
     public int getCurrentTeamId(){
-        return 0;
+        return currentID;
     }
 
     public boolean isDay(){
@@ -166,10 +164,12 @@ public class GameManager {
     }
 
     public String[] getCreatureInfo(int id){
+
         return null;
     }
 
     public String getCreatureInfoAsString(int id){
+
         return "";
     }
 
@@ -203,5 +203,9 @@ public class GameManager {
 
     public HashMap<String,String> customizeBoard(){
         return null;
+    }
+
+    public static void main(String[] args) {
+        AppLauncher.main(null);
     }
 }
