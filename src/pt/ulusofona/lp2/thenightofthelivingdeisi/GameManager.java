@@ -9,13 +9,12 @@ import java.util.Objects;
 public class GameManager {
 
     int[] worldSize = new int[2];
-    int initialId;
-    int currentId;
+    int initialID;
+    int currentID;
+    ArrayList<Creature> creatures;
+    ArrayList<Equipment> equipments;
 
     public boolean parseGame(File game) {
-
-        ArrayList<Creature> creatures = new ArrayList<>();
-        ArrayList<Equipment> equipments = new ArrayList<>();
 
         BufferedReader reader = null;
         try {
@@ -47,7 +46,7 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
-        int turno = Integer.parseInt(linha);
+        int teamID = Integer.parseInt(linha);
 
         try {
             linha = reader.readLine();
