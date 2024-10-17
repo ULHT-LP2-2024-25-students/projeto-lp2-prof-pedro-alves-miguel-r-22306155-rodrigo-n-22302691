@@ -1,4 +1,4 @@
-package pt.ulusofona.lp2.theninghtofthelivingdeisi;
+package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.swing.*;
 import java.io.File;
