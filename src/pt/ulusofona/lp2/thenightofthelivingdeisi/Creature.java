@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.thenightofthelivingdeisi;
 public class Creature {
 
     int id;
-    String tipo;
+    int tipo;
     String nome;
     int posicaoX;
     int posicaoY;
@@ -11,7 +11,7 @@ public class Creature {
     int equipCount;
     Equipment equipment;
 
-    public Creature(int id, String tipo, String nome, int posicaoX, int posicaoY, String png) {
+    public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, String png) {
         this.id = id;
         this.tipo = tipo;
         this.nome = nome;
@@ -20,17 +20,28 @@ public class Creature {
         this.png = png;
     }
 
+    public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY) {
+        this.id = id;
+        this.tipo = tipo;
+        this.nome = nome;
+        this.posicaoX = posicaoX;
+        this.posicaoY = posicaoY;
+    }
+
     @Override
     public String toString() {
 
         String valor = "";
+        String tipoDeCreatura = "";
 
-        if(tipo.equals("Humano")){
-            valor = "-" + equipCount;
-        } else {
+        if(tipo == 1){
             valor = "+" + equipCount;
+            tipoDeCreatura = "Humano";
+        } else {
+            valor = "-" + equipCount;
+            tipoDeCreatura = "Zombie";
         }
 
-        return id + " | " + tipo + " | " + nome + " | " + valor + " @ " + "(" + posicaoX + "," + posicaoY + ")";
+        return id + " | " + tipoDeCreatura + " | " + nome + " | " + valor + " @ " + "(" + posicaoX + "," + posicaoY + ")";
         }
 }
