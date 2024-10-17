@@ -1,18 +1,22 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import pt.ulusofona.lp2.guiSimulator.AppLauncher;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static java.lang.Integer.parseInt;
+
 public class GameManager {
 
     int[] worldSize = new int[2];
     int initialID;
     int currentID;
-    ArrayList<Creature> creatures;
-    ArrayList<Equipment> equipments;
+    ArrayList<Creature> creatures = new ArrayList<>();
+    ArrayList<Equipment> equipments = new ArrayList<>();
 
     public boolean parseGame(File game) {
 
@@ -34,8 +38,14 @@ public class GameManager {
 
         if (tabuleiro.length == 2) {
 
-            worldSize[0] = Integer.parseInt(tabuleiro[0]);
-            worldSize[1] = Integer.parseInt(tabuleiro[1]);
+            try {
+
+                worldSize[0] = parseInt(tabuleiro[0]);
+                worldSize[1] = parseInt(tabuleiro[1]);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+
         } else {
             return false;
         }
@@ -46,7 +56,13 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
-        int teamID = Integer.parseInt(linha);
+        int teamID;
+
+        try{
+            teamID = Integer.parseInt(linha);
+        } catch (NumberFormatException e){
+            return false;
+        }
 
         try {
             linha = reader.readLine();
@@ -54,7 +70,13 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
-        int nrCreatures = Integer.parseInt(linha);
+        int nrCreatures;
+
+        try{
+            nrCreatures = Integer.parseInt(linha);
+        } catch (NumberFormatException e){
+            return false;
+        }
 
         for (int i = 0; i < nrCreatures; i++) {
 
@@ -67,12 +89,35 @@ public class GameManager {
             String[] creature = linha.split(" : ");
 
             if (creature.length == 5) {
-                creatures.add(new Creature(Integer.parseInt(creature[0]), Integer.parseInt(creature[1]),
-                        creature[2], Integer.parseInt(creature[3]), Integer.parseInt(creature[4])));
+
+                try {
+                    creatures.add(new Creature(parseInt(creature[0]), parseInt(creature[1]),
+                            creature[2], parseInt(creature[3]), parseInt(creature[4])));
+
+                } catch (NumberFormatException e){
+                    return false;
+                }
+
             } else {
                 return false;
             }
         }
+
+        try {
+            linha = reader.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int nrEquipamentos;
+
+        try {
+            nrEquipamentos = Integer.parseInt(linha);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        for (int i = 0; i < nrEquipamentos; i++) {
 
             try {
                 linha = reader.readLine();
@@ -80,33 +125,28 @@ public class GameManager {
                 throw new RuntimeException(e);
             }
 
-            int nrEquipamentos = Integer.parseInt(linha);
+            String[] equipment = linha.split(" : ");
 
-            for(int i = 0; i < nrEquipamentos; i++){
+            if (equipment.length == 4) {
 
                 try {
-                    linha = reader.readLine();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                    equipments.add(new Equipment(parseInt(equipment[0]), parseInt(equipment[1]),
+                            parseInt(equipment[2]), parseInt(equipment[3])));
 
-                String[] equipment = linha.split(" : ");
-
-                if(equipment.length == 4){
-
-                    equipments.add(new Equipment(Integer.parseInt(equipment[0]),Integer.parseInt(equipment[1]),
-                            Integer.parseInt(equipment[2]),Integer.parseInt(equipment[3])));
-                } else {
+                } catch (NumberFormatException e) {
                     return false;
                 }
+            } else {
+                return false;
             }
-
-        return true;
         }
 
+        return true;
+    }
 
     public boolean loadGame(File file){
-        return false;
+
+        return parseGame(file);
     }
 
     public int[] getWorldSize(){
@@ -169,11 +209,9 @@ public class GameManager {
         return null;
     }
 
-
-
-
-    //Main
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        AppLauncher launcher = new AppLauncher();
+        AppLauncher.main(null);
     }
 }
