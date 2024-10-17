@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import pt.ulusofona.lp2.guiSimulator.*;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -14,9 +16,9 @@ public class GameManager {
     int[] worldSize = new int[2];
     int initialID;
     int nrCriaturas;
-    ArrayList<Creature> creatures = new ArrayList<>();
+    HashMap<Integer,Creature> creatures = new HashMap<>();
     int nrEquipamentos;
-    ArrayList<Equipment> equipments = new ArrayList<>();
+    HashMap<Integer,Equipment> equipments = new HashMap<>();
 
     //Informaçoes do jogo
     int currentID;
@@ -89,7 +91,7 @@ public class GameManager {
             if (creature.length == 5) {
 
                 try {
-                    creatures.add(new Creature(parseInt(creature[0]), parseInt(creature[1]),
+                    creatures.put(Integer.parseInt(creature[0]),new Creature(parseInt(creature[0]), parseInt(creature[1]),
                             creature[2], parseInt(creature[3]), parseInt(creature[4])));
 
                 } catch (NumberFormatException e){
@@ -126,7 +128,7 @@ public class GameManager {
             if (equipment.length == 4) {
 
                 try {
-                    equipments.add(new Equipment(parseInt(equipment[0]), parseInt(equipment[1]),
+                    equipments.put(Integer.parseInt(equipment[0]),new Equipment(parseInt(equipment[0]), parseInt(equipment[1]),
                             parseInt(equipment[2]), parseInt(equipment[3])));
 
                 } catch (NumberFormatException e) {
@@ -205,5 +207,10 @@ public class GameManager {
 
     public HashMap<String,String> customizeBoard(){
         return null;
+    }
+
+    public static void main(String[] args) {
+
+        AppLauncher.main(null);
     }
 }
