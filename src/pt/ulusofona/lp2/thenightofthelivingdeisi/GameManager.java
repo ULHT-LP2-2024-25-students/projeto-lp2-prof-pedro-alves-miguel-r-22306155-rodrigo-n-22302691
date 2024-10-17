@@ -1,12 +1,8 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
-
-import pt.ulusofona.lp2.guiSimulator.AppLauncher;
-
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
