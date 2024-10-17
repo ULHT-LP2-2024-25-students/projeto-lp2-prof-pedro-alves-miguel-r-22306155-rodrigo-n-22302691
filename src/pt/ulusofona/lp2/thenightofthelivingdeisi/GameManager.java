@@ -10,13 +10,16 @@ import static java.lang.Integer.parseInt;
 
 public class GameManager {
 
+    //Informaçoes do ficheiro
     int[] worldSize = new int[2];
     int initialID;
-    int currentID;
     int nrCriaturas;
-    int nrEquipamentos;
     ArrayList<Creature> creatures = new ArrayList<>();
+    int nrEquipamentos;
     ArrayList<Equipment> equipments = new ArrayList<>();
+
+    //Informaçoes do jogo
+    int currentID;
 
     public boolean parseGame(File game) {
 
