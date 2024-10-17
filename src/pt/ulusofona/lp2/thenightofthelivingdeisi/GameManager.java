@@ -1,5 +1,4 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
-import pt.ulusofona.lp2.guiSimulator.*;
 
 import javax.swing.*;
 import java.io.*;
@@ -203,9 +202,5 @@ public class GameManager {
 
     public HashMap<String,String> customizeBoard(){
         return null;
-    }
-
-    public static void main(String[] args) {
-        AppLauncher.main(null);
     }
 }
