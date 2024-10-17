@@ -174,7 +174,7 @@ public class GameManager {
 
     public String getCreatureInfoAsString(int id){
 
-        return "";
+        return creatures.get(id).toString();
     }
 
     public String[] getEquipmentInfo(int id){
