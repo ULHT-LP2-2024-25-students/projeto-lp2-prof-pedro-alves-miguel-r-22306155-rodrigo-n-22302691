@@ -38,18 +38,16 @@ public class Creature {
     String tipoCriatura (int tipo){
         if(tipo == 1){
             return  "Humano";
-        } else {
-            return  "Zombie";
         }
+        return  "Zombie";
     }
 
     //O equipamento do tipo se tem ou destruiu
     String tipoEquipamento (int tipo){
         if(tipo == 1){
             return "+" + equipCount;
-        } else {
-            return  "-" + equipCount;
         }
+        return  "-" + equipCount;
     }
 
     //Coordenadas da criatura

@@ -205,11 +205,11 @@ public class GameManager {
 
         //Poe as insformacoes da criatura na string
         partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(criatura.tipoCriatura(id));
+        partes[1] = String.valueOf(criatura.tipoCriatura(parseInt(dados.get("tipo"))));
         partes[2] = String.valueOf(dados.get("nome"));
-        partes[3] = String.valueOf(dados.get("NumeroEquipamento"));
-        partes[4] = String.valueOf(dados.get("posicaoX"));
-        partes[5] = String.valueOf(dados.get("posicaoY"));
+        partes[3] = String.valueOf(dados.get("posicaoX"));
+        partes[4] = String.valueOf(dados.get("posicaoY"));
+        partes[5] = String.valueOf(dados.get("imagem"));
 
         //Final (;
         return partes;
@@ -220,7 +220,29 @@ public class GameManager {
     }
 
     public String[] getEquipmentInfo(int id){
-        return null;
+        //Verefica se existe o item
+        if(equipments.get(id) == null){
+            return null;
+        }
+
+        //Guarda a criatura
+        Equipment equipamento = equipments.get(id);
+
+        //Obtem os dados da criatura
+        HashMap<String, String> dados = equipamento.getInfo();
+
+        //Cria a String
+        String[] partes = new String[5];
+
+        //Poe as insformacoes do equipamento na string
+        partes[0] = String.valueOf(id);
+        partes[1] = String.valueOf(equipamento.equipamentoNome(parseInt(dados.get("tipo"))));
+        partes[2] = String.valueOf(dados.get("posicaoX"));
+        partes[3] = String.valueOf(dados.get("posicaoY"));
+        partes[4] = String.valueOf(dados.get("imagem"));
+
+        //Final (;
+        return partes;
     }
 
     public String getEquipmentInfoAsString(int id){
