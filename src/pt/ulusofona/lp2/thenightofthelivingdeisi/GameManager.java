@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import pt.ulusofona.lp2.guiSimulator.AppLauncher;
+
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class GameManager {
 
     public boolean parseGame(File game) {
 
+        //Cria o reader e verfica a sua criaçao
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(game));
@@ -30,6 +33,8 @@ public class GameManager {
             return false;
         }
 
+
+        //Ler a primeira linha
         String linha = null;
         try {
             linha = reader.readLine();
@@ -37,8 +42,10 @@ public class GameManager {
             throw new RuntimeException(e);
         }
 
+        //Vai pegar no tamanho do tabuleiro
         String[] tabuleiro = linha.split(" ");
 
+        //Vai ler o tamanho do tabuleiro
         if (tabuleiro.length == 2) {
 
             try {
@@ -52,40 +59,50 @@ public class GameManager {
             return false;
         }
 
+
+        //Le a proxima linha
         try {
             linha = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        //Pega o initial int e faz parse
         try{
             initialID = Integer.parseInt(linha);
         } catch (NumberFormatException e){
             return false;
         }
 
+
+        //Le a proxima linha
         try {
             linha = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        //Pega o numero de creaturas
         try{
             nrCriaturas = Integer.parseInt(linha);
         } catch (NumberFormatException e){
             return false;
         }
 
+        //Faz um loop para ler o numero de criaturas do ficheiro
         for (int i = 0; i < nrCriaturas; i++) {
 
+            //Le a proxima linha
             try {
                 linha = reader.readLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
+            //Split
             String[] creature = linha.split(" : ");
 
+            //Le a informaçao da criatura
             if (creature.length == 5) {
 
                 try {
@@ -101,28 +118,36 @@ public class GameManager {
             }
         }
 
+
+        //Le a proxima linha
         try {
             linha = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        //Le o numero de equipamentos que existem
         try {
             nrEquipamentos = Integer.parseInt(linha);
         } catch (NumberFormatException e) {
             return false;
         }
 
+
+        //Vai ler todos os equipamentos do ficheiro
         for (int i = 0; i < nrEquipamentos; i++) {
 
+            //Le a proxima linha
             try {
                 linha = reader.readLine();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
+            //Split
             String[] equipment = linha.split(" : ");
 
+            //Le os equipamentos
             if (equipment.length == 4) {
 
                 try {
@@ -137,11 +162,11 @@ public class GameManager {
             }
         }
 
+        //Termina (;
         return true;
     }
 
     public boolean loadGame(File file){
-
         return parseGame(file);
     }
 
@@ -166,7 +191,6 @@ public class GameManager {
     }
 
     public String[] getCreatureInfo(int id){
-
         return null;
     }
 
