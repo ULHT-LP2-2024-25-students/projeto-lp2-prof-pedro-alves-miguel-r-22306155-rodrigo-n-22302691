@@ -54,7 +54,7 @@ public class Creature {
 
     //Coordenadas da criatura
     String coordenadas (){
-        return "(" + posicaoX + "," + posicaoY + ")";
+        return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
 
