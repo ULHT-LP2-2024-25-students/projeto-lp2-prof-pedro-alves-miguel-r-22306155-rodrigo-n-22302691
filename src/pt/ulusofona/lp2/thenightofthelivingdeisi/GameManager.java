@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-import pt.ulusofona.lp2.guiSimulator.AppLauncher;
-
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -191,7 +189,23 @@ public class GameManager {
     }
 
     public String[] getCreatureInfo(int id){
-        return null;
+        //Verefica se existe a criatura
+        if(creatures.get(id) == null){
+            return null;
+        }
+
+        //Cria a String
+        String[] partes = new String[5];
+
+        //Poe as insformacoes da criatura na string
+        partes[0] = String.valueOf(creatures.get(id).id);
+        partes[1] = String.valueOf(creatures.get(id).tipoNome(id));
+        partes[2] = String.valueOf(creatures.get(id).nome);
+        partes[3] = String.valueOf(creatures.get(id).tipoEquipamento(id));
+        partes[4] = String.valueOf(creatures.get(id).coordenadas());
+
+        //Final (;
+        return partes;
     }
 
     public String getCreatureInfoAsString(int id){
