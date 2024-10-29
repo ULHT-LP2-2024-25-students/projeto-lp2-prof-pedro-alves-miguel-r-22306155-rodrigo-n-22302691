@@ -68,7 +68,7 @@ public class Creature {
         dados.put("nome" , nome);
         dados.put("posicaoX", String.valueOf(posicaoX));
         dados.put("posicaoY", String.valueOf(posicaoY));
-        dados.put("imagen", png);
+        dados.put("imagem", png);
         dados.put("NumeroEquipamento", String.valueOf(equipCount));
 
         //Finalizar (;

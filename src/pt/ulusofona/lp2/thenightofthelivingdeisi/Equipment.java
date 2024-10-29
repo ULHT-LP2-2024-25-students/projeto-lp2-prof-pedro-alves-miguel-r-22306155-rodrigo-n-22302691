@@ -54,7 +54,7 @@ public class Equipment {
         dados.put("tipo", String.valueOf(tipo));
         dados.put("posicaoX", String.valueOf(posicaoX));
         dados.put("posicaoY", String.valueOf(posicaoY));
-        dados.put("imagen", png);
+        dados.put("imagem", png);
 
         //Finalizar (;
         return dados;

@@ -236,7 +236,7 @@ public class GameManager {
 
         //Poe as insformacoes do equipamento na string
         partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(equipamento.equipamentoNome(parseInt(dados.get("tipo"))));
+        partes[1] = String.valueOf(parseInt(dados.get("tipo")));
         partes[2] = String.valueOf(dados.get("posicaoX"));
         partes[3] = String.valueOf(dados.get("posicaoY"));
         partes[4] = String.valueOf(dados.get("imagem"));
