@@ -194,16 +194,22 @@ public class GameManager {
             return null;
         }
 
+        //Guarda a criatura
+        Creature criatura = creatures.get(id);
+
+        //Obtem os dados da criatura
+        HashMap<String, String> dados = criatura.getInfo();
+
         //Cria a String
         String[] partes = new String[6];
 
         //Poe as insformacoes da criatura na string
-        partes[0] = String.valueOf(creatures.get(id).id);
-        partes[1] = String.valueOf(creatures.get(id).tipoCriatura(id));
-        partes[2] = String.valueOf(creatures.get(id).nome);
-        partes[3] = String.valueOf(creatures.get(id).tipoEquipamento(id));
-        partes[4] = String.valueOf(creatures.get(id).posicaoX);
-        partes[5] = String.valueOf(creatures.get(id).posicaoY);
+        partes[0] = String.valueOf(id);
+        partes[1] = String.valueOf(criatura.tipoCriatura(id));
+        partes[2] = String.valueOf(dados.get("nome"));
+        partes[3] = String.valueOf(criatura.tipoEquipamento(id));
+        partes[4] = String.valueOf(dados.get("posicaoX"));
+        partes[5] = String.valueOf(dados.get("posicaoY"));
 
         //Final (;
         return partes;

@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import java.util.HashMap;
+
 public class Creature {
 
     int id;
@@ -10,6 +12,7 @@ public class Creature {
     String png;
     int equipCount;
     Equipment equipment;
+
 
     //Construtores
     public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, String png) {
@@ -54,11 +57,33 @@ public class Creature {
         return "(" + posicaoX + "," + posicaoY + ")";
     }
 
-    //Obtem o id
-    int obterId(){
-        return this.id;
+
+    //gets e setters
+    //Obtem todos dados
+    HashMap<String, String> getInfo(){
+        //Cria o hashMap
+        HashMap<String, String> dados = new HashMap<>();
+
+        //Poe os valores da info no hashMap
+        dados.put("id", String.valueOf(id));
+        dados.put("tipo", String.valueOf(tipo));
+        dados.put("nome" , nome);
+        dados.put("posicaoX", String.valueOf(posicaoX));
+        dados.put("posicaoY", String.valueOf(posicaoY));
+        dados.put("imagen", png);
+        dados.put("NumeroEquipamento", String.valueOf(equipCount));
+
+        //Finalizar (;
+        return dados;
     }
 
+    //Obter equipamento
+    Equipment getEquipment (){
+        return equipment;
+    }
+
+
+    //To String
     @Override
     public String toString() {
         return id + " | " + tipoCriatura(id) + " | " + nome + " | " + tipoEquipamento(id) + " @ " + coordenadas();
