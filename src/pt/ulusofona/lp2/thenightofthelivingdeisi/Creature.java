@@ -86,6 +86,6 @@ public class Creature {
     //To String
     @Override
     public String toString() {
-        return id + " | " + tipoCriatura(id) + " | " + nome + " | " + tipoEquipamento(id) + " @ " + coordenadas();
+        return id + " | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
     }
 }
