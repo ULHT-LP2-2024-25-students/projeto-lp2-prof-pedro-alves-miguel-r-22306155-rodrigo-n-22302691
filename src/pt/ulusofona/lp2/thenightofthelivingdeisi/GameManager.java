@@ -165,6 +165,7 @@ public class GameManager {
     }
 
     public boolean loadGame(File file){
+
         return parseGame(file);
     }
 
