@@ -51,19 +51,16 @@ public class Creature {
 
     //Coordenadas da criatura
     String coordenadas (){
-        return " @ " + "(" + posicaoX + "," + posicaoY + ")";
+        return "(" + posicaoX + "," + posicaoY + ")";
     }
 
+    //Obtem o id
     int obterId(){
         return this.id;
     }
 
     @Override
     public String toString() {
-
-        String valor = tipoEquipamento(id);
-        String tipoDeCreatura = tipoCriatura(id);
-
-        return id + " | " + tipoDeCreatura + " | " + nome + " | " + valor + coordenadas();
+        return id + " | " + tipoCriatura(id) + " | " + nome + " | " + tipoEquipamento(id) + " @ " + coordenadas();
     }
 }
