@@ -35,13 +35,19 @@ public class Equipment {
     }
 
     //Nome do equipamento
-    String equipamentoNome (int tipo){
-        if(tipo == 1){
-            return  "Escudo de madeira";
-        }
-        return  "Espada samurai";
-    }
+    String equipamentoNome (int tipo) {
 
+        String nome = "";
+
+        if (tipo == 0) {
+            nome = "Escudo de madeira";
+        }
+
+        if (tipo == 1) {
+            nome = "Espada samurai";
+        }
+        return nome;
+    }
 
     //gets e setters
     //Obtem todos dados
@@ -64,6 +70,6 @@ public class Equipment {
     //To String
     @Override
     public String toString() {
-        return id + " | " + equipamentoNome (tipo) + " @ " + coordenadas();
+        return id + " | " + equipamentoNome(tipo) + " @ " + coordenadas();
     }
 }
