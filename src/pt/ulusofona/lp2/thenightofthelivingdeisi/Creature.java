@@ -32,6 +32,10 @@ public class Creature {
         this.posicaoY = posicaoY;
     }
 
+    public Creature(int id, Equipment equipment) {
+        this.id = id;
+        this.equipment = equipment;
+    }
 
     //Metodos
     //O nome do tipo
@@ -79,7 +83,6 @@ public class Creature {
     Equipment getEquipment (){
         return equipment;
     }
-
 
     //To String
     @Override

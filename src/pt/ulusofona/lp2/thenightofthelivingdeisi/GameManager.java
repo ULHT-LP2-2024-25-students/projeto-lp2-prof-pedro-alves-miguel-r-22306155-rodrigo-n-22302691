@@ -238,11 +238,23 @@ public class GameManager {
         return equipments.get(id).toString();
     }
 
-    public boolean hasEquipment(int creatureId, int equipmentTypeId){
+    public boolean hasEquipment(int creatureId, int equipmentTypeId) {
+
+        Creature criatura = creatures.get(creatureId);
+
+        if (criatura != null && criatura.getEquipment() != null) {
+            return criatura.getEquipment().getId() == equipmentTypeId;
+        }
         return false;
     }
 
-    public boolean move(int xO, int yO, int xD, int yD){
+    public boolean move(int xO, int yO, int xD, int yD) {
+
+        if ((xO == xD && (yD == yO + 1 || yD == yO - 1)) ||
+                (yO == yD && (xD == xO + 1 || xD == xO - 1))) {
+
+            return xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1];
+        }
         return false;
     }
 

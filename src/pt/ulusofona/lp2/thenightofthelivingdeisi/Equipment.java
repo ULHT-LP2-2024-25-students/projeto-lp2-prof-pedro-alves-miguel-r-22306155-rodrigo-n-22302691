@@ -27,6 +27,14 @@ public class Equipment {
         this.posicaoY = posicaoY;
     }
 
+    public Equipment(int id) {
+        this.id = id;
+    }
+
+    int getId(){
+        return this.id;
+    }
+
 
     //Metodos
     //Coordenadas do equipamento

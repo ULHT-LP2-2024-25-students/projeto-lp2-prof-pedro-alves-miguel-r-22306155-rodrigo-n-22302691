@@ -55,4 +55,14 @@ public class TestGameManager {
         String[] resultadoEsperado = {"-1","0","1","1",""};
         Assertions.assertEquals(resultadoEsperado,resultadoAtual);
     }
+
+    @Test
+    public void testHasEquipment(){
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        boolean resultadoAtual = game.hasEquipment(2,-1);
+        boolean resultadoEsperado = false;
+        Assertions.assertEquals(resultadoEsperado,resultadoAtual);
+    }
 }
