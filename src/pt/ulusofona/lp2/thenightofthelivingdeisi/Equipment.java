@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import java.util.HashMap;
+
 public class Equipment {
 
     int id;
@@ -8,6 +10,8 @@ public class Equipment {
     int posicaoY;
     String png;
 
+
+    //Construtores
     public Equipment(int id, int tipo, int posicaoX, int posicaoY, String png) {
         this.id = id;
         this.tipo = tipo;
@@ -23,21 +27,43 @@ public class Equipment {
         this.posicaoY = posicaoY;
     }
 
-    @Override
-    public String toString() {
 
-        String equipamento = "";
-
-        equipamento = switch (tipo){
-            case 0 -> "Escudo de madeira";
-            case 1 -> "Espada samurai";
-            default -> "";
-        };
-
-        return id + " | " + equipamento + " @ " + "(" + posicaoX + "," + posicaoY + ")";
+    //Metodos
+    //Coordenadas do equipamento
+    String coordenadas (){
+        return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
-    int getId(){
-        return this.id;
+    //Nome do equipamento
+    String equipamentoNome (int tipo){
+        if(tipo == 1){
+            return  "Escudo de madeira";
+        }
+        return  "Espada samurai";
+    }
+
+
+    //gets e setters
+    //Obtem todos dados
+    HashMap<String, String> getInfo(){
+        //Cria o hashMap
+        HashMap<String, String> dados = new HashMap<>();
+
+        //Poe os valores da info no hashMap
+        dados.put("id", String.valueOf(id));
+        dados.put("tipo", String.valueOf(tipo));
+        dados.put("posicaoX", String.valueOf(posicaoX));
+        dados.put("posicaoY", String.valueOf(posicaoY));
+        dados.put("imagem", png);
+
+        //Finalizar (;
+        return dados;
+    }
+
+
+    //To String
+    @Override
+    public String toString() {
+        return id + " | " + equipamentoNome (tipo) + " @ " + coordenadas();
     }
 }
