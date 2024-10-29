@@ -1,11 +1,11 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.swing.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class GameManager {
@@ -23,149 +23,137 @@ public class GameManager {
 
     public boolean parseGame(File game) {
 
-        //Cria o reader e verfica a sua criaçao
-        BufferedReader reader = null;
+        Scanner scanner = null;
         try {
-            reader = new BufferedReader(new FileReader(game));
+            scanner = new Scanner(game);
         } catch (FileNotFoundException e) {
             return false;
         }
 
+        // Lê a primeira linha (tamanho do tabuleiro)
+        if (scanner.hasNextLine()) {
 
-        //Ler a primeira linha
-        String linha = null;
-        try {
-            linha = reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            String linha = scanner.nextLine();
+            String[] tabuleiro = linha.split(" ");
 
-        //Vai pegar no tamanho do tabuleiro
-        String[] tabuleiro = linha.split(" ");
-
-        //Vai ler o tamanho do tabuleiro
-        if (tabuleiro.length == 2) {
-
-            try {
-                worldSize[0] = parseInt(tabuleiro[0]);
-                worldSize[1] = parseInt(tabuleiro[1]);
-            } catch (NumberFormatException e) {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
-
-
-        //Le a proxima linha
-        try {
-            linha = reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Pega o initial int e faz parse
-        try{
-            initialID = Integer.parseInt(linha);
-        } catch (NumberFormatException e){
-            return false;
-        }
-
-
-        //Le a proxima linha
-        try {
-            linha = reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Pega o numero de creaturas
-        try{
-            nrCriaturas = Integer.parseInt(linha);
-        } catch (NumberFormatException e){
-            return false;
-        }
-
-        //Faz um loop para ler o numero de criaturas do ficheiro
-        for (int i = 0; i < nrCriaturas; i++) {
-
-            //Le a proxima linha
-            try {
-                linha = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            //Split
-            String[] creature = linha.split(" : ");
-
-            //Le a informaçao da criatura
-            if (creature.length == 5) {
+            if (tabuleiro.length == 2) {
 
                 try {
-                    creatures.put(Integer.parseInt(creature[0]),new Creature(parseInt(creature[0]), parseInt(creature[1]),
-                            creature[2], parseInt(creature[3]), parseInt(creature[4])));
-
-                } catch (NumberFormatException e){
-                    return false;
-                }
-
-            } else {
-                return false;
-            }
-        }
-
-
-        //Le a proxima linha
-        try {
-            linha = reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Le o numero de equipamentos que existem
-        try {
-            nrEquipamentos = Integer.parseInt(linha);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-
-        //Vai ler todos os equipamentos do ficheiro
-        for (int i = 0; i < nrEquipamentos; i++) {
-
-            //Le a proxima linha
-            try {
-                linha = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            //Split
-            String[] equipment = linha.split(" : ");
-
-            //Le os equipamentos
-            if (equipment.length == 4) {
-
-                try {
-                    equipments.put(Integer.parseInt(equipment[0]),new Equipment(parseInt(equipment[0]), parseInt(equipment[1]),
-                            parseInt(equipment[2]), parseInt(equipment[3])));
-
+                    worldSize[0] = Integer.parseInt(tabuleiro[0]);
+                    worldSize[1] = Integer.parseInt(tabuleiro[1]);
                 } catch (NumberFormatException e) {
                     return false;
                 }
             } else {
                 return false;
             }
+        } else {
+            return false;
         }
 
-        //Termina (;
+        // Lê o ID inicial
+        if (scanner.hasNextLine()) {
+
+            String linha = scanner.nextLine();
+
+            try {
+                initialID = Integer.parseInt(linha);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        // Lê o número de criaturas
+        if (scanner.hasNextLine()) {
+
+            String linha = scanner.nextLine();
+
+            try {
+                nrCriaturas = Integer.parseInt(linha);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        // Loop para ler as criaturas
+        for (int i = 0; i < nrCriaturas; i++) {
+
+            if (scanner.hasNextLine()) {
+
+                String linha = scanner.nextLine();
+                String[] creature = linha.split(" : ");
+
+                if (creature.length == 5) {
+
+                    try {
+                        creatures.put(Integer.parseInt(creature[0]), new Creature(
+                                Integer.parseInt(creature[0]),
+                                Integer.parseInt(creature[1]),
+                                                  creature[2],
+                                Integer.parseInt(creature[3]),
+                                Integer.parseInt(creature[4])));
+
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        // Lê o número de equipamentos
+        if (scanner.hasNextLine()) {
+
+            String linha = scanner.nextLine();
+
+            try {
+                nrEquipamentos = Integer.parseInt(linha);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        // Loop para ler os equipamentos
+        for (int i = 0; i < nrEquipamentos; i++) {
+
+            if (scanner.hasNextLine()) {
+
+                String linha = scanner.nextLine();
+                String[] equipment = linha.split(" : ");
+
+                if (equipment.length == 4) {
+
+                    try {
+                        equipments.put(Integer.parseInt(equipment[0]), new Equipment(
+                                Integer.parseInt(equipment[0]),
+                                Integer.parseInt(equipment[1]),
+                                Integer.parseInt(equipment[2]),
+                                Integer.parseInt(equipment[3])
+                        ));
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        // Finaliza
         return true;
     }
 
     public boolean loadGame(File file){
-
         return parseGame(file);
     }
 
