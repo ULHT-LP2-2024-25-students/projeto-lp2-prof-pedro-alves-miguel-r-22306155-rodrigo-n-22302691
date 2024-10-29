@@ -207,7 +207,7 @@ public class GameManager {
         partes[0] = String.valueOf(id);
         partes[1] = String.valueOf(criatura.tipoCriatura(id));
         partes[2] = String.valueOf(dados.get("nome"));
-        partes[3] = String.valueOf(criatura.tipoEquipamento(id));
+        partes[3] = String.valueOf(dados.get("NumeroEquipamento"));
         partes[4] = String.valueOf(dados.get("posicaoX"));
         partes[5] = String.valueOf(dados.get("posicaoY"));
 
