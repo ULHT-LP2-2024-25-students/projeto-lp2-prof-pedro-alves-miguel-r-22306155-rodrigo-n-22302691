@@ -195,14 +195,15 @@ public class GameManager {
         }
 
         //Cria a String
-        String[] partes = new String[5];
+        String[] partes = new String[6];
 
         //Poe as insformacoes da criatura na string
         partes[0] = String.valueOf(creatures.get(id).id);
-        partes[1] = String.valueOf(creatures.get(id).tipoNome(id));
+        partes[1] = String.valueOf(creatures.get(id).tipoCriatura(id));
         partes[2] = String.valueOf(creatures.get(id).nome);
         partes[3] = String.valueOf(creatures.get(id).tipoEquipamento(id));
-        partes[4] = String.valueOf(creatures.get(id).coordenadas());
+        partes[4] = String.valueOf(creatures.get(id).posicaoX);
+        partes[5] = String.valueOf(creatures.get(id).posicaoY);
 
         //Final (;
         return partes;

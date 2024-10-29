@@ -32,7 +32,7 @@ public class Creature {
 
     //Metodos
     //O nome do tipo
-    String tipoNome (int tipo){
+    String tipoCriatura (int tipo){
         if(tipo == 1){
             return  "Humano";
         } else {
@@ -62,7 +62,7 @@ public class Creature {
     public String toString() {
 
         String valor = tipoEquipamento(id);
-        String tipoDeCreatura = tipoNome(id);
+        String tipoDeCreatura = tipoCriatura(id);
 
         return id + " | " + tipoDeCreatura + " | " + nome + " | " + valor + coordenadas();
     }
