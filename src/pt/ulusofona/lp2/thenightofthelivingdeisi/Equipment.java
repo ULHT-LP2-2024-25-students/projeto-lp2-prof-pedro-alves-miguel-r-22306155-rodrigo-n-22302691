@@ -27,19 +27,10 @@ public class Equipment {
         this.posicaoY = posicaoY;
     }
 
-    public Equipment(int id) {
-        this.id = id;
-    }
-
-    int getId(){
-        return this.id;
-    }
-
-
     //Metodos
     //Coordenadas do equipamento
     String coordenadas (){
-        return "(" + posicaoX + ", " + posicaoY + ")";
+        return "(" + posicaoX + "," + posicaoY + ")";
     }
 
     //Nome do equipamento
@@ -74,6 +65,17 @@ public class Equipment {
         return dados;
     }
 
+    int getId(){
+        return this.id;
+    }
+
+    int getX(){
+        return this.posicaoX;
+    }
+
+    int getY(){
+        return this.posicaoY;
+    }
 
     //To String
     @Override

@@ -18,6 +18,9 @@ public class GameManager {
     int nrEquipamentos;
     HashMap<Integer,Equipment> equipments = new HashMap<>();
 
+    // tabuleiro
+    Board board;
+
     //Informaçoes do jogo
     int currentID;
 
@@ -37,6 +40,7 @@ public class GameManager {
             String[] tabuleiro = linha.split(" ");
 
             if (tabuleiro.length == 2) {
+
 
                 try {
                     worldSize[0] = Integer.parseInt(tabuleiro[0]);
@@ -154,7 +158,25 @@ public class GameManager {
     }
 
     public boolean loadGame(File file){
-        return parseGame(file);
+
+        if(parseGame(file)){
+            board = new Board(new String[worldSize[1]][worldSize[0]]);
+
+            for(int i = 0; i < nrCriaturas; i++){
+
+                BoardItems item = new BoardItems(creatures.get(i));
+                board.adicionaItems(item);
+            }
+
+            for(int i = 0; i < nrEquipamentos; i++){
+
+                BoardItems item = new BoardItems(equipments.get(i));
+                board.adicionaItems(item);
+            }
+
+            return true;
+        }
+        return false;
     }
 
     public int[] getWorldSize(){
@@ -174,7 +196,8 @@ public class GameManager {
     }
 
     public String getSquareInfo(int x, int y){
-        return "";
+
+        return board.tabuleiro[y][x];
     }
 
     public String[] getCreatureInfo(int id){
@@ -240,8 +263,13 @@ public class GameManager {
 
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
 
+        // atribui a criatura segundo o id dado por parametro
         Creature criatura = creatures.get(creatureId);
 
+        /* verifica se a criatura existe e se tem equipamento
+        e verifica se o equipamento da criatura é igual ao dado
+        por parametro
+         */
         if (criatura != null && criatura.getEquipment() != null) {
             return criatura.getEquipment().getId() == equipmentTypeId;
         }
@@ -251,9 +279,19 @@ public class GameManager {
     public boolean move(int xO, int yO, int xD, int yD) {
 
         if ((xO == xD && (yD == yO + 1 || yD == yO - 1)) ||
-                (yO == yD && (xD == xO + 1 || xD == xO - 1))) {
+                (yO == yD && (xD == xO + 1 || xD == xO - 1)) && currentID == 1) {
 
-            return xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1];
+            if (xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1]) {
+
+                for (Creature creature : creatures.values()) {
+
+                    if(creature.getX() == xO && creature.getY() == yO){
+                        creature.atualizaPosicao(xD,yD);
+                    }
+                }
+
+                return true;
+            }
         }
         return false;
     }

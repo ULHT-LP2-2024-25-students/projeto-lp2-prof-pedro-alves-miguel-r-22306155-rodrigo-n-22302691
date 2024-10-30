@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import javax.print.DocFlavor;
 import java.util.HashMap;
 
 public class Creature {
@@ -56,7 +57,7 @@ public class Creature {
 
     //Coordenadas da criatura
     String coordenadas (){
-        return "(" + posicaoX + ", " + posicaoY + ")";
+        return "(" + posicaoX + "," + posicaoY + ")";
     }
 
 
@@ -82,6 +83,20 @@ public class Creature {
     //Obter equipamento
     Equipment getEquipment (){
         return equipment;
+    }
+
+    void atualizaPosicao(int posicaoX, int posicaoY) {
+
+        this.posicaoX = posicaoX;
+        this.posicaoY = posicaoY;
+    }
+
+    int getX(){
+        return this.posicaoX;
+    }
+
+    int getY(){
+        return this.posicaoY;
     }
 
     //To String
