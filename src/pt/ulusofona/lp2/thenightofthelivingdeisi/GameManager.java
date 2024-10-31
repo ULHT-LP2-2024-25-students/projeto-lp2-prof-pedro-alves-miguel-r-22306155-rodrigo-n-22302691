@@ -190,8 +190,26 @@ public class GameManager {
         return (nrJogadas / 2) % 2 == 0;
     }
 
-    public String getSquareInfo(int x, int y){
-        return board.getSquareInfo(x,y);
+    public String getSquareInfo(int x, int y) {
+
+        String square = board.tabuleiro[y][x];
+        if (square != null) {
+
+            // Verificar se a célula tem uma criatura
+            for (Creature creature : creatures.values()) {
+                if (creature.getX() == x && creature.getY() == y) {
+                    return creature.tipoCriaturaChar(creature.getTipo()) + ":" + creature.getId();
+                }
+            }
+
+            // Verificar se a célula tem um equipamento
+            for (Equipment equipment : equipments.values()) {
+                if (equipment.getX() == x && equipment.getY() == y) {
+                    return "E:" + equipment.getId();
+                }
+            }
+        }
+        return "";
     }
 
     public String[] getCreatureInfo(int id){
@@ -208,7 +226,7 @@ public class GameManager {
 
         //Poe as insformacoes da criatura na string
         partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(criatura.tipoCriaturaChar(criatura.getTipo()));
+        partes[1] = String.valueOf(criatura.tipoCriatura(criatura.getTipo()));
         partes[2] = String.valueOf(criatura.getNome());
         partes[3] = String.valueOf(criatura.getX());
         partes[4] = String.valueOf(criatura.getY());

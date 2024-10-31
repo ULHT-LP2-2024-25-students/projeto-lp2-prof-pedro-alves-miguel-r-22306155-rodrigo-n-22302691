@@ -10,27 +10,6 @@ public class Board {
         this.tabuleiro = tabuleiro;
     }
 
-    String getSquareInfo(int x, int y) {
-        String square = tabuleiro[y][x];
-
-        if (creature != null && square != null && square.equals(creature.toString())) {
-
-            if (creature.getTipo() == 0) {
-                return creature.tipoCriaturaChar(0) + creature.getId();
-            }
-
-            if (creature.getTipo() == 1) {
-                return creature.tipoCriaturaChar(1) + creature.getId();
-            }
-        }
-
-        if (equipment != null && square != null && square.equals(equipment.toString())) {
-            return "E" + equipment.getId();
-        }
-
-        return "";
-    }
-
     void setItem(int x, int y, String item) {
         tabuleiro[y][x] = item;
     }
