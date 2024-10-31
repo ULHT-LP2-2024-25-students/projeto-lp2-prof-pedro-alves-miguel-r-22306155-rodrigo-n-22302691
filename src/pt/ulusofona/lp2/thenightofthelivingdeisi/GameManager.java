@@ -185,8 +185,9 @@ public class GameManager {
         return currentID;
     }
 
-    public boolean isDay(){
-        return false;
+    public boolean isDay() {
+        // Verifica se esta de dia ou de noite
+        return (nrJogadas / 2) % 2 == 0;
     }
 
     public String getSquareInfo(int x, int y){

@@ -31,7 +31,7 @@ public class Equipment {
     //Metodos
     //Coordenadas do equipamento
     String coordenadas (){
-        return "(" + posicaoX + "," + posicaoY + ")";
+        return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
     //Nome do equipamento
