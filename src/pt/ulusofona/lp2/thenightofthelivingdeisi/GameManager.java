@@ -62,6 +62,7 @@ public class GameManager {
 
             try {
                 initialID = Integer.parseInt(linha);
+                currentID = initialID;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -162,12 +163,11 @@ public class GameManager {
             board = new Board(new String[worldSize[1]][worldSize[0]]);
 
             for(Creature creature : creatures.values()){
-                board.adicionaItems(new BoardItems(creature));
+                board.adicionaCreature(creature);
             }
             for(Equipment equipment : equipments.values()){
-                board.adicionaItems(new BoardItems(equipment));
+                board.adicionaEquipment(equipment);
             }
-
             return true;
         }
         return false;
@@ -203,19 +203,16 @@ public class GameManager {
         //Guarda a criatura
         Creature criatura = creatures.get(id);
 
-        //Obtem os dados da criatura
-        HashMap<String, String> dados = criatura.getInfo();
-
         //Cria a String
         String[] partes = new String[6];
 
         //Poe as insformacoes da criatura na string
         partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(criatura.tipoCriatura(parseInt(dados.get("tipo"))));
-        partes[2] = String.valueOf(dados.get("nome"));
-        partes[3] = String.valueOf(dados.get("posicaoX"));
-        partes[4] = String.valueOf(dados.get("posicaoY"));
-        partes[5] = String.valueOf(dados.get("imagem"));
+        partes[1] = String.valueOf(criatura.tipoCriaturaChar(criatura.getTipo()));
+        partes[2] = String.valueOf(criatura.getNome());
+        partes[3] = String.valueOf(criatura.getX());
+        partes[4] = String.valueOf(criatura.getY());
+        partes[5] = null;
 
         //Final (;
         return partes;
@@ -234,25 +231,22 @@ public class GameManager {
         //Guarda a criatura
         Equipment equipamento = equipments.get(id);
 
-        //Obtem os dados da criatura
-        HashMap<String, String> dados = equipamento.getInfo();
-
         //Cria a String
         String[] partes = new String[5];
 
         //Poe as insformacoes do equipamento na string
         partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(parseInt(dados.get("tipo")));
-        partes[2] = String.valueOf(dados.get("posicaoX"));
-        partes[3] = String.valueOf(dados.get("posicaoY"));
-        partes[4] = String.valueOf(dados.get("imagem"));
+        partes[1] = String.valueOf(equipamento.getTipo());
+        partes[2] = String.valueOf(equipamento.getX());
+        partes[3] = String.valueOf(equipamento.getY());
+        partes[4] = null;
 
         //Final (;
         return partes;
     }
 
     public String getEquipmentInfoAsString(int id){
-        return equipments.get(id).toString();
+        return this.equipments.get(id).toString();
     }
 
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
@@ -270,11 +264,20 @@ public class GameManager {
         return false;
     }
 
+    public void currentID() {
+
+        if (nrJogadas % 2 == 0) {
+            currentID = 1;
+        } else {
+            currentID = 0;
+        }
+    }
+
     public boolean move(int xO, int yO, int xD, int yD) {
 
         // Verifica se a movimentacao é valida
         if ((xO == xD && (yD == yO + 1 || yD == yO - 1)) ||
-                (yO == yD && (xD == xO + 1 || xD == xO - 1)) && currentID == 1) {
+                (yO == yD && (xD == xO + 1 || xD == xO - 1))) {
 
             // Verfica se as coordenadas de destino estao dentro do tabuleiro e se estao vazias
             if (xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1] && board.squareVazio(xD,yD)) {
@@ -282,19 +285,23 @@ public class GameManager {
                 // Atualiza posicao das criaturas
                 for (Creature creature : creatures.values()) {
 
-                    if(creature.getX() == xO && creature.getY() == yO){
+                    if(creature.getX() == xO && creature.getY() == yO && creature.getTipo() == currentID){
                         creature.atualizaPosicao(xD,yD);
+                        board.setItem(xD,yD,creature.toString());
+                        board.removeItem(xO,yO);
+                        nrJogadas++;
+                        currentID();
+                        return true;
                     }
                 }
-                nrJogadas++;
-                return true;
+
             }
         }
         return false;
     }
 
     public boolean gameIsOver(){
-        return nrJogadas >= 12;
+        return nrJogadas == 12;
     }
 
     public ArrayList<String> getSurvivors(){
@@ -319,7 +326,6 @@ public class GameManager {
     }
 
     public static void main(String[] args) {
-
 
     }
 }

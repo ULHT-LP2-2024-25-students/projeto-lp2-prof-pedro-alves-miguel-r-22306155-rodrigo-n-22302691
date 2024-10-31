@@ -40,15 +40,23 @@ public class Creature {
 
     //Metodos
     //O nome do tipo
-    String tipoCriatura (int tipo){
+    String tipoCriatura(int tipo){
         if(tipo == 1){
             return "Humano";
         }
         return "Zombie";
     }
 
+    String tipoCriaturaChar(int tipo){
+
+        if(tipo == 1){
+            return "H";
+        }
+        return "Z";
+    }
+
     //O equipamento do tipo se tem ou destruiu
-    String tipoEquipamento (int tipo){
+    String tipoEquipamento(int tipo){
         if(tipo == 1){
             return "+" + equipCount;
         }
@@ -56,37 +64,23 @@ public class Creature {
     }
 
     //Coordenadas da criatura
-    String coordenadas (){
+    String coordenadas(){
         return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
     //gets e setters
     //Obtem todos dados
-    HashMap<String, String> getInfo(){
-        //Cria o hashMap
-        HashMap<String, String> dados = new HashMap<>();
-
-        //Poe os valores da info no hashMap
-        dados.put("id", String.valueOf(id));
-        dados.put("tipo", String.valueOf(tipo));
-        dados.put("nome" , nome);
-        dados.put("posicaoX", String.valueOf(posicaoX));
-        dados.put("posicaoY", String.valueOf(posicaoY));
-        dados.put("imagem", null);
-        dados.put("NumeroEquipamento", String.valueOf(equipCount));
-
-        //Finalizar (;
-        return dados;
+    String getNome(){
+        return this.nome;
     }
 
     //Obter equipamento
-    Equipment getEquipment (){
+    Equipment getEquipment(){
         return equipment;
     }
 
     // Atualiza posicao da criatura
     void atualizaPosicao(int posicaoX, int posicaoY) {
-
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }

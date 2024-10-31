@@ -14,11 +14,11 @@ public class TestGameManager {
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
         String resultadoAtual = game.getCreatureInfoAsString(2);
-        String resultadoEsperado = "2 | Humano | Krat | +0 @ (5,2)";
+        String resultadoEsperado = "2 | Humano | Krat | +0 @ (5, 2)";
         Assertions.assertEquals(resultadoEsperado, resultadoAtual);
 
         String resultAtual = game.getCreatureInfoAsString(3);
-        String resultEsperado = "3 | Zombie | DrMonengue | -0 @ (4,2)";
+        String resultEsperado = "3 | Zombie | DrMonengue | -0 @ (4, 2)";
         Assertions.assertEquals(resultEsperado, resultAtual);
     }
 

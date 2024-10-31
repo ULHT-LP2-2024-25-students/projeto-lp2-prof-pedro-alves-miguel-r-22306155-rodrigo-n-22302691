@@ -31,7 +31,7 @@ public class Equipment {
     //Metodos
     //Coordenadas do equipamento
     String coordenadas (){
-        return "(" + posicaoX + ", " + posicaoY + ")";
+        return "(" + posicaoX + "," + posicaoY + ")";
     }
 
     //Nome do equipamento
@@ -60,7 +60,6 @@ public class Equipment {
         dados.put("tipo", String.valueOf(tipo));
         dados.put("posicaoX", String.valueOf(posicaoX));
         dados.put("posicaoY", String.valueOf(posicaoY));
-        dados.put("imagem", null);
 
         //Finalizar (;
         return dados;
