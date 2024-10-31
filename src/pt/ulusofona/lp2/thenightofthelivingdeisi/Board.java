@@ -10,6 +10,26 @@ public class Board {
         this.tabuleiro = tabuleiro;
     }
 
+    String getSquareInfo(int x, int y) {
+        String square = tabuleiro[y][x];
+
+        if (square != null && square.equals(creature.toString())) {
+
+            if (creature.getTipo() == 0) {
+                return "Z:" + creature.getId();
+            }
+
+            if (creature.getTipo() == 1) {
+                return "H:" + creature.getId();
+            }
+        }
+
+        if (square != null && square.equals(equipment.toString())) {
+            return "E:" + equipment.getId();
+        }
+        return "";
+    }
+
     void adicionaItems(BoardItems item) {
 
         if (item != null && item.equals(creature)) {
@@ -17,7 +37,13 @@ public class Board {
         }
 
         if (item != null && item.equals(equipment)) {
-            tabuleiro[equipment.getY()][equipment.getY()] = equipment.toString();
+            tabuleiro[equipment.getY()][equipment.getX()] = equipment.toString();
         }
     }
+
+    public boolean squareVazio(int x, int y) {
+        return tabuleiro[y][x] == null;
+    }
+
+
 }

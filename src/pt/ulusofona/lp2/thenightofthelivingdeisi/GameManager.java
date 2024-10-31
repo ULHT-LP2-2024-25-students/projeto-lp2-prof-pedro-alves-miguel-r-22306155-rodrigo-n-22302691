@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import pt.ulusofona.lp2.guiSimulator.AppLauncher;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public class GameManager {
     HashMap<Integer,Creature> creatures = new HashMap<>();
     int nrEquipamentos;
     HashMap<Integer,Equipment> equipments = new HashMap<>();
+    int nrJogadas;
 
     // tabuleiro
     Board board;
@@ -40,7 +43,6 @@ public class GameManager {
             String[] tabuleiro = linha.split(" ");
 
             if (tabuleiro.length == 2) {
-
 
                 try {
                     worldSize[0] = Integer.parseInt(tabuleiro[0]);
@@ -141,8 +143,7 @@ public class GameManager {
                                 Integer.parseInt(equipment[0]),
                                 Integer.parseInt(equipment[1]),
                                 Integer.parseInt(equipment[2]),
-                                Integer.parseInt(equipment[3])
-                        ));
+                                Integer.parseInt(equipment[3])));
                     } catch (NumberFormatException e) {
                         return false;
                     }
@@ -162,16 +163,11 @@ public class GameManager {
         if(parseGame(file)){
             board = new Board(new String[worldSize[1]][worldSize[0]]);
 
-            for(int i = 0; i < nrCriaturas; i++){
-
-                BoardItems item = new BoardItems(creatures.get(i));
-                board.adicionaItems(item);
+            for(Creature creature : creatures.values()){
+                board.adicionaItems(new BoardItems(creature));
             }
-
-            for(int i = 0; i < nrEquipamentos; i++){
-
-                BoardItems item = new BoardItems(equipments.get(i));
-                board.adicionaItems(item);
+            for(Equipment equipment : equipments.values()){
+                board.adicionaItems(new BoardItems(equipment));
             }
 
             return true;
@@ -196,8 +192,7 @@ public class GameManager {
     }
 
     public String getSquareInfo(int x, int y){
-
-        return board.tabuleiro[y][x];
+        return board.getSquareInfo(x,y);
     }
 
     public String[] getCreatureInfo(int id){
@@ -278,18 +273,21 @@ public class GameManager {
 
     public boolean move(int xO, int yO, int xD, int yD) {
 
+        // Verifica se a movimentacao é valida
         if ((xO == xD && (yD == yO + 1 || yD == yO - 1)) ||
                 (yO == yD && (xD == xO + 1 || xD == xO - 1)) && currentID == 1) {
 
-            if (xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1]) {
+            // Verfica se as coordenadas de destino estao dentro do tabuleiro e se estao vazias
+            if (xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1] && board.squareVazio(xD,yD)) {
 
+                // Atualiza posicao das criaturas
                 for (Creature creature : creatures.values()) {
 
                     if(creature.getX() == xO && creature.getY() == yO){
                         creature.atualizaPosicao(xD,yD);
                     }
                 }
-
+                nrJogadas++;
                 return true;
             }
         }
@@ -297,11 +295,20 @@ public class GameManager {
     }
 
     public boolean gameIsOver(){
-        return false;
+        return nrJogadas >= 12;
     }
 
     public ArrayList<String> getSurvivors(){
-        return null;
+
+        ArrayList<String> survivors = new ArrayList<>();
+
+        for(Creature creature : creatures.values()){
+
+            if(creature.getTipo() == 1){
+                survivors.add(creature.toString());
+            }
+        }
+        return survivors;
     }
 
     public JPanel getCreditsPanel(){
@@ -313,6 +320,8 @@ public class GameManager {
     }
 
     public static void main(String[] args) {
+
+        AppLauncher.main(null);
 
     }
 }

@@ -1,5 +1,6 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import javax.swing.*;
 import java.util.HashMap;
 
 public class Equipment {
@@ -8,11 +9,11 @@ public class Equipment {
     int tipo;
     int posicaoX;
     int posicaoY;
-    String png;
+    ImageIcon png;
 
 
     //Construtores
-    public Equipment(int id, int tipo, int posicaoX, int posicaoY, String png) {
+    public Equipment(int id, int tipo, int posicaoX, int posicaoY, ImageIcon png) {
         this.id = id;
         this.tipo = tipo;
         this.posicaoX = posicaoX;
@@ -59,10 +60,14 @@ public class Equipment {
         dados.put("tipo", String.valueOf(tipo));
         dados.put("posicaoX", String.valueOf(posicaoX));
         dados.put("posicaoY", String.valueOf(posicaoY));
-        dados.put("imagem", png);
+        dados.put("imagem", null);
 
         //Finalizar (;
         return dados;
+    }
+
+    int getTipo(){
+        return this.tipo;
     }
 
     int getId(){

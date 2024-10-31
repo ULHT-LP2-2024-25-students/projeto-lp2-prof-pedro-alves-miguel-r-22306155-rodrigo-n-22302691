@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.print.DocFlavor;
+import javax.swing.*;
 import java.util.HashMap;
 
 public class Creature {
@@ -10,13 +11,12 @@ public class Creature {
     String nome;
     int posicaoX;
     int posicaoY;
-    String png;
+    ImageIcon png;
     int equipCount;
     Equipment equipment;
 
-
     //Construtores
-    public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, String png) {
+    public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, ImageIcon png) {
         this.id = id;
         this.tipo = tipo;
         this.nome = nome;
@@ -42,9 +42,9 @@ public class Creature {
     //O nome do tipo
     String tipoCriatura (int tipo){
         if(tipo == 1){
-            return  "Humano";
+            return "Humano";
         }
-        return  "Zombie";
+        return "Zombie";
     }
 
     //O equipamento do tipo se tem ou destruiu
@@ -60,7 +60,6 @@ public class Creature {
         return "(" + posicaoX + "," + posicaoY + ")";
     }
 
-
     //gets e setters
     //Obtem todos dados
     HashMap<String, String> getInfo(){
@@ -73,7 +72,7 @@ public class Creature {
         dados.put("nome" , nome);
         dados.put("posicaoX", String.valueOf(posicaoX));
         dados.put("posicaoY", String.valueOf(posicaoY));
-        dados.put("imagem", png);
+        dados.put("imagem", null);
         dados.put("NumeroEquipamento", String.valueOf(equipCount));
 
         //Finalizar (;
@@ -85,6 +84,7 @@ public class Creature {
         return equipment;
     }
 
+    // Atualiza posicao da criatura
     void atualizaPosicao(int posicaoX, int posicaoY) {
 
         this.posicaoX = posicaoX;
@@ -97,6 +97,14 @@ public class Creature {
 
     int getY(){
         return this.posicaoY;
+    }
+
+    int getTipo(){
+        return this.tipo;
+    }
+
+    int getId(){
+        return this.id;
     }
 
     //To String
