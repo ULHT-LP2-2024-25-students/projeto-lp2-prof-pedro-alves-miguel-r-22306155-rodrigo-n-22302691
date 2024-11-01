@@ -76,7 +76,7 @@ public class Creature {
 
     //Obter equipamento
     Equipment getEquipment(){
-        return equipment;
+        return this.equipment;
     }
 
     // Atualiza posicao da criatura

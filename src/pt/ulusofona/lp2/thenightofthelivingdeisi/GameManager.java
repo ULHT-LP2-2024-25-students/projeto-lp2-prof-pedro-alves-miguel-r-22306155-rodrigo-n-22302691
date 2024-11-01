@@ -264,9 +264,16 @@ public class GameManager {
         return partes;
     }
 
-    public String getEquipmentInfoAsString(int id){
-        return this.equipments.get(id).toString();
+    public String getEquipmentInfoAsString(int id) {
+        Equipment equipamento = equipments.get(id);
+
+        if (equipamento == null) {
+            return null;
+        }
+
+        return equipamento.toString();
     }
+
 
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
 
