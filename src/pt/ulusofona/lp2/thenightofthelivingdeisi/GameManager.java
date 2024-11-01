@@ -95,7 +95,6 @@ public class GameManager {
                 String[] creature = linha.split(" : ");
 
                 if (creature.length == 5) {
-
                     try {
                         creatures.put(Integer.parseInt(creature[0]), new Creature(
                                 Integer.parseInt(creature[0]),
@@ -107,12 +106,18 @@ public class GameManager {
                     } catch (NumberFormatException e) {
                         return false;
                     }
+
+                    if(Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[0] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[1]){
+                        return false;
+                    }
+
                 } else {
                     return false;
                 }
             } else {
                 return false;
             }
+
         }
 
         // Lê o número de equipamentos
@@ -148,6 +153,11 @@ public class GameManager {
                     } catch (NumberFormatException e) {
                         return false;
                     }
+
+                    if(Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[0] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[1]){
+                        return false;
+                    }
+
                 } else {
                     return false;
                 }
@@ -364,7 +374,7 @@ public class GameManager {
 
     //Verefica se a posiçao esta dentro do tabuleiro de memoria
     public boolean positionInBoard(int x, int y){
-        return x >= 0 && x < (worldSize[1] - 1) && y >= 0 && y < (worldSize[0] - 1);
+        return x >= 0 && x < (worldSize[1]) && y >= 0 && y < (worldSize[0]);
     }
 
     //Move item do tabuleiro
