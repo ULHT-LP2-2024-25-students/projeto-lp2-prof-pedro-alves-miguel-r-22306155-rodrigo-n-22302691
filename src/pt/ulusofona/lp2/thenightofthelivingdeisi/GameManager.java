@@ -256,10 +256,6 @@ public class GameManager {
     //Devolve uma string com a informaçao do item na posiçao dada
     public String getSquareInfo(int x, int y) {
 
-        if(positionInBoard(x,y)){
-            return "";
-        }
-
         String square = board.tabuleiro[y][x];
         if (square != null) {
 
@@ -282,10 +278,9 @@ public class GameManager {
 
     //Devolve info da criatura em um array
     public String[] getCreatureInfo(int id){
-
         //Verefica se existe a criatura
         if(creatures.get(id) == null){
-            return new String[5];
+            return null;
         }
 
         //Guarda a criatura
