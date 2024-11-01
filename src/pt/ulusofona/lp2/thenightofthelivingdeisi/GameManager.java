@@ -165,6 +165,7 @@ public class GameManager {
             for(Creature creature : creatures.values()){
                 board.adicionaCreature(creature);
             }
+
             for(Equipment equipment : equipments.values()){
                 board.adicionaEquipment(equipment);
             }
