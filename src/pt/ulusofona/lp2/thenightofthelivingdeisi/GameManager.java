@@ -317,10 +317,10 @@ public class GameManager {
                             if (creature.getTipo() == 1) {
                                 creature.adicionaEquipamento(equipment);
                                 creature.setEquipCount();
-                                equipments.get(equipment.getId());
+                                equipments.remove(equipment.getId());
                             } else if(creature.getTipo() == 0){
                                 creature.setEquipCount();
-                                equipments.get(equipment.getId());
+                                equipments.remove(equipment.getId());
                             }
                         }
 
