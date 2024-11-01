@@ -291,7 +291,7 @@ public class GameManager {
         }
     }
 
-    public boolean PositionInBoard(int x, int y){
+    public boolean positionInBoard(int x, int y){
 
         return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
     }
@@ -304,7 +304,7 @@ public class GameManager {
 
             Equipment equipment = existeEquipamento(xD,yD);
             // Verfica se as coordenadas de destino estao dentro do tabuleiro e se estao vazias
-            if (PositionInBoard(xD,yD) && board.squareVazio(xD,yD,equipment)) {
+            if (positionInBoard(xD,yD) && board.squareVazio(xD,yD,equipment)) {
 
                 // Atualiza posicao das criaturas
                 for (Creature creature : creatures.values()) {
@@ -316,8 +316,10 @@ public class GameManager {
                             if (creature.getTipo() == 1) {
                                 creature.adicionaEquipamento(equipment);
                                 creature.setEquipCount();
+                                equipments.get(equipment.getId());
                             } else if(creature.getTipo() == 0){
                                 creature.setEquipCount();
+                                equipments.get(equipment.getId());
                             }
                         }
 
