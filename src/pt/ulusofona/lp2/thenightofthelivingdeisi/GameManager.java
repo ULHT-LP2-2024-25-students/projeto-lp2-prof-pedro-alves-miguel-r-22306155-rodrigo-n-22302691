@@ -427,10 +427,7 @@ public class GameManager {
 
     //Verefica se o jogo acabou
     public boolean gameIsOver(){
-        if(nrJogadas >= 12){
-            return true;
-        }
-        return false;
+        return nrJogadas >= 12;
     }
 
     //get Survivors
