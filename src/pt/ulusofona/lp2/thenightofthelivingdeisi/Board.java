@@ -21,7 +21,6 @@ public class Board {
     boolean squareVazio(int x, int y, Equipment equipment) {
 
         if(equipment != null && tabuleiro[y][x].equals(equipment.toString())){
-            tabuleiro[y][x] = null;
             return true;
         }
 

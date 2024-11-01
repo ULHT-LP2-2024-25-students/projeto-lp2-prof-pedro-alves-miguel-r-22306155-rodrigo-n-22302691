@@ -364,7 +364,7 @@ public class GameManager {
 
     //Verefica se a posiçao esta dentro do tabuleiro de memoria
     public boolean positionInBoard(int x, int y){
-        return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
+        return x >= 0 && x < (worldSize[1] - 1) && y >= 0 && y < (worldSize[0] - 1);
     }
 
     //Move item do tabuleiro
@@ -427,7 +427,10 @@ public class GameManager {
 
     //Verefica se o jogo acabou
     public boolean gameIsOver(){
-        return nrJogadas == 12;
+        if(nrJogadas >= 12){
+            return true;
+        }
+        return false;
     }
 
     //get Survivors
@@ -449,7 +452,7 @@ public class GameManager {
     }
 
     public HashMap<String,String> customizeBoard(){
-        return null;
+        return new HashMap<>();
     }
 
     public static void main(String[] args) {
