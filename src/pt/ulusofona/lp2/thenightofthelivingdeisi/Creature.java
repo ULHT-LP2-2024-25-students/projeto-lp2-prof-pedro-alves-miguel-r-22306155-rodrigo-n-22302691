@@ -78,10 +78,13 @@ public class Creature {
 
     //Adiciona o equipamento no hashMap
     void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
-        if(idPorEquipamento.get(equipment.id) == null){
-            idPorEquipamento.put(equipment.id, new ArrayList<>());
+        if(idPorEquipamento.get(equipment.tipo) == null){
+
+            idPorEquipamento.put(equipment.tipo, new ArrayList<>());
+
         }
-        idPorEquipamento.get(equipment.id).add(equipment);
+
+        idPorEquipamento.get(equipment.tipo).add(equipment);
         equipCount++;
         equipments.remove(equipment.getId());
     }

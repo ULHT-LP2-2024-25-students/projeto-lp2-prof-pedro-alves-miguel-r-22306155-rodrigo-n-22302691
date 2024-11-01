@@ -225,6 +225,8 @@ public class GameManager {
                 creatures.get(criaturaRemover.get(i)).adicionaEquipamento(itemsRemover.get(i), equipments);
             }
 
+            System.out.println(hasEquipment(1, 0));
+
 
             //Finalizar (;
             return true;
@@ -346,7 +348,7 @@ public class GameManager {
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
 
         //Verefica se a criatura existe
-        if(creatureId <= 0 || creatures.get(creatureId) == null){
+        if(creatures.get(creatureId) == null){
             return false;
         }
 
