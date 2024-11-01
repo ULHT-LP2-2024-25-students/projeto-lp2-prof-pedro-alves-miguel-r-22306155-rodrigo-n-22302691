@@ -49,6 +49,7 @@ public class Equipment {
         return nome;
     }
 
+    //Gets
     int getTipo(){
         return this.tipo;
     }

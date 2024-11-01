@@ -7,9 +7,12 @@ public class Board {
     String[][] tabuleiro;
     Equipment equipment;
 
+
+    //Construtores
     public Board(String[][] tabuleiro) {
         this.tabuleiro = tabuleiro;
     }
+
 
     void setItem(int x, int y, String item) {
         tabuleiro[y][x] = item;

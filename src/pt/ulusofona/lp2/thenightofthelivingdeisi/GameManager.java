@@ -25,6 +25,8 @@ public class GameManager {
     //Informaçoes do jogo
     int currentID;
 
+
+    //Vai ler o ficheiro
     public boolean parseGame(File game) {
 
         Scanner scanner = null;
@@ -157,40 +159,51 @@ public class GameManager {
         return true;
     }
 
+    //Verefica se o ficheiro é bem lido para adicionar os elementos á memoria
     public boolean loadGame(File file){
 
+        //Verefu«ica se o jogo le corretamente
         if(parseGame(file)){
+            //Caso o jogo seja lido de maneira correta, vai criar um tabuleiro na memoria
             board = new Board(new String[worldSize[1]][worldSize[0]]);
 
+            //Vai adicionar os items no tabuleiro da memoria
             for(Creature creature : creatures.values()){
                 board.adicionaCreature(creature);
             }
-
             for(Equipment equipment : equipments.values()){
                 board.adicionaEquipment(equipment);
             }
+
+            //Finalizar (;
             return true;
         }
+
         return false;
     }
 
+    //Get WorldSize
     public int[] getWorldSize(){
         return worldSize;
     }
 
+    //get InitialTeamId
     public int getInitialTeamId(){
         return  initialID;
     }
 
+    //get getCurrentTeamId
     public int getCurrentTeamId(){
         return currentID;
     }
 
+    //Em cada 2 jogadas troca o dia
     public boolean isDay() {
         // Verifica se esta de dia ou de noite
         return (nrJogadas / 2) % 2 == 0;
     }
 
+    //Devolve uma string com a informaçao do item na posiçao dada
     public String getSquareInfo(int x, int y) {
 
         String square = board.tabuleiro[y][x];
@@ -213,6 +226,7 @@ public class GameManager {
         return "";
     }
 
+    //Devolve info da criatura em um array
     public String[] getCreatureInfo(int id){
         //Verefica se existe a criatura
         if(creatures.get(id) == null){
@@ -237,10 +251,12 @@ public class GameManager {
         return partes;
     }
 
+    //Devolve info da criatura em uma string
     public String getCreatureInfoAsString(int id){
         return creatures.get(id).toString();
     }
 
+    //Devolve info do equipamento em um array
     public String[] getEquipmentInfo(int id){
         //Verefica se existe o item
         if(equipments.get(id) == null){
@@ -264,6 +280,7 @@ public class GameManager {
         return partes;
     }
 
+    //Devolve info do equipamento em uma string
     public String getEquipmentInfoAsString(int id) {
         Equipment equipamento = equipments.get(id);
 
@@ -274,22 +291,27 @@ public class GameManager {
         return equipamento.toString();
     }
 
-
+    //Verefica se uma criatura tem um certo equipamento
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
 
-        // atribui a criatura segundo o id dado por parametro
+        //Verefica se a criatura existe
+        if(creatureId <= 0 || creatures.get(creatureId) == null){
+            return false;
+        }
+
+        //Atribui a criatura segundo o id dado por parametro
         Creature criatura = creatures.get(creatureId);
 
-        /* verifica se a criatura existe e se tem equipamento
-        e verifica se o equipamento da criatura é igual ao dado
-        por parametro
-         */
-        if (criatura != null && criatura.getEquipment() != null) {
-            return criatura.getEquipment().getId() == equipmentTypeId;
+        //Verefica se a criatura nao é um zombie
+        if(criatura.getTipo() == 0){
+            return false;
         }
-        return false;
+
+        //Verefica se o Humano tem o equipamento
+        return criatura.temEquipamento(equipmentTypeId);
     }
 
+    //get currentID
     public void currentID() {
 
         if (nrJogadas % 2 == 0) {
@@ -299,11 +321,12 @@ public class GameManager {
         }
     }
 
+    //Verefica se a posiçao esta dentro do tabuleiro de memoria
     public boolean positionInBoard(int x, int y){
-
         return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
     }
 
+    //Move item do tabuleiro
     public boolean move(int xO, int yO, int xD, int yD) {
 
         // Verifica se a movimentacao é valida
@@ -345,23 +368,30 @@ public class GameManager {
         return false;
     }
 
+    //Faz retorno ao equipamento em uma certa coordenada se existir
     public Equipment existeEquipamento(int x, int y){
 
+        //Inicialiaza equipamento a NULL
         Equipment equipment = null;
 
+        //Verefica se o equipamento existe
         for(Equipment equip : equipments.values()){
 
             if(equip.getX() == x && equip.getY() == y){
                 equipment = equip;
             }
         }
+
+        //Faz retorno ao equipamento (;
         return equipment;
     }
 
+    //Verefica se o jogo acabou
     public boolean gameIsOver(){
         return nrJogadas == 12;
     }
 
+    //get Survivors
     public ArrayList<String> getSurvivors(){
 
         ArrayList<String> survivors = new ArrayList<>();

@@ -2,6 +2,7 @@ package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.print.DocFlavor;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Creature {
@@ -13,7 +14,7 @@ public class Creature {
     int posicaoY;
     ImageIcon png;
     int equipCount;
-    Equipment equipment;
+    HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
 
     //Construtores
     public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, ImageIcon png) {
@@ -35,7 +36,8 @@ public class Creature {
 
     public Creature(int id, Equipment equipment) {
         this.id = id;
-        this.equipment = equipment;
+        this.idPorEquipamento.put(equipment.id, new ArrayList<>());
+        this.idPorEquipamento.get(equipment.id).add(equipment);
     }
 
     //Metodos
@@ -68,25 +70,33 @@ public class Creature {
         return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
-    //gets e setters
-    //Obtem todos dados
-    String getNome(){
-        return this.nome;
-    }
-
-    //Obter equipamento
-    Equipment getEquipment(){
-        return this.equipment;
-    }
-
     // Atualiza posicao da criatura
     void atualizaPosicao(int posicaoX, int posicaoY) {
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }
 
+    //Adiciona o equipamento no hashMap
     void adicionaEquipamento(Equipment equipment){
-        this.equipment = equipment;
+        if(idPorEquipamento.get(equipment.id) == null){
+            idPorEquipamento.put(equipment.id, new ArrayList<>());
+        }
+        idPorEquipamento.get(equipment.id).add(equipment);
+    }
+
+    //Verefica se tem o equipamento
+    boolean temEquipamento (int equipmentTypeId){
+        if (idPorEquipamento.get(equipmentTypeId) == null || idPorEquipamento.get(equipmentTypeId).isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+
+    //gets e setters
+    //Obtem todos dados
+    String getNome(){
+        return this.nome;
     }
 
     void setEquipCount(){
@@ -108,6 +118,7 @@ public class Creature {
     int getId(){
         return this.id;
     }
+
 
     //To String
     @Override
