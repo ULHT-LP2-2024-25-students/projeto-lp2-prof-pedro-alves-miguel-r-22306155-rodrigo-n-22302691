@@ -49,22 +49,6 @@ public class Equipment {
         return nome;
     }
 
-    //gets e setters
-    //Obtem todos dados
-    HashMap<String, String> getInfo(){
-        //Cria o hashMap
-        HashMap<String, String> dados = new HashMap<>();
-
-        //Poe os valores da info no hashMap
-        dados.put("id", String.valueOf(id));
-        dados.put("tipo", String.valueOf(tipo));
-        dados.put("posicaoX", String.valueOf(posicaoX));
-        dados.put("posicaoY", String.valueOf(posicaoY));
-
-        //Finalizar (;
-        return dados;
-    }
-
     int getTipo(){
         return this.tipo;
     }

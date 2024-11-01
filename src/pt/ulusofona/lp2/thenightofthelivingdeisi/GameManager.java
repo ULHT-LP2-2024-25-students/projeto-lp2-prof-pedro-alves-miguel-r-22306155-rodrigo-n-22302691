@@ -291,19 +291,36 @@ public class GameManager {
         }
     }
 
+    public boolean PositionInBoard(int x, int y){
+
+        return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
+    }
+
     public boolean move(int xO, int yO, int xD, int yD) {
 
         // Verifica se a movimentacao é valida
         if ((xO == xD && (yD == yO + 1 || yD == yO - 1)) ||
                 (yO == yD && (xD == xO + 1 || xD == xO - 1))) {
 
+            Equipment equipment = existeEquipamento(xD,yD);
             // Verfica se as coordenadas de destino estao dentro do tabuleiro e se estao vazias
-            if (xD >= 0 && xD < worldSize[0] && yD >= 0 && yD < worldSize[1] && board.squareVazio(xD,yD)) {
+            if (PositionInBoard(xD,yD) && board.squareVazio(xD,yD,equipment)) {
 
                 // Atualiza posicao das criaturas
                 for (Creature creature : creatures.values()) {
 
                     if(creature.getX() == xO && creature.getY() == yO && creature.getTipo() == currentID){
+
+                        if (equipment != null) {
+                            // Se for um humano, pega o equipamento e se for zumbi, destrói o equipamento
+                            if (creature.getTipo() == 1) {
+                                creature.adicionaEquipamento(equipment);
+                                creature.setEquipCount();
+                            } else if(creature.getTipo() == 0){
+                                creature.setEquipCount();
+                            }
+                        }
+
                         creature.atualizaPosicao(xD,yD);
                         board.setItem(xD,yD,creature.toString());
                         board.removeItem(xO,yO);
@@ -316,6 +333,19 @@ public class GameManager {
             }
         }
         return false;
+    }
+
+    public Equipment existeEquipamento(int x, int y){
+
+        Equipment equipment = null;
+
+        for(Equipment equip : equipments.values()){
+
+            if(equip.getX() == x && equip.getY() == y){
+                equipment = equip;
+            }
+        }
+        return equipment;
     }
 
     public boolean gameIsOver(){

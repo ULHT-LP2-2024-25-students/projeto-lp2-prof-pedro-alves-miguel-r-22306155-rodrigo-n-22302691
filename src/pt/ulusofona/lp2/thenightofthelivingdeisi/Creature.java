@@ -85,6 +85,14 @@ public class Creature {
         this.posicaoY = posicaoY;
     }
 
+    void adicionaEquipamento(Equipment equipment){
+        this.equipment = equipment;
+    }
+
+    void setEquipCount(){
+        this.equipCount++;
+    }
+
     int getX(){
         return this.posicaoX;
     }

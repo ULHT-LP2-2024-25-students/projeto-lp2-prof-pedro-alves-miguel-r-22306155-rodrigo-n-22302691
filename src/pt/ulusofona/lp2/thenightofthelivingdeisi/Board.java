@@ -1,9 +1,10 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import java.util.HashMap;
+
 public class Board {
 
     String[][] tabuleiro;
-    Creature creature;
     Equipment equipment;
 
     public Board(String[][] tabuleiro) {
@@ -14,17 +15,23 @@ public class Board {
         tabuleiro[y][x] = item;
     }
 
-    public boolean squareVazio(int x, int y) {
+    boolean squareVazio(int x, int y, Equipment equipment) {
+
+        if(equipment != null && tabuleiro[y][x].equals(equipment.toString())){
+            tabuleiro[y][x] = null;
+            return true;
+        }
+
         return tabuleiro[y][x] == null;
     }
 
-    public void adicionaCreature(Creature creature) {
+    void adicionaCreature(Creature creature) {
         if (creature != null) {
             setItem(creature.getX(), creature.getY(), creature.toString());
         }
     }
 
-    public void adicionaEquipment(Equipment equipment) {
+    void adicionaEquipment(Equipment equipment) {
         if (equipment != null) {
             setItem(equipment.getX(), equipment.getY(), equipment.toString());
         }
