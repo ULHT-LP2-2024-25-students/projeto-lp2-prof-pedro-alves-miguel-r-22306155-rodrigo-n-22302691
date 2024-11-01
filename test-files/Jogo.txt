@@ -1,9 +1,9 @@
 6 6
-1
+0
 4
 1 : 1 : Roda : 3 : 4
 2 : 1 : Krat : 5 : 2
-3 : 0 : DrMonengue : 1 : 5
+3 : 0 : DrMonengue : 6 : 5
 4 : 0 : DrChupaqi : 5 : 5
 2
 -1 : 0 : 4 : 2

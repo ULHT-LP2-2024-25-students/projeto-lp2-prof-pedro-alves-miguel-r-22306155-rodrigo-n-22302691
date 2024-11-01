@@ -108,7 +108,7 @@ public class GameManager {
                     }
 
                     if(Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[0] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[1]){
-                        return false;
+                        creatures.remove(Integer.parseInt(creature[0]));
                     }
 
                 } else {
@@ -155,7 +155,7 @@ public class GameManager {
                     }
 
                     if(Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[0] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[1]){
-                        return false;
+                        equipments.remove(Integer.parseInt(equipment[0]));
                     }
 
                 } else {
@@ -365,11 +365,12 @@ public class GameManager {
     //get currentID
     public void currentID() {
 
-        if (nrJogadas % 2 == 0) {
+        if (currentID == 0){
             currentID = 1;
-        } else {
+        }else{
             currentID = 0;
         }
+
     }
 
     //Verefica se a posiçao esta dentro do tabuleiro de memoria
