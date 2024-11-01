@@ -77,11 +77,19 @@ public class Creature {
     }
 
     //Adiciona o equipamento no hashMap
-    void adicionaEquipamento(Equipment equipment){
+    void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
         if(idPorEquipamento.get(equipment.id) == null){
             idPorEquipamento.put(equipment.id, new ArrayList<>());
         }
         idPorEquipamento.get(equipment.id).add(equipment);
+        equipCount++;
+        equipments.remove(equipment.getId());
+    }
+
+    //Destroi o equipamento
+    void destroiEquipament (Equipment equipment, HashMap<Integer,Equipment> equipments){
+        equipCount++;
+        equipments.remove(equipment.getId());
     }
 
     //Verefica se tem o equipamento
@@ -97,10 +105,6 @@ public class Creature {
     //Obtem todos dados
     String getNome(){
         return this.nome;
-    }
-
-    void setEquipCount(){
-        this.equipCount++;
     }
 
     int getX(){

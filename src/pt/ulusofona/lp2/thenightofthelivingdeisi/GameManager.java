@@ -17,7 +17,7 @@ public class GameManager {
     HashMap<Integer,Creature> creatures = new HashMap<>();
     int nrEquipamentos;
     HashMap<Integer,Equipment> equipments = new HashMap<>();
-    int nrJogadas;
+    int nrJogadas = 0;
 
     // tabuleiro
     Board board;
@@ -167,13 +167,54 @@ public class GameManager {
             //Caso o jogo seja lido de maneira correta, vai criar um tabuleiro na memoria
             board = new Board(new String[worldSize[1]][worldSize[0]]);
 
-            //Vai adicionar os items no tabuleiro da memoria
+            //Vai criaturas no tabuleiro
             for(Creature creature : creatures.values()){
                 board.adicionaCreature(creature);
             }
+
+            //Vai adicionar os item no tabuleiro
+            //Itens a ser adicionados ao humanos
+            ArrayList<Equipment> itemsAdicionar = new ArrayList<Equipment>();
+            ArrayList<Integer> criaturaAdicionar = new ArrayList<Integer>();
+
+            //Itens a ser removidos pelos zumbis
+            ArrayList<Equipment> itemsRemover = new ArrayList<Equipment>();
+            ArrayList<Integer> criaturaRemover = new ArrayList<Integer>();
+
+            //Faz um aiteraçao a cada equiment
             for(Equipment equipment : equipments.values()){
-                board.adicionaEquipment(equipment);
+
+                //Faz um aiteraçao a cada creature
+                for (Creature creature : creatures.values()) {
+
+                    //Verefica se a criatura remove ou apanha logo o equipamento ou se o equipamento é posto no mapa
+                    if(creature.getX() == equipment.getX() && creature.getY() == equipment.getY()){
+
+                        if(creature.getTipo() == 1){
+                            itemsAdicionar.add(equipment);
+                            criaturaAdicionar.add(creature.id);
+                        }else{
+                            itemsRemover.add(equipment);
+                            criaturaRemover.add(creature.id);
+                        }
+
+                    }else{
+                        board.adicionaEquipment(equipment);
+                    }
+
+                }
+
             }
+
+            //Adiciona ou remove o equipamento
+            for (int i = 0; i < itemsAdicionar.size(); i++){
+                creatures.get(criaturaAdicionar.get(i)).adicionaEquipamento(itemsAdicionar.get(i), equipments);
+            }
+
+            for (int i = 0; i < itemsRemover.size(); i++){
+                creatures.get(criaturaRemover.get(i)).adicionaEquipamento(itemsRemover.get(i), equipments);
+            }
+
 
             //Finalizar (;
             return true;
@@ -345,12 +386,9 @@ public class GameManager {
                         if (equipment != null) {
                             // Se for um humano, pega o equipamento e se for zumbi, destrói o equipamento
                             if (creature.getTipo() == 1) {
-                                creature.adicionaEquipamento(equipment);
-                                creature.setEquipCount();
-                                equipments.remove(equipment.getId());
+                                creature.adicionaEquipamento(equipment, equipments);
                             } else if(creature.getTipo() == 0){
-                                creature.setEquipCount();
-                                equipments.remove(equipment.getId());
+                                creature.destroiEquipament(equipment, equipments);
                             }
                         }
 
@@ -360,6 +398,7 @@ public class GameManager {
                         nrJogadas++;
                         currentID();
                         return true;
+
                     }
                 }
 
