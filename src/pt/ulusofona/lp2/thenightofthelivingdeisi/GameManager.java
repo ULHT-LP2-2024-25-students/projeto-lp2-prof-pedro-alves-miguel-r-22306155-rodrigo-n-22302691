@@ -107,6 +107,7 @@ public class GameManager {
                         return false;
                     }
 
+                    //Remove criatura caso esteja fora
                     if(Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[0] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[1]){
                         creatures.remove(Integer.parseInt(creature[0]));
                     }
@@ -154,6 +155,7 @@ public class GameManager {
                         return false;
                     }
 
+                    //Remove equipamento caso esteja fora
                     if(Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[0] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[1]){
                         equipments.remove(Integer.parseInt(equipment[0]));
                     }
@@ -175,7 +177,7 @@ public class GameManager {
         //Verefu«ica se o jogo le corretamente
         if(parseGame(file)){
             //Caso o jogo seja lido de maneira correta, vai criar um tabuleiro na memoria
-            board = new Board(new String[worldSize[1]][worldSize[0]]);
+            board = new Board(new String[worldSize[0]][worldSize[1]]);
 
             //Vai criaturas no tabuleiro
             for(Creature creature : creatures.values()){
