@@ -29,6 +29,8 @@ public class GameManager {
     //Vai ler o ficheiro
     public boolean parseGame(File game) {
 
+        nrJogadas = 0;
+
         Scanner scanner = null;
         try {
             scanner = new Scanner(game);
@@ -108,7 +110,7 @@ public class GameManager {
                     }
 
                     //Remove criatura caso esteja fora
-                    if(Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[0] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[1]){
+                    if(Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[1] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[0]){
                         creatures.remove(Integer.parseInt(creature[0]));
                     }
 
@@ -156,7 +158,7 @@ public class GameManager {
                     }
 
                     //Remove equipamento caso esteja fora
-                    if(Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[0] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[1]){
+                    if(Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[1] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[0]){
                         equipments.remove(Integer.parseInt(equipment[0]));
                     }
 
