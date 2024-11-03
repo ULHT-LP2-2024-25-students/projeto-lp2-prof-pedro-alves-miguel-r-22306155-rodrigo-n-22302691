@@ -84,7 +84,7 @@ public class Creature {
     }
 
     //Destroi o equipamento
-    void destroiEquipamento (Equipment equipment, HashMap<Integer,Equipment> equipments){
+    void destroiEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
         equipCount++;
         equipments.remove(equipment.getId());
     }
