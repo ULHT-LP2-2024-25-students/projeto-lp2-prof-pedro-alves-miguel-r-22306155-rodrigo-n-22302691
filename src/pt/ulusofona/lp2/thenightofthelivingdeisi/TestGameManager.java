@@ -52,7 +52,7 @@ public class TestGameManager {
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
         String[] resultadoAtual = game.getEquipmentInfo(-1);
-        String[] resultadoEsperado = {"-1", "0", "1", "1", ""};
+        String[] resultadoEsperado = {"-1", "0", "1", "1", null};
         Assertions.assertEquals(resultadoEsperado, resultadoAtual);
     }
 

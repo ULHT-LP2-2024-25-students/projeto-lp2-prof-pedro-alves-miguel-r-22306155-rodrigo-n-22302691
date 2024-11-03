@@ -120,7 +120,6 @@ public class Creature {
         return this.id;
     }
 
-
     //To String
     @Override
     public String toString() {
