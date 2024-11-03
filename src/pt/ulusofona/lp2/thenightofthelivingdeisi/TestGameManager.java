@@ -72,7 +72,7 @@ public class TestGameManager {
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
         String resultadoAtual = game.getSquareInfo(5, 2);
-        String resultadoEsperado = "2 | Humano | Krat | +0 @ (5,2)";
+        String resultadoEsperado = "H:2";
         Assertions.assertEquals(resultadoEsperado, resultadoAtual);
     }
 }

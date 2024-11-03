@@ -34,12 +34,6 @@ public class Creature {
         this.posicaoY = posicaoY;
     }
 
-    public Creature(int id, Equipment equipment) {
-        this.id = id;
-        this.idPorEquipamento.put(equipment.id, new ArrayList<>());
-        this.idPorEquipamento.get(equipment.id).add(equipment);
-    }
-
     //Metodos
     //O nome do tipo
     String tipoCriatura(int tipo){
@@ -78,10 +72,10 @@ public class Creature {
 
     //Adiciona o equipamento no hashMap
     void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
+
         if(idPorEquipamento.get(equipment.tipo) == null){
 
             idPorEquipamento.put(equipment.tipo, new ArrayList<>());
-
         }
 
         idPorEquipamento.get(equipment.tipo).add(equipment);
@@ -90,7 +84,7 @@ public class Creature {
     }
 
     //Destroi o equipamento
-    void destroiEquipament (Equipment equipment, HashMap<Integer,Equipment> equipments){
+    void destroiEquipamento (Equipment equipment, HashMap<Integer,Equipment> equipments){
         equipCount++;
         equipments.remove(equipment.getId());
     }

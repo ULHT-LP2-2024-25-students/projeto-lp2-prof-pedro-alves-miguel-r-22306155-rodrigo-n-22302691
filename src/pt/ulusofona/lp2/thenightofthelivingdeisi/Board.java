@@ -5,8 +5,6 @@ import java.util.HashMap;
 public class Board {
 
     String[][] tabuleiro;
-    Equipment equipment;
-
 
     //Construtores
     public Board(String[][] tabuleiro) {

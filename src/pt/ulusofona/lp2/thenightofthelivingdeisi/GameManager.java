@@ -378,7 +378,7 @@ public class GameManager {
 
     //Verefica se a posiçao esta dentro do tabuleiro de memoria
     public boolean positionInBoard(int x, int y){
-        return x >= 0 && x < (worldSize[1]) && y >= 0 && y < (worldSize[0]);
+        return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
     }
 
     //Move item do tabuleiro
@@ -402,7 +402,7 @@ public class GameManager {
                             if (creature.getTipo() == 1) {
                                 creature.adicionaEquipamento(equipment, equipments);
                             } else if(creature.getTipo() == 0){
-                                creature.destroiEquipament(equipment, equipments);
+                                creature.destroiEquipamento(equipment, equipments);
                             }
                         }
 
