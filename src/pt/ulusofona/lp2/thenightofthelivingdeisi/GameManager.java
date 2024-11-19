@@ -121,7 +121,6 @@ public class GameManager {
             } else {
                 return false;
             }
-
         }
 
         // Lê o número de equipamentos
@@ -202,7 +201,7 @@ public class GameManager {
                 //Faz um aiteraçao a cada creature
                 for (Creature creature : creatures.values()) {
 
-                    //Verefica se a criatura remove ou apanha logo o equipamento ou se o equipamento é posto no mapa
+                    //Verifica se a criatura remove ou apanha logo o equipamento ou se o equipamento é posto no mapa
                     if(creature.getX() == equipment.getX() && creature.getY() == equipment.getY()){
 
                         if(creature.getTipo() == 1){
@@ -227,7 +226,7 @@ public class GameManager {
             }
 
             for (int i = 0; i < itemsRemover.size(); i++){
-                creatures.get(criaturaRemover.get(i)).adicionaEquipamento(itemsRemover.get(i), equipments);
+                creatures.get(criaturaRemover.get(i)).destroiEquipamento(itemsRemover.get(i), equipments);
             }
 
             //Finalizar (;
@@ -371,23 +370,26 @@ public class GameManager {
 
         if (currentID == 0){
             currentID = 1;
-        }else{
+        } else {
             currentID = 0;
         }
-
     }
 
     //Verefica se a posiçao esta dentro do tabuleiro de memoria
     public boolean positionInBoard(int x, int y){
-        return x >= 0 && x < (worldSize[1]) && y >= 0 && y < (worldSize[0]);
+        return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
+    }
+
+    // Verifica se a criatura andou uma casa na lateral
+    public boolean movimentoRestrito(int xO, int yO, int xD, int yD){
+        return (xO == xD && (yD == yO + 1 || yD == yO - 1)) || (yO == yD && (xD == xO + 1 || xD == xO - 1));
     }
 
     //Move item do tabuleiro
     public boolean move(int xO, int yO, int xD, int yD) {
 
         // Verifica se a movimentacao é valida
-        if ((xO == xD && (yD == yO + 1 || yD == yO - 1)) ||
-                (yO == yD && (xD == xO + 1 || xD == xO - 1))) {
+        if (movimentoRestrito(xO, yO, xD, yD)) {
 
             Equipment equipment = existeEquipamento(xD,yD);
             // Verfica se as coordenadas de destino estao dentro do tabuleiro e se estao vazias
@@ -403,7 +405,7 @@ public class GameManager {
                             if (creature.getTipo() == 1) {
                                 creature.adicionaEquipamento(equipment, equipments);
                             } else if(creature.getTipo() == 0){
-                                creature.destroiEquipament(equipment, equipments);
+                                creature.destroiEquipamento(equipment, equipments);
                             }
                         }
 
@@ -416,7 +418,6 @@ public class GameManager {
 
                     }
                 }
-
             }
         }
         return false;

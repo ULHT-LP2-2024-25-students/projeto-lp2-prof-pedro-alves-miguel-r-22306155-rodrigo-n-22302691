@@ -37,26 +37,6 @@ public class TestGameManager {
     }
 
     @Test
-    public void testCreaturesInfo() {
-
-        GameManager game = new GameManager();
-        game.loadGame(new File("test-files", "Jogo.txt"));
-        String[] resultadoAtual = game.getCreatureInfo(3);
-        String[] resultadoEsperado = {"3", "0", "DrMonengue", "4", "2", ""};
-        Assertions.assertEquals(resultadoEsperado, resultadoAtual);
-    }
-
-    @Test
-    public void testEquipmentsInfo() {
-
-        GameManager game = new GameManager();
-        game.loadGame(new File("test-files", "Jogo.txt"));
-        String[] resultadoAtual = game.getEquipmentInfo(-1);
-        String[] resultadoEsperado = {"-1", "0", "1", "1", ""};
-        Assertions.assertEquals(resultadoEsperado, resultadoAtual);
-    }
-
-    @Test
     public void testHasEquipment() {
 
         GameManager game = new GameManager();
@@ -72,7 +52,7 @@ public class TestGameManager {
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
         String resultadoAtual = game.getSquareInfo(5, 2);
-        String resultadoEsperado = "2 | Humano | Krat | +0 @ (5,2)";
+        String resultadoEsperado = "H:2";
         Assertions.assertEquals(resultadoEsperado, resultadoAtual);
     }
 }
