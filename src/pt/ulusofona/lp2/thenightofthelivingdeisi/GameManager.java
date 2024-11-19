@@ -31,72 +31,63 @@ public class GameManager {
 
 
     //Vai ler o ficheiro
-    public boolean parseGame(File game) {
+    public void parseGame(File game) throws InvalidFileException, FileNotFoundException {
 
         nrJogadas = 0;
-
         Scanner scanner = null;
         try {
             scanner = new Scanner(game);
         } catch (FileNotFoundException e) {
-            return false;
+            throw new InvalidFileException("Não encontrou ficheiro");
         }
 
         // Lê a primeira linha (tamanho do tabuleiro)
         if (scanner.hasNextLine()) {
-
             String linha = scanner.nextLine();
             String[] tabuleiro = linha.split(" ");
 
             if (tabuleiro.length == 2) {
-
                 try {
                     worldSize[0] = Integer.parseInt(tabuleiro[0]);
                     worldSize[1] = Integer.parseInt(tabuleiro[1]);
                 } catch (NumberFormatException e) {
-                    return false;
+                    throw new InvalidFileException("Formato invalido para tamanho do tabuleiro.");
                 }
             } else {
-                return false;
+                throw new InvalidFileException("Formato incorreto na linha do tamanho do tabuleiro.");
             }
         } else {
-            return false;
+            throw new InvalidFileException("Erro na leitura do tamanho do tabuleiro.");
         }
 
         // Lê o ID inicial
         if (scanner.hasNextLine()) {
-
             String linha = scanner.nextLine();
-
             try {
                 initialID = Integer.parseInt(linha);
                 currentID = initialID;
             } catch (NumberFormatException e) {
-                return false;
+                throw new InvalidFileException("ID inicial invalido.");
             }
         } else {
-            return false;
+            throw new InvalidFileException("Erro na leitura do ID inicial.");
         }
 
         // Lê o número de criaturas
         if (scanner.hasNextLine()) {
-
             String linha = scanner.nextLine();
-
             try {
                 nrCriaturas = Integer.parseInt(linha);
             } catch (NumberFormatException e) {
-                return false;
+                throw new InvalidFileException("Numero de criaturas invalido.");
             }
         } else {
-            return false;
+            throw new InvalidFileException("Erro na leitura do numero de criaturas.");
         }
 
         // Loop para ler as criaturas
         for (int i = 0; i < nrCriaturas; i++) {
-
             if (scanner.hasNextLine()) {
-
                 String linha = scanner.nextLine();
                 String[] creature = linha.split(" : ");
 
@@ -105,177 +96,156 @@ public class GameManager {
                         creatures.put(Integer.parseInt(creature[0]), new Creature(
                                 Integer.parseInt(creature[0]),
                                 Integer.parseInt(creature[1]),
-                                                  creature[2],
+                                creature[2],
                                 Integer.parseInt(creature[3]),
-                                Integer.parseInt(creature[4])));
-
+                                Integer.parseInt(creature[4])
+                        ));
                     } catch (NumberFormatException e) {
-                        return false;
+                        throw new InvalidFileException("Formato invalido para criatura na linha " + (i + 1));
                     }
 
-                    //Remove criatura caso esteja fora
-                    if(Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[1] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[0]){
+                    // Remove criatura caso esteja fora
+                    if (Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[1] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[0]) {
                         creatures.remove(Integer.parseInt(creature[0]));
                     }
-
                 } else {
-                    return false;
+                    throw new InvalidFileException("Formato incorreto para criatura na linha " + (i + 1));
                 }
             } else {
-                return false;
+                throw new InvalidFileException("Faltam dados para criatura na linha " + (i + 1));
             }
         }
 
         // Lê o número de equipamentos
         if (scanner.hasNextLine()) {
-
             String linha = scanner.nextLine();
-
             try {
                 nrEquipamentos = Integer.parseInt(linha);
             } catch (NumberFormatException e) {
-                return false;
+                throw new InvalidFileException("Numero de equipamentos inválido.");
             }
         } else {
-            return false;
+            throw new InvalidFileException("Erro na leitura do numero de equipamentos.");
         }
 
         // Loop para ler os equipamentos
         for (int i = 0; i < nrEquipamentos; i++) {
-
             if (scanner.hasNextLine()) {
-
                 String linha = scanner.nextLine();
                 String[] equipment = linha.split(" : ");
 
                 if (equipment.length == 4) {
-
                     try {
                         equipments.put(Integer.parseInt(equipment[0]), new Equipment(
                                 Integer.parseInt(equipment[0]),
                                 Integer.parseInt(equipment[1]),
                                 Integer.parseInt(equipment[2]),
-                                Integer.parseInt(equipment[3])));
+                                Integer.parseInt(equipment[3])
+                        ));
                     } catch (NumberFormatException e) {
-                        return false;
+                        throw new InvalidFileException("Formato invalido para equipamento na linha " + (i + 1));
                     }
 
-                    //Remove equipamento caso esteja fora
-                    if(Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[1] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[0]){
+                    // Remove equipamento caso esteja fora
+                    if (Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[1] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[0]) {
                         equipments.remove(Integer.parseInt(equipment[0]));
                     }
-
                 } else {
-                    return false;
+                    throw new InvalidFileException("Formato incorreto para equipamento na linha " + (i + 1));
                 }
             } else {
-                return false;
+                throw new InvalidFileException("Faltam dados para equipamento na linha " + (i + 1));
             }
         }
 
         if (scanner.hasNextLine()) {
-
             String linha = scanner.nextLine();
-
             try {
                 nrPortas = Integer.parseInt(linha);
             } catch (NumberFormatException e) {
-                return false;
+                throw new InvalidFileException("Numero de portas invalido.");
             }
         } else {
-            return false;
+            throw new InvalidFileException("Erro na leitura do numero de portas.");
         }
 
         for (int i = 0; i < nrPortas; i++) {
-
             if (scanner.hasNextLine()) {
-
                 String linha = scanner.nextLine();
                 String[] porta = linha.split(" : ");
 
                 if (porta.length == 2) {
-
                     try {
-                        portas.add(new Porta(Integer.parseInt(porta[0]),Integer.parseInt(porta[1])));
-
+                        portas.add(new Porta(Integer.parseInt(porta[0]), Integer.parseInt(porta[1])));
                     } catch (NumberFormatException e) {
-                        return false;
+                        throw new InvalidFileException("Formato invalido para porta na linha " + (i+1));
                     }
 
-                    if(Integer.parseInt(porta[1]) < 0 || Integer.parseInt(porta[1]) >= worldSize[1] || Integer.parseInt(porta[0]) < 0 || Integer.parseInt(porta[0]) >= worldSize[0]){
-                        portas.remove(Integer.parseInt(porta[0],Integer.parseInt(porta[1])));
+                    // Remove porta caso esteja fora
+                    if (Integer.parseInt(porta[1]) < 0 || Integer.parseInt(porta[1]) >= worldSize[1] || Integer.parseInt(porta[0]) < 0 || Integer.parseInt(porta[0]) >= worldSize[0]) {
+                        portas.remove(new Porta(Integer.parseInt(porta[0]), Integer.parseInt(porta[1])));
                     }
-
                 } else {
-                    return false;
+                    throw new InvalidFileException("Formato incorreto para porta na linha " + (i + 1));
                 }
             } else {
-                return false;
+                throw new InvalidFileException("Faltam dados para porta na linha " + (i + 1));
             }
         }
-
         // Finaliza
-        return true;
     }
 
-    //Verefica se o ficheiro é bem lido para adicionar os elementos á memoria
-    public boolean loadGame(File file) {
+    public void loadGame(File file) throws InvalidFileException, FileNotFoundException {
 
-        //Verefu«ica se o jogo le corretamente
-        if(parseGame(file)){
-            //Caso o jogo seja lido de maneira correta, vai criar um tabuleiro na memoria
-            board = new Board(new String[worldSize[0]][worldSize[1]]);
+        try {
+            parseGame(file);
+        } catch (InvalidFileException e) {
+            throw new InvalidFileException("Erro ao ler o ficheiro de jogo");
+        }
 
-            //Vai criaturas no tabuleiro
-            for(Creature creature : creatures.values()){
-                board.adicionaCreature(creature);
-            }
+        // Cria o tabuleiro na memória
+        board = new Board(new String[worldSize[0]][worldSize[1]]);
 
-            //Vai adicionar os item no tabuleiro
-            //Itens a ser adicionados ao humanos
-            ArrayList<Equipment> itemsAdicionar = new ArrayList<Equipment>();
-            ArrayList<Integer> criaturaAdicionar = new ArrayList<Integer>();
+        // Adiciona as criaturas no tabuleiro
+        for (Creature creature : creatures.values()) {
+            board.adicionaCreature(creature);
+        }
 
-            //Itens a ser removidos pelos zumbis
-            ArrayList<Equipment> itemsRemover = new ArrayList<Equipment>();
-            ArrayList<Integer> criaturaRemover = new ArrayList<Integer>();
+        // Itens a serem adicionados aos humanos
+        ArrayList<Equipment> itemsAdicionar = new ArrayList<>();
+        ArrayList<Integer> criaturaAdicionar = new ArrayList<>();
 
-            //Faz um aiteraçao a cada equiment
-            for(Equipment equipment : equipments.values()){
+        // Itens a serem removidos pelos zumbis
+        ArrayList<Equipment> itemsRemover = new ArrayList<>();
+        ArrayList<Integer> criaturaRemover = new ArrayList<>();
 
-                //Faz um aiteraçao a cada creature
-                for (Creature creature : creatures.values()) {
+        for (Equipment equipment : equipments.values()) {
 
-                    //Verifica se a criatura remove ou apanha logo o equipamento ou se o equipamento é posto no mapa
-                    if(creature.getX() == equipment.getX() && creature.getY() == equipment.getY()){
+            for (Creature creature : creatures.values()) {
 
-                        if(creature.getTipo() == 1){
-                            itemsAdicionar.add(equipment);
-                            criaturaAdicionar.add(creature.id);
-                        }else{
-                            itemsRemover.add(equipment);
-                            criaturaRemover.add(creature.id);
-                        }
-
-                    }else{
-                        board.adicionaEquipment(equipment);
+                // Verifica se a criatura remove ou pega o equipamento ou se o equipamento é colocado no mapa
+                if (creature.getX() == equipment.getX() && creature.getY() == equipment.getY()) {
+                    if (creature.getTipo() == 1) {
+                        itemsAdicionar.add(equipment);
+                        criaturaAdicionar.add(creature.id);
+                    } else {
+                        itemsRemover.add(equipment);
+                        criaturaRemover.add(creature.id);
                     }
+                } else {
+                    board.adicionaEquipment(equipment);
                 }
             }
-
-            //Adiciona ou remove o equipamento
-            for (int i = 0; i < itemsAdicionar.size(); i++){
-                creatures.get(criaturaAdicionar.get(i)).adicionaEquipamento(itemsAdicionar.get(i), equipments);
-            }
-
-            for (int i = 0; i < itemsRemover.size(); i++){
-                creatures.get(criaturaRemover.get(i)).destroiEquipamento(itemsRemover.get(i), equipments);
-            }
-
-            //Finalizar (;
-            return true;
         }
-        return false;
+
+        // Adiciona ou remove os equipamentos
+        for (int i = 0; i < itemsAdicionar.size(); i++) {
+            creatures.get(criaturaAdicionar.get(i)).adicionaEquipamento(itemsAdicionar.get(i), equipments);
+        }
+
+        for (int i = 0; i < itemsRemover.size(); i++) {
+            creatures.get(criaturaRemover.get(i)).destroiEquipamento(itemsRemover.get(i), equipments);
+        }
     }
 
     //Get WorldSize
