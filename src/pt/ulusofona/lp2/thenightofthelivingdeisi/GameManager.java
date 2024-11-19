@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
@@ -464,6 +465,14 @@ public class GameManager {
 
     public HashMap<String,String> customizeBoard(){
         return new HashMap<>();
+    }
+
+    public List<Integer> getIdsInSafeHaven(){
+        return null;
+    }
+
+    void saveGame(File file){
+        return;
     }
 
     public static void main(String[] args) {
