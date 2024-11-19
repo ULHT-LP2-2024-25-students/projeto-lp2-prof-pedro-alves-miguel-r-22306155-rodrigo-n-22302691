@@ -31,8 +31,7 @@ public class GameManager {
 
 
     //Vai ler o ficheiro
-    public void parseGame(File game)  throws
-            InvalidFileException, FileNotFoundException{
+    public boolean parseGame(File game) {
 
         nrJogadas = 0;
 
@@ -220,8 +219,7 @@ public class GameManager {
     }
 
     //Verefica se o ficheiro é bem lido para adicionar os elementos á memoria
-    public void loadGame(File file) throws
-            InvalidFileException, FileNotFoundException{
+    public boolean loadGame(File file) {
 
         //Verefu«ica se o jogo le corretamente
         if(parseGame(file)){
