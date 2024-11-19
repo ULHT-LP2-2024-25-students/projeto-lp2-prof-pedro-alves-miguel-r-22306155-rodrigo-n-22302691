@@ -510,6 +510,14 @@ public class GameManager {
         return new HashMap<>();
     }
 
+    public List<Integer> getIdsInSafeHaven(){
+        return null;
+    }
+
+    void saveGame(File file){
+        return;
+    }
+
     public static void main(String[] args) {
 
     }
