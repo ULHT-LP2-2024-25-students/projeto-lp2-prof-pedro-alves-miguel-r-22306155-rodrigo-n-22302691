@@ -1,7 +1,6 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.swing.*;
-import java.util.HashMap;
 
 public class Equipment {
 

@@ -1,10 +1,12 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
@@ -17,7 +19,9 @@ public class GameManager {
     HashMap<Integer,Creature> creatures = new HashMap<>();
     int nrEquipamentos;
     HashMap<Integer,Equipment> equipments = new HashMap<>();
-    int nrJogadas = 0;
+    int nrJogadas;
+    int nrPortas;
+    ArrayList<Porta> portas = new ArrayList<Porta>();
 
     // tabuleiro
     Board board;
@@ -27,7 +31,8 @@ public class GameManager {
 
 
     //Vai ler o ficheiro
-    public boolean parseGame(File game) {
+    public void parseGame(File game)  throws
+            InvalidFileException, FileNotFoundException{
 
         nrJogadas = 0;
 
@@ -168,12 +173,55 @@ public class GameManager {
                 return false;
             }
         }
+
+        if (scanner.hasNextLine()) {
+
+            String linha = scanner.nextLine();
+
+            try {
+                nrPortas = Integer.parseInt(linha);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        for (int i = 0; i < nrPortas; i++) {
+
+            if (scanner.hasNextLine()) {
+
+                String linha = scanner.nextLine();
+                String[] porta = linha.split(" : ");
+
+                if (porta.length == 2) {
+
+                    try {
+                        portas.add(new Porta(Integer.parseInt(porta[0]),Integer.parseInt(porta[1])));
+
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+
+                    if(Integer.parseInt(porta[1]) < 0 || Integer.parseInt(porta[1]) >= worldSize[1] || Integer.parseInt(porta[0]) < 0 || Integer.parseInt(porta[0]) >= worldSize[0]){
+                        portas.remove(Integer.parseInt(porta[0],Integer.parseInt(porta[1])));
+                    }
+
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
         // Finaliza
         return true;
     }
 
     //Verefica se o ficheiro é bem lido para adicionar os elementos á memoria
-    public boolean loadGame(File file){
+    public void loadGame(File file) throws
+            InvalidFileException, FileNotFoundException{
 
         //Verefu«ica se o jogo le corretamente
         if(parseGame(file)){
@@ -214,9 +262,7 @@ public class GameManager {
                     }else{
                         board.adicionaEquipment(equipment);
                     }
-
                 }
-
             }
 
             //Adiciona ou remove o equipamento
@@ -231,7 +277,6 @@ public class GameManager {
             //Finalizar (;
             return true;
         }
-
         return false;
     }
 
@@ -469,5 +514,14 @@ public class GameManager {
 
     public static void main(String[] args) {
 
+    }
+
+    public void saveGame(File file) throws IOException {
+
+    }
+
+    public List<Integer> getIdsInSafeHaven(){
+
+        return null;
     }
 }
