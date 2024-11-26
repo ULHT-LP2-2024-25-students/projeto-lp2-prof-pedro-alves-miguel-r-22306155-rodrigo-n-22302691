@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Creature {
+public abstract class Creature {
 
     protected int id;
     protected int tipo;
@@ -118,9 +118,7 @@ public class Creature {
         return this.id;
     }
 
-    //To String
-    @Override
-    public String toString() {
-        return id + " | " + tipoCriatura(tipo) + " | "+ nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
-    }
+    // ToString
+    abstract public String toString();
+
 }

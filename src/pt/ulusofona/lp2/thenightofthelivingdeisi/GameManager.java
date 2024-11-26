@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-import static java.lang.Integer.parseInt;
 
 public class GameManager {
 
@@ -101,26 +100,13 @@ public class GameManager {
                         int posX = Integer.parseInt(creature[4]);
                         int posY = Integer.parseInt(creature[5]);
 
-                        Creature criatura = null;
-
-                        criatura = switch (categoria) {
-                            case 0: // Criança
-                                 new Crianca(id, tipo, nome, posX, posY);
-                                break;
-                            case 1: // Adulto
-                                new Adulto(id, tipo, nome, posX, posY);
-                                break;
-                            case 2: // Idoso
-                                new Idoso(id, tipo, nome, posX, posY);
-                                break;
-                            case 3: // Cão
-                                new Cao(id, tipo, nome, posX, posY);
-                                break;
-                            case 4: // Vampiro
-                                new Vampiro(id, tipo, nome, posX, posY);
-                                break;
-                            default:
-                                throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
+                        Creature criatura = switch (categoria) {
+                            case 0 -> new Crianca(id, tipo, nome, posX, posY); // Criança
+                            case 1 -> new Adulto(id, tipo, nome, posX, posY); // Adulto
+                            case 2 -> new Idoso(id, tipo, nome, posX, posY); // Idoso
+                            case 3 -> new Cao(id, tipo, nome, posX, posY);   // Cão
+                            case 4 -> new Vampiro(id, tipo, nome, posX, posY); // Vampiro
+                            default -> throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
                         };
 
                     } catch (NumberFormatException e) {
@@ -128,7 +114,7 @@ public class GameManager {
                     }
 
                     // Remove criatura caso esteja fora
-                    if (Integer.parseInt(creature[3]) < 0 || Integer.parseInt(creature[3]) >= worldSize[1] || Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[0]) {
+                    if (Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[1] || Integer.parseInt(creature[5]) < 0 || Integer.parseInt(creature[5]) >= worldSize[0]) {
                         creatures.remove(Integer.parseInt(creature[0]));
                     }
                 } else {

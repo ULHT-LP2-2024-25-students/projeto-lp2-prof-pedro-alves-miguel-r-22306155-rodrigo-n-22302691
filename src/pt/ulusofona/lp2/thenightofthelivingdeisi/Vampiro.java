@@ -5,4 +5,9 @@ public class Vampiro extends Creature{
     public Vampiro(int id, int tipo, String nome, int posicaoX, int posicaoY) {
         super(id,tipo,nome,posicaoX,posicaoY);
     }
+
+    @Override
+    public String toString() {
+        return id + " | Vampiro | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+    }
 }

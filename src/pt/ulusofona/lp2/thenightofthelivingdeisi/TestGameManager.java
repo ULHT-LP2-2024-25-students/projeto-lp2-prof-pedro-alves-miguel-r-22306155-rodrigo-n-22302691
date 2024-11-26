@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class TestGameManager {
 
 
     @Test
-    public void testCreaturesInfoString() {
+    public void testCreaturesInfoString() throws InvalidFileException, FileNotFoundException {
 
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
@@ -23,7 +24,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void testEquipmentsInfoString() {
+    public void testEquipmentsInfoString() throws InvalidFileException, FileNotFoundException {
 
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
@@ -37,7 +38,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void testHasEquipment() {
+    public void testHasEquipment() throws InvalidFileException, FileNotFoundException {
 
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
@@ -47,7 +48,7 @@ public class TestGameManager {
     }
 
     @Test
-    public void testSquareInfo() {
+    public void testSquareInfo() throws InvalidFileException, FileNotFoundException {
 
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
