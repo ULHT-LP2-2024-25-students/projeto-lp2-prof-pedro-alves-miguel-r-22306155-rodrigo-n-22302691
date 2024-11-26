@@ -1,20 +1,19 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-import javax.print.DocFlavor;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Creature {
 
-    int id;
-    int tipo;
-    String nome;
-    int posicaoX;
-    int posicaoY;
-    ImageIcon png;
-    int equipCount;
-    HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
+    protected int id;
+    protected int tipo;
+    protected String nome;
+    protected int posicaoX;
+    protected int posicaoY;
+    protected ImageIcon png;
+    protected int equipCount;
+    protected HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
 
     //Construtores
     public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, ImageIcon png) {
@@ -37,7 +36,8 @@ public class Creature {
     //Metodos
     //O nome do tipo
     String tipoCriatura(int tipo){
-        if(tipo == 1){
+
+        if(tipo == 20){
             return "Humano";
         }
         return "Zombie";
@@ -45,7 +45,7 @@ public class Creature {
 
     String tipoCriaturaChar(int tipo){
 
-        if(tipo == 1){
+        if(tipo == 20){
             return "H";
         }
         return "Z";
@@ -53,7 +53,7 @@ public class Creature {
 
     //O equipamento do tipo se tem ou destruiu
     String tipoEquipamento(int tipo){
-        if(tipo == 1){
+        if(tipo == 20){
             return "+" + equipCount;
         }
         return  "-" + equipCount;
@@ -96,8 +96,6 @@ public class Creature {
         }
         return true;
     }
-
-
     //gets e setters
     //Obtem todos dados
     String getNome(){
@@ -123,6 +121,6 @@ public class Creature {
     //To String
     @Override
     public String toString() {
-        return id + " | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+        return id + " | " + tipoCriatura(tipo) + " | "+ nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
     }
 }

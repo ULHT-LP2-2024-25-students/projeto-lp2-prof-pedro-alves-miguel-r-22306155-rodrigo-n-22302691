@@ -91,15 +91,38 @@ public class GameManager {
                 String linha = scanner.nextLine();
                 String[] creature = linha.split(" : ");
 
-                if (creature.length == 5) {
+                if (creature.length == 6) {
                     try {
-                        creatures.put(Integer.parseInt(creature[0]), new Creature(
-                                Integer.parseInt(creature[0]),
-                                Integer.parseInt(creature[1]),
-                                creature[2],
-                                Integer.parseInt(creature[3]),
-                                Integer.parseInt(creature[4])
-                        ));
+
+                        int id = Integer.parseInt(creature[0]);
+                        int tipo = Integer.parseInt(creature[1]);
+                        int categoria = Integer.parseInt(creature[2]);
+                        String nome = creature[3];
+                        int posX = Integer.parseInt(creature[4]);
+                        int posY = Integer.parseInt(creature[5]);
+
+                        Creature criatura = null;
+
+                        criatura = switch (categoria) {
+                            case 0: // Criança
+                                 new Crianca(id, tipo, nome, posX, posY);
+                                break;
+                            case 1: // Adulto
+                                new Adulto(id, tipo, nome, posX, posY);
+                                break;
+                            case 2: // Idoso
+                                new Idoso(id, tipo, nome, posX, posY);
+                                break;
+                            case 3: // Cão
+                                new Cao(id, tipo, nome, posX, posY);
+                                break;
+                            case 4: // Vampiro
+                                new Vampiro(id, tipo, nome, posX, posY);
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
+                        };
+
                     } catch (NumberFormatException e) {
                         throw new InvalidFileException("Formato invalido para criatura na linha " + (i + 1));
                     }
@@ -225,7 +248,7 @@ public class GameManager {
 
                 // Verifica se a criatura remove ou pega o equipamento ou se o equipamento é colocado no mapa
                 if (creature.getX() == equipment.getX() && creature.getY() == equipment.getY()) {
-                    if (creature.getTipo() == 1) {
+                    if (creature.getTipo() == 20) {
                         itemsAdicionar.add(equipment);
                         criaturaAdicionar.add(creature.id);
                     } else {
