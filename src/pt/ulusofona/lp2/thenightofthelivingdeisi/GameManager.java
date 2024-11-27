@@ -102,12 +102,25 @@ public class GameManager {
 
                         Creature criatura = switch (categoria) {
                             case 0 -> new Crianca(id, tipo, nome, posX, posY); // Criança
-                            case 1 -> new Adulto(id, tipo, nome, posX, posY); // Adulto
-                            case 2 -> new Idoso(id, tipo, nome, posX, posY); // Idoso
-                            case 3 -> new Cao(id, tipo, nome, posX, posY);   // Cão
-                            case 4 -> new Vampiro(id, tipo, nome, posX, posY); // Vampiro
+                            case 1 -> new Adulto(id, tipo, nome, posX, posY);  // Adulto
+                            case 2 -> new Idoso(id, tipo, nome, posX, posY);   // Idoso
+                            case 3 -> {
+                                if (id == 20) {
+                                    yield new Cao(id, tipo, nome, posX, posY); // Cão
+                                } else {
+                                    throw new IllegalArgumentException("Cão só pode ser criado com ID 20.");
+                                }
+                            }
+                            case 4 -> {
+                                if (id == 10) {
+                                    yield new Vampiro(id, tipo, nome, posX, posY); // Vampiro
+                                } else {
+                                    throw new IllegalArgumentException("Vampiro só pode ser criado com ID 10.");
+                                }
+                            }
                             default -> throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
                         };
+
 
                     } catch (NumberFormatException e) {
                         throw new InvalidFileException("Formato invalido para criatura na linha " + (i + 1));
