@@ -5,11 +5,11 @@ import javax.swing.*;
 public abstract class Equipment extends ItemTabuleiro {
 
     // Atributos
-    int id;
-    int tipo;
-    int posicaoX;
-    int posicaoY;
-    ImageIcon png;
+    protected int id;
+    protected int tipo;
+    protected int posicaoX;
+    protected int posicaoY;
+    protected ImageIcon png;
 
 
 
@@ -36,7 +36,7 @@ public abstract class Equipment extends ItemTabuleiro {
     // Metodos
     // Coordenadas do equipamento
     String coordenadas (){
-        return "(" + posicaoX + "," + posicaoY + ")";
+        return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
 

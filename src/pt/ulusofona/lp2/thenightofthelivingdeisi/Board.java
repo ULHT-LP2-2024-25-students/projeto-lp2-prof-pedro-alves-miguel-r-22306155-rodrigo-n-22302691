@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Board {
 
     // Atributos
-    ItemTabuleiro[][] tabuleiro;
+    private ItemTabuleiro[][] tabuleiro;
 
 
 
@@ -30,6 +30,14 @@ public class Board {
         return tabuleiro[y][x] == null;
 
     }
+
+
+
+
+    // Gets
+    ItemTabuleiro[][] getTabuleiro(){ return tabuleiro; }
+
+
 
 
     // Adicionar/Remover

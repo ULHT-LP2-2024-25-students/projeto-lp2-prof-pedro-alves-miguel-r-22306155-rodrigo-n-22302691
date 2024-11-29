@@ -14,7 +14,7 @@ public class Adulto extends Creature {
     // Override
     @Override
     public String toString() {
-        return id + " | Adulto | " + nomeDaCategoria + " | " + nome + " | "
+        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | "
                 + tipoEquipamento(tipo) + " @ " + coordenadas();
     }
 

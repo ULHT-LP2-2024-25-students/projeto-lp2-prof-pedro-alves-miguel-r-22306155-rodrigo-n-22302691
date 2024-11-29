@@ -1,9 +1,11 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-public class InvalidFileException extends Exception {
+import java.io.IOException;
+
+public class InvalidFileException extends IOException {
 
     // Atributos
-    int linhaDoErro;
+    private int linhaDoErro;
 
 
 

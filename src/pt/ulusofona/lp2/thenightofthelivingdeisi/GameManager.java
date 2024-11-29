@@ -131,7 +131,7 @@ public class GameManager {
 
         // Adiciona portas
         for (Porta porta: portas){
-            board.setItem(porta.posicaoX, porta.posicaoY, porta);
+            board.setItem(porta.getPosicaoX(), porta.getPosicaoY(), porta);
         }
 
 
@@ -214,7 +214,7 @@ public class GameManager {
     public String getSquareInfo(int x, int y) {
 
         // Pega o item do tabuleiro
-        ItemTabuleiro tile = board.tabuleiro[y][x];
+        ItemTabuleiro tile = board.getTabuleiro()[y][x];
 
         // Verefica se o tile esta empty
         if (tile == null){

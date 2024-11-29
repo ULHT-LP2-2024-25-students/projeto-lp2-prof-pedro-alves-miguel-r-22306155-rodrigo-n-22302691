@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.thenightofthelivingdeisi;
 public class Pistola extends Equipment{
 
     // Atributos
-    int municao;
+    private int municao;
 
     public Pistola(int id, int tipo, int posicaoX, int posicaoY){
         super(id, tipo, posicaoX, posicaoY);

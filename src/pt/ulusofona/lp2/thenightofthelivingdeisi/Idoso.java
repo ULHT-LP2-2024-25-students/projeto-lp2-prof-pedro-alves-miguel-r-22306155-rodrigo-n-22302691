@@ -15,7 +15,7 @@ public class Idoso extends Creature {
     @Override
     public String toString() {
 
-        return id + " | Idoso | " + nomeDaCategoria + " | " + nome + " | "
+        return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | "
                 + tipoEquipamento(tipo) + " @ " + coordenadas();
 
     }

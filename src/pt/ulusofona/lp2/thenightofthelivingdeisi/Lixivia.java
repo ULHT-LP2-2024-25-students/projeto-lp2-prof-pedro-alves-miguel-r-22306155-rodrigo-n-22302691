@@ -3,7 +3,7 @@ package pt.ulusofona.lp2.thenightofthelivingdeisi;
 public class Lixivia extends Equipment{
 
     // Atributos
-    float litros;
+    private float litros;
 
 
     // Construtores

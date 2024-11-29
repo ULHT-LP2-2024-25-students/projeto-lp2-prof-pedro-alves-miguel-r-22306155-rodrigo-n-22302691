@@ -3,8 +3,8 @@ package pt.ulusofona.lp2.thenightofthelivingdeisi;
 public class Porta extends ItemTabuleiro{
 
     // Atributos
-    int posicaoX;
-    int posicaoY;
+    private int posicaoX;
+    private int posicaoY;
 
 
 
@@ -16,6 +16,14 @@ public class Porta extends ItemTabuleiro{
         this.posicaoY = posicaoY;
 
     }
+
+
+
+
+    // Gets
+    int getPosicaoX() { return posicaoX; }
+
+    int getPosicaoY() { return posicaoY; }
 
 
 
