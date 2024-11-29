@@ -353,7 +353,7 @@ public class GameManager {
     // Move item do tabuleiro
     public boolean move(int xO, int yO, int xD, int yD) {
 
-        // Verifica se a movimentacao é valida
+        // Verifica se a movimentacao é valido
         if (movimentoRestrito(xO, yO, xD, yD)) {
 
             Equipment equipment = existeEquipamento(xD,yD);
