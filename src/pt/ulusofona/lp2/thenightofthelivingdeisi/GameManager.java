@@ -13,31 +13,31 @@ public class GameManager {
 
     // Informaçoes do ficheiro
     // Tamanho do tabuleiro
-    int[] worldSize = new int[2];
+    private int[] worldSize = new int[2];
 
     // ID da criatura inicial
-    int initialID;
+    private int initialID;
 
     // Dados de cada criatura do tabuleiro
-    HashMap<Integer,Creature> creatures = new HashMap<>();
-    int nrCriaturas;
+    private HashMap<Integer,Creature> creatures = new HashMap<>();
+    private int nrCriaturas;
 
     // Dados de cada equipamento do tabuleiro
-    HashMap<Integer,Equipment> equipments = new HashMap<>();
-    int nrEquipamentos;
+    private HashMap<Integer,Equipment> equipments = new HashMap<>();
+    private int nrEquipamentos;
 
     // Numero de jogadas
-    int nrJogadas;
+    private int nrJogadas;
 
     // Dados de cada porta do tabuleiro
-    ArrayList<Porta> portas = new ArrayList<Porta>();
-    int nrPortas;
+    private ArrayList<Porta> portas = new ArrayList<Porta>();
+    private int nrPortas;
 
     // tabuleiro
-    Board board;
+    private Board board;
 
     //Informaçoes do jogo
-    int currentID;
+    private int currentID;
 
 
 
