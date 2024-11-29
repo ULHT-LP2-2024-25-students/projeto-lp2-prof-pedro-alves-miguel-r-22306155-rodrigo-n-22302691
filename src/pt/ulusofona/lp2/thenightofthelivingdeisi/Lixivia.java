@@ -6,11 +6,16 @@ public class Lixivia extends Equipment{
     private float litros;
 
 
+
+
     // Construtores
     public Lixivia(int id, int tipo, int posicaoX, int posicaoY){
         super(id, tipo, posicaoX, posicaoY);
         litros = 1.0f;
     }
+
+
+
 
     // To String
     @Override

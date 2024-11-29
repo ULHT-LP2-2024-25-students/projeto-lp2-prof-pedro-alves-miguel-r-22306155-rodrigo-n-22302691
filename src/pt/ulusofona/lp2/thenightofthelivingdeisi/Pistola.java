@@ -5,10 +5,17 @@ public class Pistola extends Equipment{
     // Atributos
     private int municao;
 
+
+
+
+    // Construtores
     public Pistola(int id, int tipo, int posicaoX, int posicaoY){
         super(id, tipo, posicaoX, posicaoY);
         municao = 3;
     }
+
+
+
 
     // To String
     @Override
