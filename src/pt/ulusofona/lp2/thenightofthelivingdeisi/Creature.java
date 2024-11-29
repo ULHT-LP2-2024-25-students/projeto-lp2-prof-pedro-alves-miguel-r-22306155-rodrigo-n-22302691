@@ -4,10 +4,13 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class Creature {
+public abstract class Creature extends ItemTabuleiro {
 
+    // Atributos
     protected int id;
     protected int tipo;
+    protected String nomeDaCategoria;
+    protected int categoria;
     protected String nome;
     protected int posicaoX;
     protected int posicaoY;
@@ -15,26 +18,34 @@ public abstract class Creature {
     protected int equipCount;
     protected HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
 
-    //Construtores
-    public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY, ImageIcon png) {
+
+
+
+    // Construtores
+    public Creature(int id, int tipo, int categoria, String nome, int posicaoX, int posicaoY, ImageIcon png) {
         this.id = id;
         this.tipo = tipo;
+        this.categoria = categoria;
         this.nome = nome;
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
         this.png = png;
     }
 
-    public Creature(int id, int tipo, String nome, int posicaoX, int posicaoY) {
+    public Creature(int id, int tipo, int categoria, String nome, int posicaoX, int posicaoY) {
         this.id = id;
         this.tipo = tipo;
+        this.categoria = categoria;
         this.nome = nome;
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }
 
-    //Metodos
-    //O nome do tipo
+
+
+
+    // Metodos
+    // Tipo de criatura
     String tipoCriatura(int tipo){
 
         if(tipo == 20){
@@ -43,6 +54,7 @@ public abstract class Creature {
         return "Zombie";
     }
 
+    // Tipo de criatura em char
     String tipoCriaturaChar(int tipo){
 
         if(tipo == 20){
@@ -59,7 +71,11 @@ public abstract class Creature {
         return  "-" + equipCount;
     }
 
-    //Coordenadas da criatura
+
+
+
+    // Posiçao da criatura
+    // Coordenadas da criatura
     String coordenadas(){
         return "(" + posicaoX + ", " + posicaoY + ")";
     }
@@ -70,7 +86,11 @@ public abstract class Creature {
         this.posicaoY = posicaoY;
     }
 
-    //Adiciona o equipamento no hashMap
+
+
+
+    // Equipamento
+    // Adiciona o equipamento no hashMap
     void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
 
         if(idPorEquipamento.get(equipment.tipo) == null){
@@ -83,21 +103,31 @@ public abstract class Creature {
         equipments.remove(equipment.getId());
     }
 
-    //Destroi o equipamento
+    // Destroi o equipamento
     void destroiEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
+
         equipCount++;
         equipments.remove(equipment.getId());
+
     }
 
-    //Verefica se tem o equipamento
+    // Verefica se tem o equipamento
     boolean temEquipamento (int equipmentTypeId){
+
         if (idPorEquipamento.get(equipmentTypeId) == null || idPorEquipamento.get(equipmentTypeId).isEmpty()){
+
             return false;
+
         }
+
         return true;
     }
-    //gets e setters
-    //Obtem todos dados
+
+
+
+
+    // Gets e setters
+    // Obtem todos dados
     String getNome(){
         return this.nome;
     }
@@ -118,7 +148,16 @@ public abstract class Creature {
         return this.id;
     }
 
+    int getCategoria(){ return this.categoria; }
+
+    String getNomeDaCategoria(){ return this.nomeDaCategoria; }
+
+
+
+
     // ToString
     abstract public String toString();
+
+    abstract public String info();
 
 }

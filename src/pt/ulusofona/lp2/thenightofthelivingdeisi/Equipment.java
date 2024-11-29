@@ -2,8 +2,9 @@ package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.swing.*;
 
-public class Equipment {
+public abstract class Equipment extends ItemTabuleiro {
 
+    // Atributos
     int id;
     int tipo;
     int posicaoX;
@@ -11,7 +12,9 @@ public class Equipment {
     ImageIcon png;
 
 
-    //Construtores
+
+
+    // Construtores
     public Equipment(int id, int tipo, int posicaoX, int posicaoY, ImageIcon png) {
         this.id = id;
         this.tipo = tipo;
@@ -27,28 +30,19 @@ public class Equipment {
         this.posicaoY = posicaoY;
     }
 
-    //Metodos
-    //Coordenadas do equipamento
+
+
+
+    // Metodos
+    // Coordenadas do equipamento
     String coordenadas (){
         return "(" + posicaoX + "," + posicaoY + ")";
     }
 
-    //Nome do equipamento
-    String equipamentoNome (int tipo) {
 
-        String nome = "";
 
-        if (tipo == 0) {
-            nome = "Escudo de madeira";
-        }
 
-        if (tipo == 1) {
-            nome = "Espada samurai";
-        }
-        return nome;
-    }
-
-    //Gets
+    // Gets
     int getTipo(){
         return this.tipo;
     }
@@ -65,9 +59,12 @@ public class Equipment {
         return this.posicaoY;
     }
 
-    //To String
-    @Override
-    public String toString() {
-        return id + " | " + equipamentoNome(tipo) + " @ " + coordenadas();
-    }
+
+
+
+    // To String
+    abstract public String toString();
+
+    abstract public String info();
+
 }

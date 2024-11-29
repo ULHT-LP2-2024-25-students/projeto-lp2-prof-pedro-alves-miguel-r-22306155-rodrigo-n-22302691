@@ -11,16 +11,27 @@ import java.util.Scanner;
 
 public class GameManager {
 
-    //Informaçoes do ficheiro
+    // Informaçoes do ficheiro
+    // Tamanho do tabuleiro
     int[] worldSize = new int[2];
+
+    // ID da criatura inicial
     int initialID;
-    int nrCriaturas;
+
+    // Dados de cada criatura do tabuleiro
     HashMap<Integer,Creature> creatures = new HashMap<>();
-    int nrEquipamentos;
+    int nrCriaturas;
+
+    // Dados de cada equipamento do tabuleiro
     HashMap<Integer,Equipment> equipments = new HashMap<>();
+    int nrEquipamentos;
+
+    // Numero de jogadas
     int nrJogadas;
-    int nrPortas;
+
+    // Dados de cada porta do tabuleiro
     ArrayList<Porta> portas = new ArrayList<Porta>();
+    int nrPortas;
 
     // tabuleiro
     Board board;
@@ -29,236 +40,136 @@ public class GameManager {
     int currentID;
 
 
-    //Vai ler o ficheiro
-    public void parseGame(File game) throws InvalidFileException, FileNotFoundException {
 
+
+    // Metodos
+    // Vai ler o ficheiro
+    public void parseGame(File game) throws InvalidFileException {
+
+        // Cada vez que le um novo ficheiro reinicia o numero de jogadas
         nrJogadas = 0;
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(game);
-        } catch (FileNotFoundException e) {
-            throw new InvalidFileException("Não encontrou ficheiro");
-        }
+
+        // Vai reiniciar o numero de linhas lidas
+        int numeroDaLinha = 0;
+
+
+        // Vai criar o scanner
+        Scanner scanner = GameReader.criarScanner(game, numeroDaLinha);
+
 
         // Lê a primeira linha (tamanho do tabuleiro)
-        if (scanner.hasNextLine()) {
-            String linha = scanner.nextLine();
-            String[] tabuleiro = linha.split(" ");
+        numeroDaLinha++;
+        worldSize = GameReader.lerTamanhoTabuleiro(scanner, numeroDaLinha);
 
-            if (tabuleiro.length == 2) {
-                try {
-                    worldSize[0] = Integer.parseInt(tabuleiro[0]);
-                    worldSize[1] = Integer.parseInt(tabuleiro[1]);
-                } catch (NumberFormatException e) {
-                    throw new InvalidFileException("Formato invalido para tamanho do tabuleiro.");
-                }
-            } else {
-                throw new InvalidFileException("Formato incorreto na linha do tamanho do tabuleiro.");
-            }
-        } else {
-            throw new InvalidFileException("Erro na leitura do tamanho do tabuleiro.");
-        }
 
-        // Lê o ID inicial
-        if (scanner.hasNextLine()) {
-            String linha = scanner.nextLine();
-            try {
-                initialID = Integer.parseInt(linha);
-                currentID = initialID;
-            } catch (NumberFormatException e) {
-                throw new InvalidFileException("ID inicial invalido.");
-            }
-        } else {
-            throw new InvalidFileException("Erro na leitura do ID inicial.");
-        }
+        // Lê a segunda linha (ID inicial)
+        numeroDaLinha++;
+        initialID = GameReader.lerIdInicial(scanner, numeroDaLinha);
+        currentID = initialID;
+
 
         // Lê o número de criaturas
-        if (scanner.hasNextLine()) {
-            String linha = scanner.nextLine();
-            try {
-                nrCriaturas = Integer.parseInt(linha);
-            } catch (NumberFormatException e) {
-                throw new InvalidFileException("Numero de criaturas invalido.");
-            }
-        } else {
-            throw new InvalidFileException("Erro na leitura do numero de criaturas.");
-        }
-
-        // Loop para ler as criaturas
-        for (int i = 0; i < nrCriaturas; i++) {
-            if (scanner.hasNextLine()) {
-                String linha = scanner.nextLine();
-                String[] creature = linha.split(" : ");
-
-                if (creature.length == 6) {
-                    try {
-
-                        int id = Integer.parseInt(creature[0]);
-                        int tipo = Integer.parseInt(creature[1]);
-                        int categoria = Integer.parseInt(creature[2]);
-                        String nome = creature[3];
-                        int posX = Integer.parseInt(creature[4]);
-                        int posY = Integer.parseInt(creature[5]);
-
-                        Creature criatura = switch (categoria) {
-                            case 0 -> new Crianca(id, tipo, nome, posX, posY); // Criança
-                            case 1 -> new Adulto(id, tipo, nome, posX, posY);  // Adulto
-                            case 2 -> new Idoso(id, tipo, nome, posX, posY);   // Idoso
-                            case 3 -> {
-                                if (id == 20) {
-                                    yield new Cao(id, tipo, nome, posX, posY); // Cão
-                                } else {
-                                    throw new IllegalArgumentException("Cão só pode ser criado com ID 20.");
-                                }
-                            }
-                            case 4 -> {
-                                if (id == 10) {
-                                    yield new Vampiro(id, tipo, nome, posX, posY); // Vampiro
-                                } else {
-                                    throw new IllegalArgumentException("Vampiro só pode ser criado com ID 10.");
-                                }
-                            }
-                            default -> throw new IllegalArgumentException("Categoria desconhecida: " + categoria);
-                        };
+        numeroDaLinha++;
+        nrCriaturas = GameReader.lerNumeroDeCriaturas(scanner, numeroDaLinha);
 
 
-                    } catch (NumberFormatException e) {
-                        throw new InvalidFileException("Formato invalido para criatura na linha " + (i + 1));
-                    }
+        // Lê as informaçoes das criaturas e as cria
+        creatures = GameReader.lerCriaturas(scanner, numeroDaLinha, nrCriaturas, worldSize);
+        numeroDaLinha += nrCriaturas;
 
-                    // Remove criatura caso esteja fora
-                    if (Integer.parseInt(creature[4]) < 0 || Integer.parseInt(creature[4]) >= worldSize[1] || Integer.parseInt(creature[5]) < 0 || Integer.parseInt(creature[5]) >= worldSize[0]) {
-                        creatures.remove(Integer.parseInt(creature[0]));
-                    }
-                } else {
-                    throw new InvalidFileException("Formato incorreto para criatura na linha " + (i + 1));
-                }
-            } else {
-                throw new InvalidFileException("Faltam dados para criatura na linha " + (i + 1));
-            }
-        }
 
         // Lê o número de equipamentos
-        if (scanner.hasNextLine()) {
-            String linha = scanner.nextLine();
-            try {
-                nrEquipamentos = Integer.parseInt(linha);
-            } catch (NumberFormatException e) {
-                throw new InvalidFileException("Numero de equipamentos inválido.");
-            }
-        } else {
-            throw new InvalidFileException("Erro na leitura do numero de equipamentos.");
-        }
+        numeroDaLinha++;
+        nrEquipamentos = GameReader.lerNumeroDeEquipamento(scanner, numeroDaLinha);
+
 
         // Loop para ler os equipamentos
-        for (int i = 0; i < nrEquipamentos; i++) {
-            if (scanner.hasNextLine()) {
-                String linha = scanner.nextLine();
-                String[] equipment = linha.split(" : ");
+        equipments = GameReader.lerEquipamentos(scanner, numeroDaLinha, nrEquipamentos, worldSize);
+        numeroDaLinha += nrEquipamentos;
 
-                if (equipment.length == 4) {
-                    try {
-                        equipments.put(Integer.parseInt(equipment[0]), new Equipment(
-                                Integer.parseInt(equipment[0]),
-                                Integer.parseInt(equipment[1]),
-                                Integer.parseInt(equipment[2]),
-                                Integer.parseInt(equipment[3])
-                        ));
-                    } catch (NumberFormatException e) {
-                        throw new InvalidFileException("Formato invalido para equipamento na linha " + (i + 1));
-                    }
 
-                    // Remove equipamento caso esteja fora
-                    if (Integer.parseInt(equipment[2]) < 0 || Integer.parseInt(equipment[2]) >= worldSize[1] || Integer.parseInt(equipment[3]) < 0 || Integer.parseInt(equipment[3]) >= worldSize[0]) {
-                        equipments.remove(Integer.parseInt(equipment[0]));
-                    }
-                } else {
-                    throw new InvalidFileException("Formato incorreto para equipamento na linha " + (i + 1));
-                }
-            } else {
-                throw new InvalidFileException("Faltam dados para equipamento na linha " + (i + 1));
-            }
-        }
+        // Le numero de portas para o safe Haven
+        nrPortas = GameReader.lerNumeroDePortas(scanner, numeroDaLinha);
+        numeroDaLinha++;
 
-        if (scanner.hasNextLine()) {
-            String linha = scanner.nextLine();
-            try {
-                nrPortas = Integer.parseInt(linha);
-            } catch (NumberFormatException e) {
-                throw new InvalidFileException("Numero de portas invalido.");
-            }
-        } else {
-            throw new InvalidFileException("Erro na leitura do numero de portas.");
-        }
 
-        for (int i = 0; i < nrPortas; i++) {
-            if (scanner.hasNextLine()) {
-                String linha = scanner.nextLine();
-                String[] porta = linha.split(" : ");
+        // Vai ler o numero de linhas aonde tem as portas
+        portas = GameReader.lerPortas(scanner, numeroDaLinha, nrPortas, worldSize);
+        numeroDaLinha += nrPortas;
 
-                if (porta.length == 2) {
-                    try {
-                        portas.add(new Porta(Integer.parseInt(porta[0]), Integer.parseInt(porta[1])));
-                    } catch (NumberFormatException e) {
-                        throw new InvalidFileException("Formato invalido para porta na linha " + (i+1));
-                    }
-
-                    // Remove porta caso esteja fora
-                    if (Integer.parseInt(porta[1]) < 0 || Integer.parseInt(porta[1]) >= worldSize[1] || Integer.parseInt(porta[0]) < 0 || Integer.parseInt(porta[0]) >= worldSize[0]) {
-                        portas.remove(new Porta(Integer.parseInt(porta[0]), Integer.parseInt(porta[1])));
-                    }
-                } else {
-                    throw new InvalidFileException("Formato incorreto para porta na linha " + (i + 1));
-                }
-            } else {
-                throw new InvalidFileException("Faltam dados para porta na linha " + (i + 1));
-            }
-        }
-        // Finaliza
     }
 
-    public void loadGame(File file) throws InvalidFileException, FileNotFoundException {
+
+    public void loadGame(File file) throws InvalidFileException{
 
         try {
+
             parseGame(file);
-        } catch (InvalidFileException e) {
-            throw new InvalidFileException("Erro ao ler o ficheiro de jogo");
+
+        }
+        catch (InvalidFileException e) {
+
+            throw e;
+
         }
 
+
         // Cria o tabuleiro na memória
-        board = new Board(new String[worldSize[0]][worldSize[1]]);
+        board = new Board(new ItemTabuleiro[worldSize[0]][worldSize[1]]);
+
 
         // Adiciona as criaturas no tabuleiro
         for (Creature creature : creatures.values()) {
             board.adicionaCreature(creature);
         }
 
+        // Adiciona portas
+        for (Porta porta: portas){
+            board.setItem(porta.posicaoX, porta.posicaoY, porta);
+        }
+
+
         // Itens a serem adicionados aos humanos
         ArrayList<Equipment> itemsAdicionar = new ArrayList<>();
         ArrayList<Integer> criaturaAdicionar = new ArrayList<>();
+
 
         // Itens a serem removidos pelos zumbis
         ArrayList<Equipment> itemsRemover = new ArrayList<>();
         ArrayList<Integer> criaturaRemover = new ArrayList<>();
 
+
+        // Vai ver se alguma criatura foi iniciada em cima de um equipamento
         for (Equipment equipment : equipments.values()) {
 
             for (Creature creature : creatures.values()) {
 
                 // Verifica se a criatura remove ou pega o equipamento ou se o equipamento é colocado no mapa
                 if (creature.getX() == equipment.getX() && creature.getY() == equipment.getY()) {
+
                     if (creature.getTipo() == 20) {
+
                         itemsAdicionar.add(equipment);
                         criaturaAdicionar.add(creature.id);
-                    } else {
+
+                    }
+                    else {
+
                         itemsRemover.add(equipment);
                         criaturaRemover.add(creature.id);
+
                     }
-                } else {
-                    board.adicionaEquipment(equipment);
                 }
+                else {
+
+                    board.adicionaEquipment(equipment);
+
+                }
+
             }
+
         }
+
 
         // Adiciona ou remove os equipamentos
         for (int i = 0; i < itemsAdicionar.size(); i++) {
@@ -268,54 +179,53 @@ public class GameManager {
         for (int i = 0; i < itemsRemover.size(); i++) {
             creatures.get(criaturaRemover.get(i)).destroiEquipamento(itemsRemover.get(i), equipments);
         }
+
     }
 
-    //Get WorldSize
+
+
+
+    // Gets
+    // Get WorldSize
     public int[] getWorldSize(){
         return worldSize;
     }
 
-    //get InitialTeamId
+
+    // Get InitialTeamId
     public int getInitialTeamId(){
         return  initialID;
     }
 
-    //get getCurrentTeamId
+
+    // Get getCurrentTeamId
     public int getCurrentTeamId(){
         return currentID;
     }
 
-    //Em cada 2 jogadas troca o dia
-    public boolean isDay() {
-        // Verifica se esta de dia ou de noite
-        return (nrJogadas / 2) % 2 == 0;
-    }
 
-    //Devolve uma string com a informaçao do item na posiçao dada
+    // Devolve uma string com a informaçao do item na posiçao dada
     public String getSquareInfo(int x, int y) {
 
-        String square = board.tabuleiro[y][x];
-        if (square != null) {
+        // Pega o item do tabuleiro
+        ItemTabuleiro tile = board.tabuleiro[y][x];
 
-            // Verificar se a célula tem uma criatura
-            for (Creature creature : creatures.values()) {
-                if (creature.getX() == x && creature.getY() == y) {
-                    return creature.tipoCriaturaChar(creature.getTipo()) + ":" + creature.getId();
-                }
-            }
+        // Verefica se o tile esta empty
+        if (tile == null){
 
-            // Verificar se a célula tem um equipamento
-            for (Equipment equipment : equipments.values()) {
-                if (equipment.getX() == x && equipment.getY() == y) {
-                    return "E:" + equipment.getId();
-                }
-            }
+            return "";
+
         }
-        return "";
+
+        // Faz return
+        return tile.info();
+
     }
 
-    //Devolve info da criatura em um array
+
+    // Devolve info da criatura em um array
     public String[] getCreatureInfo(int id){
+
         //Verefica se existe a criatura
         if(creatures.get(id) == null){
             return null;
@@ -325,26 +235,30 @@ public class GameManager {
         Creature criatura = creatures.get(id);
 
         //Cria a String
-        String[] partes = new String[6];
+        String[] partes = new String[7];
 
         //Poe as insformacoes da criatura na string
-        partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(criatura.tipoCriatura(criatura.getTipo()));
-        partes[2] = String.valueOf(criatura.getNome());
-        partes[3] = String.valueOf(criatura.getX());
-        partes[4] = String.valueOf(criatura.getY());
-        partes[5] = null;
+        partes[0] = String.valueOf(id); // ID
+        partes[1] = criatura.getNomeDaCategoria(); // Categoria
+        partes[2] = String.valueOf(criatura.tipoCriatura(criatura.getTipo())); // Tipo
+        partes[3] = String.valueOf(criatura.getNome()); // Nome
+        partes[4] = String.valueOf(criatura.getX()); // X
+        partes[5] = String.valueOf(criatura.getY()); // Y
+        partes[6] = null;
 
         //Final (;
         return partes;
+
     }
 
-    //Devolve info da criatura em uma string
+
+    // Devolve info da criatura em uma string
     public String getCreatureInfoAsString(int id){
         return creatures.get(id).toString();
     }
 
-    //Devolve info do equipamento em um array
+
+    // Devolve info do equipamento em um array
     public String[] getEquipmentInfo(int id){
         //Verefica se existe o item
         if(equipments.get(id) == null){
@@ -368,7 +282,8 @@ public class GameManager {
         return partes;
     }
 
-    //Devolve info do equipamento em uma string
+
+    // Devolve info do equipamento em uma string
     public String getEquipmentInfoAsString(int id) {
         Equipment equipamento = equipments.get(id);
 
@@ -379,7 +294,17 @@ public class GameManager {
         return equipamento.toString();
     }
 
-    //Verefica se uma criatura tem um certo equipamento
+
+
+
+    // Jogo
+    // Em cada 2 jogadas troca o dia
+    public boolean isDay() {
+        // Verifica se esta de dia ou de noite
+        return (nrJogadas / 2) % 2 == 0;
+    }
+
+    // Verefica se uma criatura tem um certo equipamento
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
 
         //Verefica se a criatura existe
@@ -399,17 +324,17 @@ public class GameManager {
         return criatura.temEquipamento(equipmentTypeId);
     }
 
-    //get currentID
+    // get currentID
     public void currentID() {
 
-        if (currentID == 0){
-            currentID = 1;
+        if (currentID == 20){
+            currentID = 10;
         } else {
-            currentID = 0;
+            currentID = 20;
         }
     }
 
-    //Verefica se a posiçao esta dentro do tabuleiro de memoria
+    // Verefica se a posiçao esta dentro do tabuleiro de memoria
     public boolean positionInBoard(int x, int y){
         return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
     }
@@ -419,7 +344,7 @@ public class GameManager {
         return (xO == xD && (yD == yO + 1 || yD == yO - 1)) || (yO == yD && (xD == xO + 1 || xD == xO - 1));
     }
 
-    //Move item do tabuleiro
+    // Move item do tabuleiro
     public boolean move(int xO, int yO, int xD, int yD) {
 
         // Verifica se a movimentacao é valida
@@ -436,15 +361,15 @@ public class GameManager {
 
                         if (equipment != null) {
                             // Se for um humano, pega o equipamento e se for zumbi, destrói o equipamento
-                            if (creature.getTipo() == 1) {
+                            if (creature.getTipo() == 20) {
                                 creature.adicionaEquipamento(equipment, equipments);
-                            } else if(creature.getTipo() == 0){
+                            } else if(creature.getTipo() == 10){
                                 creature.destroiEquipamento(equipment, equipments);
                             }
                         }
 
                         creature.atualizaPosicao(xD,yD);
-                        board.setItem(xD,yD,creature.toString());
+                        board.setItem(xD,yD,creature);
                         board.removeItem(xO,yO);
                         nrJogadas++;
                         currentID();
@@ -457,7 +382,7 @@ public class GameManager {
         return false;
     }
 
-    //Faz retorno ao equipamento em uma certa coordenada se existir
+    // Faz retorno ao equipamento em uma certa coordenada se existir
     public Equipment existeEquipamento(int x, int y){
 
         //Inicialiaza equipamento a NULL
@@ -475,12 +400,15 @@ public class GameManager {
         return equipment;
     }
 
-    //Verefica se o jogo acabou
+    // Verefica se o jogo acabou
     public boolean gameIsOver(){
         return nrJogadas >= 12;
     }
 
-    //get Survivors
+
+
+
+    // Personalizaçao de menus
     public ArrayList<String> getSurvivors(){
 
         ArrayList<String> survivors = new ArrayList<>();
@@ -502,16 +430,24 @@ public class GameManager {
         return new HashMap<>();
     }
 
-    public static void main(String[] args) {
+    public List<Integer> getIdsInSafeHaven(){
 
+        return null;
     }
 
+
+
+
+    // Salva o jogo
     public void saveGame(File file) throws IOException {
 
     }
 
-    public List<Integer> getIdsInSafeHaven(){
 
-        return null;
+
+
+    // Main (;
+    public static void main(String[] args) {
+
     }
 }
