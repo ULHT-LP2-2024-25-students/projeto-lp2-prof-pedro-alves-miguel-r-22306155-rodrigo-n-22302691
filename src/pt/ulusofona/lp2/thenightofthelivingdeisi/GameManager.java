@@ -83,6 +83,12 @@ public class GameManager {
         nrEquipamentos = GameReader.lerNumeroDeEquipamento(scanner, numeroDaLinha);
 
 
+        // Se nao houver equipamentos vai começar o jogo
+        if(nrEquipamentos == 0){
+            return;
+        }
+
+
         // Loop para ler os equipamentos
         equipments = GameReader.lerEquipamentos(scanner, numeroDaLinha, nrEquipamentos, worldSize);
         numeroDaLinha += nrEquipamentos;

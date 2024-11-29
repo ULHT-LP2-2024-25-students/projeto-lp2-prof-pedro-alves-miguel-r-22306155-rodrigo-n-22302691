@@ -137,7 +137,7 @@ public class GameReader {
         // Verefica se existe uma proxima linha
         if(!scanner.hasNext()){
 
-            throw new InvalidFileException("Erro: Falta da linha do numero de equipamento.", numeroDaLinha);
+            return 0;
 
         }
 
@@ -167,7 +167,7 @@ public class GameReader {
         // Verefica se existe uma proxima linha
         if(!scanner.hasNext()){
 
-            throw new InvalidFileException("Erro: Falta da linha do numero de portas.", numeroDaLinha);
+            return 0;
 
         }
 
