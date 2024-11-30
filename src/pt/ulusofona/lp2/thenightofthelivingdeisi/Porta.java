@@ -25,8 +25,7 @@ public class Porta extends ItemTabuleiro{
 
     int getPosicaoY() { return posicaoY; }
 
-
-
+    // Metodos
 
     // Overrides
     @Override

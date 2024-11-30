@@ -6,6 +6,11 @@ public class Escudo extends Equipment{
         super(id, tipo, posicaoX, posicaoY);
     }
 
+    // retorna true caso seja um equipamento defensivo, caso contrario retorna false
+    boolean tipoArma(){
+        return true;
+    }
+
     // To String
     @Override
     public String toString() {

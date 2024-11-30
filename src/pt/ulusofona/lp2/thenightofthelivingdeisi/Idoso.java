@@ -9,14 +9,25 @@ public class Idoso extends Creature {
     }
 
 
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment){
 
+        // Só se pode movimentar na diagonal
+        return Math.abs(xD - xO) == 1 && Math.abs(yD - yO) == 1;
+    }
 
     // Override
     @Override
     public String toString() {
 
+        if(equipment == null){
+
+            return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | "
+                    + tipoEquipamento(tipo) + " @ " + coordenadas();
+
+        }
+
         return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | "
-                + tipoEquipamento(tipo) + " @ " + coordenadas();
+                + tipoEquipamento(tipo) + " @ " + coordenadas() + " | " + equipment;
 
     }
 

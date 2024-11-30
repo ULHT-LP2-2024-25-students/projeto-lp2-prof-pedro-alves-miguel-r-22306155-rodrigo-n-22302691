@@ -1,7 +1,5 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-import java.util.HashMap;
-
 public class Board {
 
     // Atributos
@@ -25,7 +23,10 @@ public class Board {
 
     }
 
-
+    // Verifica se a posicao é valida no tabuleiro
+    public boolean positionInBoard(int x, int y){
+        return x >= 0 && x < tabuleiro[0].length && y >= 0 && y < tabuleiro.length;
+    }
 
 
     // Gets
@@ -66,4 +67,10 @@ public class Board {
         tabuleiro[y][x] = null;
 
     }
+
+    ItemTabuleiro getItem(int x, int y){
+
+        return tabuleiro[y][x];
+    }
+
 }

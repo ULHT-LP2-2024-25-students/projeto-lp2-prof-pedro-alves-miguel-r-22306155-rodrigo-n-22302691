@@ -15,7 +15,7 @@ public class Lixivia extends Equipment{
     }
 
 
-
+    boolean tipoArma(){ return true; }
 
     // To String
     @Override

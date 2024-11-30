@@ -16,6 +16,7 @@ public abstract class Creature extends ItemTabuleiro {
     protected int posicaoY;
     protected ImageIcon png;
     protected int equipCount;
+    protected Equipment equipment;
     protected HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
 
 
@@ -98,6 +99,7 @@ public abstract class Creature extends ItemTabuleiro {
             idPorEquipamento.put(equipment.tipo, new ArrayList<>());
         }
 
+        this.equipment = equipment;
         idPorEquipamento.get(equipment.tipo).add(equipment);
         equipCount++;
         equipments.remove(equipment.getId());
@@ -123,6 +125,9 @@ public abstract class Creature extends ItemTabuleiro {
         return true;
     }
 
+    abstract public String info();
+
+    abstract public boolean move(int xO, int yO, int xD, int yD, Equipment equipment);
 
 
 
@@ -152,12 +157,8 @@ public abstract class Creature extends ItemTabuleiro {
 
     String getNomeDaCategoria(){ return this.nomeDaCategoria; }
 
-
-
-
     // ToString
     abstract public String toString();
 
-    abstract public String info();
 
 }

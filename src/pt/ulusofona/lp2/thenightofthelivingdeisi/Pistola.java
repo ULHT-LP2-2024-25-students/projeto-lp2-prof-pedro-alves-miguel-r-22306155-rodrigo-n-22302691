@@ -15,7 +15,7 @@ public class Pistola extends Equipment{
     }
 
 
-
+    boolean tipoArma(){ return false; }
 
     // To String
     @Override

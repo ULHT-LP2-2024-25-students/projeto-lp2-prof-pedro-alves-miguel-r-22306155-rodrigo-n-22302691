@@ -312,6 +312,7 @@ public class GameReader {
 
         // Vai ler todas as linhas com as informaçoes das criaturas
         HashMap<Integer, Equipment> equipamentos = new HashMap<>();
+
         for(int count = 0; count < nrEquipamentos; count++){
 
             numeroDaLinha++;
@@ -326,6 +327,7 @@ public class GameReader {
 
             // Verefica o numero de informaçoes da linha
             String[] partes = scanner.nextLine().split(" : ");
+
             if(partes.length != 4){
 
                 throw new InvalidFileException("Erro: Falta de informaçoes do equipamento.", numeroDaLinha);
@@ -395,6 +397,7 @@ public class GameReader {
 
         // Vai ler todas as linhas com as informaçoes das criaturas
         ArrayList<Porta> portas = new ArrayList<>();
+
         for(int count = 0; count < nrPortas; count++){
 
             numeroDaLinha++;
@@ -409,6 +412,7 @@ public class GameReader {
 
             // Verefica o numero de informaçoes da linha
             String[] partes = scanner.nextLine().split(" : ");
+
             if(partes.length != 2){
 
                 throw new InvalidFileException("Erro: Falta de informaçoes da porta.", numeroDaLinha);

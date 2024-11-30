@@ -40,7 +40,7 @@ public abstract class Equipment extends ItemTabuleiro {
     }
 
 
-
+    abstract boolean tipoArma();
 
     // Gets
     int getTipo(){

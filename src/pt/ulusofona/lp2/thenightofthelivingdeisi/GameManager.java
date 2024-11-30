@@ -333,66 +333,75 @@ public class GameManager {
     // get currentID
     public void currentID() {
 
-        if (currentID == 20){
+        if (currentID == 20) {
             currentID = 10;
         } else {
             currentID = 20;
         }
     }
 
-    // Verefica se a posiçao esta dentro do tabuleiro de memoria
-    public boolean positionInBoard(int x, int y){
-        return x >= 0 && x < worldSize[1] && y >= 0 && y < worldSize[0];
-    }
-
-    // Verifica se a criatura andou uma casa na lateral
-    public boolean movimentoRestrito(int xO, int yO, int xD, int yD){
-        return (xO == xD && (yD == yO + 1 || yD == yO - 1)) || (yO == yD && (xD == xO + 1 || xD == xO - 1));
-    }
-
     // Move item do tabuleiro
     public boolean move(int xO, int yO, int xD, int yD) {
+        // Verifica se a posição de destino está dentro do tabuleiro
+        if (!board.positionInBoard(xD, yD)) {
+            return false;
+        }
 
-        // Verifica se a movimentacao é valido
-        if (movimentoRestrito(xO, yO, xD, yD)) {
+        // Obtém a criatura na posição de origem
+        for (Creature creature : creatures.values()) {
+            if (creature.getX() == xO && creature.getY() == yO && creature.getTipo() == currentID) {
 
-            Equipment equipment = existeEquipamento(xD,yD);
-            // Verfica se as coordenadas de destino estao dentro do tabuleiro e se estao vazias
-            if (positionInBoard(xD,yD) && board.squareVazio(xD,yD,equipment)) {
 
-                // Atualiza posicao das criaturas
-                for (Creature creature : creatures.values()) {
+                // Obtém equipamento na posição de destino, se existir
+                Equipment equipment = existeEquipamento(xD, yD);
+                // Verifica se a criatura pode se mover para a posição de destino
+                if (!creature.move(xO, yO, xD, yD, equipment)) {
+                    return false;
+                }
 
-                    if(creature.getX() == xO && creature.getY() == yO && creature.getTipo() == currentID){
 
-                        if (equipment != null) {
-                            // Se for um humano, pega o equipamento e se for zumbi, destrói o equipamento
-                            if (creature.getTipo() == 20) {
-                                creature.adicionaEquipamento(equipment, equipments);
-                            } else if(creature.getTipo() == 10){
-                                creature.destroiEquipamento(equipment, equipments);
-                            }
-                        }
+                // Verifica se o destino está vazio ou tem equipamento interagível
+                if (!board.squareVazio(xD, yD, equipment)) {
+                    return false;
+                }
 
-                        creature.atualizaPosicao(xD,yD);
-                        board.setItem(xD,yD,creature);
-                        board.removeItem(xO,yO);
-                        nrJogadas++;
-                        currentID();
-                        return true;
+                // Interage com equipamento
+                if (equipment != null) {
+
+                    if (creature.getTipo() == 20) {
+
+                        creature.adicionaEquipamento(equipment, equipments);
+
+                    } else if (creature.getTipo() == 10) {
+
+                        creature.destroiEquipamento(equipment, equipments);
 
                     }
                 }
+
+                // Atualiza a posição da criatura
+                creature.atualizaPosicao(xD, yD);
+                board.setItem(xD, yD, creature);
+                board.removeItem(xO, yO);
+
+                // Atualiza jogadas e ID do jogador atual
+                nrJogadas++;
+                currentID();
+
+                return true;
             }
         }
+
         return false;
     }
+
 
     // Faz retorno ao equipamento em uma certa coordenada se existir
     public Equipment existeEquipamento(int x, int y){
 
         //Inicialiaza equipamento a NULL
         Equipment equipment = null;
+
 
         //Verefica se o equipamento existe
         for(Equipment equip : equipments.values()){

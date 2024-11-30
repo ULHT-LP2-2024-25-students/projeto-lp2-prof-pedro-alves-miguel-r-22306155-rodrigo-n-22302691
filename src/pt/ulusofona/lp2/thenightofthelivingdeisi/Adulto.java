@@ -8,14 +8,27 @@ public class Adulto extends Creature {
         nomeDaCategoria = "Adulto";
     }
 
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment){
 
-
+        return (Math.abs(xD - xO) <= 2 && Math.abs(yD - yO) == 0) ||
+                (Math.abs(yD - yO) <= 2 && Math.abs(xD - xO) == 0) ||
+                (Math.abs(xD - xO) <= 2 && Math.abs(xD - xO) == Math.abs(yD - yO));
+    }
 
     // Override
     @Override
     public String toString() {
+
+        if(equipment == null){
+
+            return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | "
+                    + tipoEquipamento(tipo) + " @ " + coordenadas();
+
+        }
+
         return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | "
-                + tipoEquipamento(tipo) + " @ " + coordenadas();
+                + tipoEquipamento(tipo) + " @ " + coordenadas() + " | " + equipment;
+
     }
 
     @Override

@@ -7,6 +7,13 @@ public class Vampiro extends Creature{
         nomeDaCategoria = "Vampiro";
     }
 
+
+
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment){
+
+        return Math.abs(xD -xO) <= 1 && Math.abs(yD - yO) <= 1;
+    }
+
     @Override
     public String toString() {
         return id + " | Vampiro | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();

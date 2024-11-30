@@ -6,6 +6,7 @@ public class Espada extends Equipment {
         super(id, tipo, posicaoX, posicaoY);
     }
 
+    boolean tipoArma(){ return false; }
     // To String
     @Override
     public String toString() {
