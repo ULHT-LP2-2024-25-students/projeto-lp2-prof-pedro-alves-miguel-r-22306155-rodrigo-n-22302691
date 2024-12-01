@@ -14,7 +14,9 @@ public class Escudo extends Equipment{
     // To String
     @Override
     public String toString() {
+
         return id + " | Escudo de madeira @ " + coordenadas();
+
     }
 
     @Override

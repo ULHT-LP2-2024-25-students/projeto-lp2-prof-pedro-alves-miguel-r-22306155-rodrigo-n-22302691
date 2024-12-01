@@ -40,7 +40,7 @@ public abstract class Equipment extends ItemTabuleiro {
     }
 
 
-    abstract boolean tipoArma();
+
 
     // Gets
     int getTipo(){
@@ -62,9 +62,28 @@ public abstract class Equipment extends ItemTabuleiro {
 
 
 
+    // Sets
+    void setX(int x){
+
+        this.posicaoX = x;
+
+    }
+
+
+    void setY(int y){
+
+        this.posicaoY = y;
+
+    }
+
+
+
+
     // To String
     abstract public String toString();
 
     abstract public String info();
+
+    abstract boolean tipoArma();
 
 }

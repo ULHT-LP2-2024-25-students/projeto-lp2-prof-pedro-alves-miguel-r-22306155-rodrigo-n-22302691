@@ -11,35 +11,37 @@ public class Crianca extends Creature {
 
 
 
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment){
+    // Override
+    @Override
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day){
 
-        boolean movimentoHorizontal = (xO == xD) && (Math.abs(yD - yO) == 1);
-        boolean movimentoVertical = (yO == yD) && (Math.abs(xD - xO) == 1);
-        // Se nao houver equipamento pode mover-se
-        if(equipment == null){
+        // Calcula a distancia
+        int distanciaX = Math.abs(xD - xO);
+        int distanciaY = Math.abs(yD - yO);
 
-            return movimentoHorizontal || movimentoVertical;
-        }
 
-        // Só se pode mover caso o equipamento for defensivo
-        return (movimentoHorizontal || movimentoVertical) && equipment.tipoArma();
+        // Verefica se pode andar
+        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+        return distanciaDiagonal <= 1;
+
     }
 
-    // Override
+
+    @Override
+    public boolean apanharEquipamento(Equipment equipamento){
+
+        return equipamento.tipoArma();
+
+    }
+
+
     @Override
     public String toString() {
 
-        if(equipment == null){
-
-            return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | "
-                    + tipoEquipamento(tipo) + " @ " + coordenadas();
-
-        }
-
-        return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | "
-                + tipoEquipamento(tipo) + " @ " + coordenadas() + " | " + equipment;
+        return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
 
     }
+
 
     @Override
     public String info() {

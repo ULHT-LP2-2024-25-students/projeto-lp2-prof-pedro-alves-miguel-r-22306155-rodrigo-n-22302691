@@ -15,7 +15,7 @@ public class Pistola extends Equipment{
     }
 
 
-    boolean tipoArma(){ return false; }
+
 
     // To String
     @Override
@@ -29,5 +29,8 @@ public class Pistola extends Equipment{
         return "E:" + id;
 
     }
+
+    @Override
+    boolean tipoArma(){ return false; }
 
 }

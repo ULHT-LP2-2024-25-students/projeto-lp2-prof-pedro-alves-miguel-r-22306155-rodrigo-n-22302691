@@ -10,27 +10,46 @@ public class Cao extends Creature{
 
 
 
-    @Override
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment) {
-
-        // Cao so pode andar 2 casas na vertical ou na horizontal
-        boolean movimentoHorizontal = (xO == xD) && (Math.abs(yD - yO) <= 2);
-        boolean movimentoVertical = (yO == yD) && (Math.abs(xD - xO) <= 2);
-
-        // Caso nao haja equipamento pode se mover
-        if(equipment == null){
-
-            return movimentoHorizontal || movimentoVertical;
-        }
-        // Caso haja equipamento na posicao de destino é invalido
-        return false;
-    }
 
     // Override
     @Override
-    public String toString() {
-        return id + " | Cão | " + nome + " @ " + coordenadas();
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day) {
+
+        // Calcula a distancia
+        int distanciaX = Math.abs(xD - xO);
+        int distanciaY = Math.abs(yD - yO);
+
+
+        // Verefica se tentou andar na diagonal
+        if(distanciaX != 0 && distanciaY != 0){
+
+            return false;
+
+        }
+
+
+        // Verefica se pode andar
+        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+        return distanciaDiagonal <= 4;
+
     }
+
+
+    @Override
+    public boolean apanharEquipamento(Equipment equipamento){
+
+        return false;
+
+    }
+
+
+    @Override
+    public String toString() {
+
+        return id + " | Cão | " + nome + " @ " + coordenadas();
+
+    }
+
 
     @Override
     public String info() {

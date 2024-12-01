@@ -6,12 +6,24 @@ public class Espada extends Equipment {
         super(id, tipo, posicaoX, posicaoY);
     }
 
-    boolean tipoArma(){ return false; }
+
+
+
+    // Override
+    @Override
+    boolean tipoArma(){
+
+        return false;
+
+    }
+
+
     // To String
     @Override
     public String toString() {
         return id + " | Espada samurai @ " + coordenadas();
     }
+
 
     @Override
     public String info() {
