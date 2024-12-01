@@ -20,7 +20,7 @@ public class Lixivia extends Equipment{
     // To String
     @Override
     public String toString() {
-        return id + " | Lixivia @ " + coordenadas() + " | " + litros + " litros";
+        return id + " | Lixívia @ " + coordenadas() + " | " + litros + " litros";
     }
 
     @Override
