@@ -9,15 +9,44 @@ public class Vampiro extends Creature{
 
 
 
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment){
 
-        return Math.abs(xD -xO) <= 1 && Math.abs(yD - yO) <= 1;
+    // Override
+    @Override
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day){
+
+        if(day){
+
+            return false;
+
+        }
+
+        // Calcula a distancia
+        int distanciaX = Math.abs(xD - xO);
+        int distanciaY = Math.abs(yD - yO);
+
+
+        // Verefica se pode andar
+        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+        return distanciaDiagonal <= 2;
+
     }
+
+
+    @Override
+    public boolean apanharEquipamento(Equipment equipamento){
+
+        return true;
+
+    }
+
 
     @Override
     public String toString() {
+
         return id + " | Vampiro | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+
     }
+
 
     @Override
     public String info() {

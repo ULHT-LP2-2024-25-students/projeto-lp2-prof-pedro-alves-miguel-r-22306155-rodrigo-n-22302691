@@ -46,7 +46,7 @@ public class GameManager {
     // Vai ler o ficheiro
     public void parseGame(File game) throws InvalidFileException {
 
-        // Cada vez que le um novo ficheiro reinicia o numero de jogadas
+        // Cada vez que le um novo ficheiro reinicia variaveis globais
         nrJogadas = 0;
 
         // Vai reiniciar o numero de linhas lidas
@@ -85,7 +85,11 @@ public class GameManager {
 
         // Se nao houver equipamentos vai começar o jogo
         if(nrEquipamentos == 0){
+
+            equipments = new HashMap<>();
+            portas = new ArrayList<>();
             return;
+
         }
 
 
@@ -126,12 +130,16 @@ public class GameManager {
 
         // Adiciona as criaturas no tabuleiro
         for (Creature creature : creatures.values()) {
+
             board.adicionaCreature(creature);
+
         }
 
         // Adiciona portas
         for (Porta porta: portas){
+
             board.setItem(porta.getPosicaoX(), porta.getPosicaoY(), porta);
+
         }
 
 
@@ -179,11 +187,15 @@ public class GameManager {
 
         // Adiciona ou remove os equipamentos
         for (int i = 0; i < itemsAdicionar.size(); i++) {
+
             creatures.get(criaturaAdicionar.get(i)).adicionaEquipamento(itemsAdicionar.get(i), equipments);
+
         }
 
         for (int i = 0; i < itemsRemover.size(); i++) {
+
             creatures.get(criaturaRemover.get(i)).destroiEquipamento(itemsRemover.get(i), equipments);
+
         }
 
     }
@@ -260,18 +272,21 @@ public class GameManager {
 
     // Devolve info da criatura em uma string
     public String getCreatureInfoAsString(int id){
+
         return creatures.get(id).toString();
+
     }
 
 
     // Devolve info do equipamento em um array
     public String[] getEquipmentInfo(int id){
+
         //Verefica se existe o item
         if(equipments.get(id) == null){
             return null;
         }
 
-        //Guarda a criatura
+        //Guarda o equipamento
         Equipment equipamento = equipments.get(id);
 
         //Cria a String
@@ -286,11 +301,13 @@ public class GameManager {
 
         //Final (;
         return partes;
+
     }
 
 
     // Devolve info do equipamento em uma string
     public String getEquipmentInfoAsString(int id) {
+
         Equipment equipamento = equipments.get(id);
 
         if (equipamento == null) {
@@ -306,27 +323,29 @@ public class GameManager {
     // Jogo
     // Em cada 2 jogadas troca o dia
     public boolean isDay() {
+
         // Verifica se esta de dia ou de noite
         return (nrJogadas / 2) % 2 == 0;
+
     }
 
     // Verefica se uma criatura tem um certo equipamento
     public boolean hasEquipment(int creatureId, int equipmentTypeId) {
 
-        //Verefica se a criatura existe
+        // Verefica se a criatura existe
         if(creatures.get(creatureId) == null){
             return false;
         }
 
-        //Atribui a criatura segundo o id dado por parametro
+        // Atribui a criatura segundo o id dado por parametro
         Creature criatura = creatures.get(creatureId);
 
-        //Verefica se a criatura nao é um zombie
+        // Verefica se a criatura nao é um zombie
         if(criatura.getTipo() == 0){
             return false;
         }
 
-        //Verefica se o Humano tem o equipamento
+        // Verefica se o Humano tem o equipamento
         return criatura.temEquipamento(equipmentTypeId);
     }
 
@@ -342,6 +361,7 @@ public class GameManager {
 
     // Move item do tabuleiro
     public boolean move(int xO, int yO, int xD, int yD) {
+
         // Verifica se a posição de destino está dentro do tabuleiro
         if (!board.positionInBoard(xD, yD)) {
             return false;
@@ -349,24 +369,52 @@ public class GameManager {
 
         // Obtém a criatura na posição de origem
         for (Creature creature : creatures.values()) {
+
             if (creature.getX() == xO && creature.getY() == yO && creature.getTipo() == currentID) {
 
 
                 // Obtém equipamento na posição de destino, se existir
                 Equipment equipment = existeEquipamento(xD, yD);
                 // Verifica se a criatura pode se mover para a posição de destino
-                if (!creature.move(xO, yO, xD, yD, equipment)) {
+                if (!creature.move(xO, yO, xD, yD, equipment, isDay())) {
+
                     return false;
+
                 }
 
 
                 // Verifica se o destino está vazio ou tem equipamento interagível
                 if (!board.squareVazio(xD, yD, equipment)) {
+
                     return false;
+
                 }
 
+
                 // Interage com equipamento
+                Equipment equipamentoEquipado = null;
                 if (equipment != null) {
+
+                    // Verefica se a criatura pode apanhar o equipamento
+                    if(creature.getTipo() == 20 && !creature.apanharEquipamento(equipment)){
+
+                        return false;
+
+                    }
+
+
+                    // Verefica se tem que largar o equipamento ja equipado
+                    if(creature.getEquipment() != null){
+
+                        // Atualiza as coordenadas no item equipado
+                        creature.getEquipment().setX(creature.getX());
+                        creature.getEquipment().setY(creature.getY());
+
+                        // Diz que tinha um equipamento equipado
+                        equipamentoEquipado = creature.getEquipment();
+
+                    }
+
 
                     if (creature.getTipo() == 20) {
 
@@ -377,18 +425,31 @@ public class GameManager {
                         creature.destroiEquipamento(equipment, equipments);
 
                     }
+
                 }
+
 
                 // Atualiza a posição da criatura
                 creature.atualizaPosicao(xD, yD);
                 board.setItem(xD, yD, creature);
                 board.removeItem(xO, yO);
 
+
+                // Se tinha um equipamento entao vai dropar
+                if(equipamentoEquipado != null){
+
+                    board.adicionaEquipment(equipamentoEquipado);
+                    equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
+
+                }
+
+
                 // Atualiza jogadas e ID do jogador atual
                 nrJogadas++;
                 currentID();
 
                 return true;
+
             }
         }
 
@@ -465,4 +526,5 @@ public class GameManager {
     public static void main(String[] args) {
 
     }
+
 }

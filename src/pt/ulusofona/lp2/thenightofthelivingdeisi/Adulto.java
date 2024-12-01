@@ -8,28 +8,52 @@ public class Adulto extends Creature {
         nomeDaCategoria = "Adulto";
     }
 
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment){
 
-        return (Math.abs(xD - xO) <= 2 && Math.abs(yD - yO) == 0) ||
-                (Math.abs(yD - yO) <= 2 && Math.abs(xD - xO) == 0) ||
-                (Math.abs(xD - xO) <= 2 && Math.abs(xD - xO) == Math.abs(yD - yO));
-    }
+
 
     // Override
-    @Override
-    public String toString() {
+    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day){
 
-        if(equipment == null){
+        // Calcula a distancia
+        int distanciaX = Math.abs(xD - xO);
+        int distanciaY = Math.abs(yD - yO);
 
-            return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | "
-                    + tipoEquipamento(tipo) + " @ " + coordenadas();
+
+        // Verefica se pode andar
+        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+
+        // Verefica se anda em xadres
+        if(distanciaDiagonal <= 4){
+
+            return true;
+
+        }
+        if(distanciaDiagonal > 4 && distanciaY <= 8){
+
+            return distanciaX == distanciaY;
 
         }
 
-        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | "
-                + tipoEquipamento(tipo) + " @ " + coordenadas() + " | " + equipment;
+        return false;
 
     }
+
+
+    @Override
+    public boolean apanharEquipamento(Equipment equipamento){
+
+        return true;
+
+    }
+
+
+    @Override
+    public String toString() {
+
+        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+
+    }
+
 
     @Override
     public String info() {
@@ -37,4 +61,5 @@ public class Adulto extends Creature {
         return tipoCriaturaChar(tipo) + ":" + id;
 
     }
+
 }

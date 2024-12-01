@@ -18,6 +18,7 @@ public abstract class Creature extends ItemTabuleiro {
     protected int equipCount;
     protected Equipment equipment;
     protected HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
+    protected String textoEquipamento = "";
 
 
 
@@ -55,6 +56,7 @@ public abstract class Creature extends ItemTabuleiro {
         return "Zombie";
     }
 
+
     // Tipo de criatura em char
     String tipoCriaturaChar(int tipo){
 
@@ -62,7 +64,9 @@ public abstract class Creature extends ItemTabuleiro {
             return "H";
         }
         return "Z";
+
     }
+
 
     //O equipamento do tipo se tem ou destruiu
     String tipoEquipamento(int tipo){
@@ -81,11 +85,16 @@ public abstract class Creature extends ItemTabuleiro {
         return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
+
     // Atualiza posicao da criatura
     void atualizaPosicao(int posicaoX, int posicaoY) {
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }
+
+
+    // Ataca
+
 
 
 
@@ -94,16 +103,23 @@ public abstract class Creature extends ItemTabuleiro {
     // Adiciona o equipamento no hashMap
     void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
 
+        // Atualiza o historico de equipamentos
         if(idPorEquipamento.get(equipment.tipo) == null){
 
             idPorEquipamento.put(equipment.tipo, new ArrayList<>());
         }
-
-        this.equipment = equipment;
         idPorEquipamento.get(equipment.tipo).add(equipment);
+
+
+        // Equipa o equipamento
+        this.equipment = equipment;
         equipCount++;
         equipments.remove(equipment.getId());
+
+        textoEquipamento = " | " + equipment.toString();
+
     }
+
 
     // Destroi o equipamento
     void destroiEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
@@ -113,21 +129,19 @@ public abstract class Creature extends ItemTabuleiro {
 
     }
 
+
     // Verefica se tem o equipamento
     boolean temEquipamento (int equipmentTypeId){
 
-        if (idPorEquipamento.get(equipmentTypeId) == null || idPorEquipamento.get(equipmentTypeId).isEmpty()){
-
+        if(equipment == null){
             return false;
-
         }
 
-        return true;
+        return equipment.getTipo() == equipmentTypeId;
+
     }
 
-    abstract public String info();
 
-    abstract public boolean move(int xO, int yO, int xD, int yD, Equipment equipment);
 
 
 
@@ -137,28 +151,53 @@ public abstract class Creature extends ItemTabuleiro {
         return this.nome;
     }
 
+
     int getX(){
         return this.posicaoX;
     }
+
 
     int getY(){
         return this.posicaoY;
     }
 
+
     int getTipo(){
         return this.tipo;
     }
+
 
     int getId(){
         return this.id;
     }
 
+
     int getCategoria(){ return this.categoria; }
+
 
     String getNomeDaCategoria(){ return this.nomeDaCategoria; }
 
-    // ToString
+
+    Equipment getEquipment(){
+
+        return equipment;
+
+    }
+
+
+
+
+    // Abs
     abstract public String toString();
+
+
+    abstract public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day);
+
+
+    abstract public boolean apanharEquipamento(Equipment equipamento);
+
+
+    abstract public String info();
 
 
 }
