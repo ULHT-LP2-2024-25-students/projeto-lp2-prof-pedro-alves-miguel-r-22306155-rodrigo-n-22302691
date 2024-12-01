@@ -21,9 +21,9 @@ public class Porta extends ItemTabuleiro{
 
 
     // Gets
-    int getPosicaoX() { return posicaoX; }
+    int getX() { return posicaoX; }
 
-    int getPosicaoY() { return posicaoY; }
+    int getY() { return posicaoY; }
 
     // Metodos
 

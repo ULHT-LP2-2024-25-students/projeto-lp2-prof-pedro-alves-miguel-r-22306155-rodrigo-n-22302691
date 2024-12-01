@@ -116,7 +116,7 @@ public abstract class Creature extends ItemTabuleiro {
         equipCount++;
         equipments.remove(equipment.getId());
 
-        textoEquipamento = " | " + equipment.toString();
+        textoEquipamento = " | " + equipment;
 
     }
 
@@ -198,6 +198,9 @@ public abstract class Creature extends ItemTabuleiro {
 
 
     abstract public String info();
+
+
+    abstract public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas);
 
 
 }

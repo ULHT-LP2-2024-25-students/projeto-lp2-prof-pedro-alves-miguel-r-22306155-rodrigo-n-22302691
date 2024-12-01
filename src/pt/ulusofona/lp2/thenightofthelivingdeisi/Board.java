@@ -17,7 +17,7 @@ public class Board {
 
 
     // Metodos
-    boolean squareVazio(int x, int y, Equipment equipment) {
+    boolean squareVazio(int x, int y) {
 
         return tabuleiro[y][x] == null || tabuleiro[y][x].info().split(":")[0].equals("E");
 

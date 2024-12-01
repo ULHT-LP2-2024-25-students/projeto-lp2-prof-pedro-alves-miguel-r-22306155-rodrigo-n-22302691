@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,6 +37,8 @@ public class GameManager {
 
     //Informaçoes do jogo
     private int currentID;
+
+    private ArrayList<Creature> safeHaven = new ArrayList<Creature>();
 
 
 
@@ -138,7 +139,7 @@ public class GameManager {
         // Adiciona portas
         for (Porta porta: portas){
 
-            board.setItem(porta.getPosicaoX(), porta.getPosicaoY(), porta);
+            board.setItem(porta.getX(), porta.getY(), porta);
 
         }
 
@@ -382,9 +383,23 @@ public class GameManager {
 
                 }
 
+                if (creature.podeIrParaSafeHaven(xD, yD, portas)) {
+                    // Atualiza posição e remove do tabuleiro
+                    creature.atualizaPosicao(xD, yD);
+                    board.removeItem(xO, yO);
+
+                    // Adiciona ao safeHaven e remove do mapa de criaturas
+                    safeHaven.add(creature);
+
+                    // Atualiza jogadas e ID do jogador atual
+                    nrJogadas++;
+                    currentID();
+                    return true;
+                }
+
 
                 // Verifica se o destino está vazio ou tem equipamento interagível
-                if (!board.squareVazio(xD, yD, equipment)) {
+                if (!board.squareVazio(xD, yD)) {
 
                     return false;
 
@@ -508,7 +523,15 @@ public class GameManager {
 
     public List<Integer> getIdsInSafeHaven(){
 
-        return null;
+        List<Integer> getSafeIds = new ArrayList<>();
+
+        for(Creature safe : safeHaven){
+
+            getSafeIds.add(safe.id);
+
+        }
+
+        return getSafeIds;
     }
 
 
@@ -516,6 +539,7 @@ public class GameManager {
 
     // Salva o jogo
     public void saveGame(File file) throws IOException {
+
 
     }
 

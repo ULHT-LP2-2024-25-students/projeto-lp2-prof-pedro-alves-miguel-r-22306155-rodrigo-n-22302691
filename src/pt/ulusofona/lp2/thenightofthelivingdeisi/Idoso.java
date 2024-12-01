@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import java.util.ArrayList;
+
 public class Idoso extends Creature {
 
     // Construtores
@@ -38,6 +40,24 @@ public class Idoso extends Creature {
 
         return true;
 
+    }
+
+    @Override
+    public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas) {
+
+        // Se tiver o tipo correto entra no safeHaven
+        if (tipo == 20) {
+
+            for (Porta porta : portas) {
+
+                if (porta.getX() == x && porta.getY() == y) {
+                    return true;
+
+                }
+            }
+        }
+
+        return false;
     }
 
 

@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import java.util.ArrayList;
+
 public class Vampiro extends Creature{
 
     public Vampiro(int id, int tipo, int categoria, String nome, int posicaoX, int posicaoY) {
@@ -37,6 +39,13 @@ public class Vampiro extends Creature{
 
         return true;
 
+    }
+
+    @Override
+    public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas) {
+
+        // Nao pode entrar no safeHaven
+        return false;
     }
 
 

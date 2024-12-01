@@ -1,5 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
+import java.util.ArrayList;
+
 public class Crianca extends Creature {
 
     // Construtores
@@ -21,8 +23,8 @@ public class Crianca extends Creature {
 
 
         // Verefica se pode andar
-        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
-        return distanciaDiagonal <= 1;
+        double distancia = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+        return distancia <= 1;
 
     }
 
@@ -32,6 +34,24 @@ public class Crianca extends Creature {
 
         return equipamento.tipoArma();
 
+    }
+
+    @Override
+    public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas) {
+
+        // Se tiver o tipo correto entra no safeHaven
+        if (tipo == 20) {
+
+            for (Porta porta : portas) {
+
+                if (porta.getX() == x && porta.getY() == y) {
+                    return true;
+
+                }
+            }
+        }
+
+        return false;
     }
 
 

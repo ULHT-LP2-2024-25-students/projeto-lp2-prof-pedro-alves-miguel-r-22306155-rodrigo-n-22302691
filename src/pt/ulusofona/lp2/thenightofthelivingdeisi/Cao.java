@@ -1,6 +1,8 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-public class Cao extends Creature{
+import java.util.ArrayList;
+
+public class Cao extends Creature {
 
     // Construtores
     public Cao(int id, int tipo, int categoria, String nome, int posicaoX, int posicaoY) {
@@ -40,6 +42,24 @@ public class Cao extends Creature{
 
         return false;
 
+    }
+
+    @Override
+    public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas) {
+
+        // Se tiver o tipo correto entra no safeHaven
+        if (tipo == 20) {
+
+            for (Porta porta : portas) {
+
+                if (porta.getX() == x && porta.getY() == y) {
+                    return true;
+
+                }
+            }
+        }
+
+        return false;
     }
 
 
