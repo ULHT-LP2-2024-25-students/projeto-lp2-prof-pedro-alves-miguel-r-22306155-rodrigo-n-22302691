@@ -41,6 +41,7 @@ public class Vampiro extends Creature{
 
     }
 
+
     @Override
     public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas) {
 
@@ -50,17 +51,17 @@ public class Vampiro extends Creature{
 
 
     @Override
-    public String toString() {
+    public String info() {
 
-        return id + " | Vampiro | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+        return tipoCriaturaChar(tipo) + ":" + id;
 
     }
 
 
     @Override
-    public String info() {
+    public String toString() {
 
-        return tipoCriaturaChar(tipo) + ":" + id;
+        return id + " | Vampiro | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
 
     }
 

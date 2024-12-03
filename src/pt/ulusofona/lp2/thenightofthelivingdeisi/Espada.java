@@ -18,18 +18,18 @@ public class Espada extends Equipment {
     }
 
 
-    // To String
-    @Override
-    public String toString() {
-        return id + " | Espada samurai @ " + coordenadas();
-    }
-
-
     @Override
     public String info() {
 
         return "E:" + id;
 
+    }
+
+
+    // To String
+    @Override
+    public String toString() {
+        return id + " | Espada samurai @ " + coordenadas();
     }
 
 }

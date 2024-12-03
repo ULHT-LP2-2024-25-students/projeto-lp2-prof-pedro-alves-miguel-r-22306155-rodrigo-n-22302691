@@ -56,17 +56,18 @@ public class Crianca extends Creature {
 
 
     @Override
+    public String info() {
+
+        return tipoCriaturaChar(tipo) + ":" + id;
+
+    }
+
+
+    @Override
     public String toString() {
 
         return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
 
     }
 
-
-    @Override
-    public String info() {
-
-        return tipoCriaturaChar(tipo) + ":" + id;
-
-    }
 }

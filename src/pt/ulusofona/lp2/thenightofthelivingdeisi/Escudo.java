@@ -7,8 +7,17 @@ public class Escudo extends Equipment{
     }
 
     // retorna true caso seja um equipamento defensivo, caso contrario retorna false
+    @Override
     boolean tipoArma(){
         return true;
+    }
+
+
+    @Override
+    public String info() {
+
+        return "E:" + id;
+
     }
 
     // To String
@@ -16,13 +25,6 @@ public class Escudo extends Equipment{
     public String toString() {
 
         return id + " | Escudo de madeira @ " + coordenadas();
-
-    }
-
-    @Override
-    public String info() {
-
-        return "E:" + id;
 
     }
 

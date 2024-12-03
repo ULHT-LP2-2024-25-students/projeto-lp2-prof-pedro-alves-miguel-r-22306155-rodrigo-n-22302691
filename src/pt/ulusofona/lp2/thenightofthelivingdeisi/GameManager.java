@@ -254,19 +254,7 @@ public class GameManager {
         Creature criatura = creatures.get(id);
 
         //Cria a String
-        String[] partes = new String[7];
-
-        //Poe as insformacoes da criatura na string
-        partes[0] = String.valueOf(id); // ID
-        partes[1] = criatura.getNomeDaCategoria(); // Categoria
-        partes[2] = String.valueOf(criatura.tipoCriatura(criatura.getTipo())); // Tipo
-        partes[3] = String.valueOf(criatura.getNome()); // Nome
-        partes[4] = String.valueOf(criatura.getX()); // X
-        partes[5] = String.valueOf(criatura.getY()); // Y
-        partes[6] = null;
-
-        //Final (;
-        return partes;
+        return criatura.getInfo();
 
     }
 
@@ -290,18 +278,7 @@ public class GameManager {
         //Guarda o equipamento
         Equipment equipamento = equipments.get(id);
 
-        //Cria a String
-        String[] partes = new String[5];
-
-        //Poe as insformacoes do equipamento na string
-        partes[0] = String.valueOf(id);
-        partes[1] = String.valueOf(equipamento.getTipo());
-        partes[2] = String.valueOf(equipamento.getX());
-        partes[3] = String.valueOf(equipamento.getY());
-        partes[4] = null;
-
-        //Final (;
-        return partes;
+        return equipamento.getInfo();
 
     }
 

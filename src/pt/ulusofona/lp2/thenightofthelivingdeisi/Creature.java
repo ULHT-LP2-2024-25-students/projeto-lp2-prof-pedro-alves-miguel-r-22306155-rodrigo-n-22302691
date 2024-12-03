@@ -152,17 +152,17 @@ public abstract class Creature extends ItemTabuleiro {
     }
 
 
-    int getX(){
+    public int getX(){
         return this.posicaoX;
     }
 
 
-    int getY(){
+    public int getY(){
         return this.posicaoY;
     }
 
 
-    int getTipo(){
+    public int getTipo(){
         return this.tipo;
     }
 
@@ -175,20 +175,31 @@ public abstract class Creature extends ItemTabuleiro {
     int getCategoria(){ return this.categoria; }
 
 
-    String getNomeDaCategoria(){ return this.nomeDaCategoria; }
+    public String getNomeDaCategoria(){ return this.nomeDaCategoria; }
 
 
-    Equipment getEquipment(){
+    public Equipment getEquipment(){
 
         return equipment;
 
     }
 
+    public String[] getInfo(){
 
+        String[] partes = new String[7];
 
+        //Poe as insformacoes da criatura em string
+        partes[0] = String.valueOf(id); // ID
+        partes[1] = nomeDaCategoria; // Categoria
+        partes[2] = tipoCriatura(tipo); // Tipo
+        partes[3] = nome; // Nome
+        partes[4] = String.valueOf(posicaoX); // X
+        partes[5] = String.valueOf(posicaoY); // Y
+        partes[6] = null;
 
-    // Abs
-    abstract public String toString();
+        //Final (;
+        return partes;
+    }
 
 
     abstract public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day);
@@ -197,10 +208,11 @@ public abstract class Creature extends ItemTabuleiro {
     abstract public boolean apanharEquipamento(Equipment equipamento);
 
 
-    abstract public String info();
-
-
     abstract public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas);
 
 
+    abstract public String info();
+
+    // Abs
+    abstract public String toString();
 }

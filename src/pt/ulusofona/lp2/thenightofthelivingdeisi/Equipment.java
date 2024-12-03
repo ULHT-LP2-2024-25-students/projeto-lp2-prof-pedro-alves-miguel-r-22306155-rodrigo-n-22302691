@@ -35,7 +35,7 @@ public abstract class Equipment extends ItemTabuleiro {
 
     // Metodos
     // Coordenadas do equipamento
-    String coordenadas (){
+    public String coordenadas (){
         return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
@@ -43,19 +43,19 @@ public abstract class Equipment extends ItemTabuleiro {
 
 
     // Gets
-    int getTipo(){
+    public int getTipo(){
         return this.tipo;
     }
 
-    int getId(){
+    public int getId(){
         return this.id;
     }
 
-    int getX(){
+    public int getX(){
         return this.posicaoX;
     }
 
-    int getY(){
+    public int getY(){
         return this.posicaoY;
     }
 
@@ -63,21 +63,34 @@ public abstract class Equipment extends ItemTabuleiro {
 
 
     // Sets
-    void setX(int x){
+    public void setX(int x){
 
         this.posicaoX = x;
 
     }
 
 
-    void setY(int y){
+    public void setY(int y){
 
         this.posicaoY = y;
 
     }
 
 
+    public String[] getInfo(){
 
+        String[] partes = new String[5];
+
+        //Poe as insformacoes do equipamento na string
+        partes[0] = String.valueOf(id);
+        partes[1] = String.valueOf(tipo);
+        partes[2] = String.valueOf(posicaoX);
+        partes[3] = String.valueOf(posicaoY);
+        partes[4] = null;
+
+        //Final (;
+        return partes;
+    }
 
     // To String
     abstract public String toString();

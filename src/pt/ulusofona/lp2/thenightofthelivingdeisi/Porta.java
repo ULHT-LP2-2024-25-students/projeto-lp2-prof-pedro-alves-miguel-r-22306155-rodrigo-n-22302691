@@ -27,17 +27,18 @@ public class Porta extends ItemTabuleiro{
 
     // Metodos
 
-    // Overrides
-    @Override
-    public String toString() {
-        return "";
-    }
-
     @Override
     public String info() {
 
         return "SH";
 
     }
+
+    // To String
+    @Override
+    public String toString() {
+        return "";
+    }
+
 
 }

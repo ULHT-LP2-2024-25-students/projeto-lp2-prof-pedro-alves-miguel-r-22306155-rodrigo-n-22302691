@@ -15,19 +15,23 @@ public class Lixivia extends Equipment{
     }
 
 
+    // Verifica se a arma é defensiva
+    @Override
     boolean tipoArma(){ return true; }
 
-    // To String
-    @Override
-    public String toString() {
-        return id + " | Lixívia @ " + coordenadas() + " | " + litros + " litros";
-    }
 
     @Override
     public String info() {
 
         return "E:" + id;
 
+    }
+
+
+    // To String
+    @Override
+    public String toString() {
+        return id + " | Lixívia @ " + coordenadas() + " | " + litros + " litros";
     }
 
 }

@@ -15,13 +15,9 @@ public class Pistola extends Equipment{
     }
 
 
-
-
-    // To String
+    // Verifica se a arma é defensiva
     @Override
-    public String toString() {
-        return id + " | Pistola Walther PPK @ " + coordenadas() + " | " + municao + " balas";
-    }
+    boolean tipoArma(){ return false; }
 
     @Override
     public String info() {
@@ -30,7 +26,11 @@ public class Pistola extends Equipment{
 
     }
 
+    // To String
     @Override
-    boolean tipoArma(){ return false; }
+    public String toString() {
+        return id + " | Pistola Walther PPK @ " + coordenadas() + " | " + municao + " balas";
+    }
+
 
 }

@@ -17,7 +17,7 @@ public class Idoso extends Creature {
     @Override
     public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day){
 
-        if(!day){
+        if(!day && tipo == 20){
 
             return false;
 
@@ -60,19 +60,18 @@ public class Idoso extends Creature {
         return false;
     }
 
-
     @Override
-    public String toString() {
+    public String info() {
 
-        return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+        return tipoCriaturaChar(tipo) + ":" + id;
 
     }
 
 
     @Override
-    public String info() {
+    public String toString() {
 
-        return tipoCriaturaChar(tipo) + ":" + id;
+        return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
 
     }
 

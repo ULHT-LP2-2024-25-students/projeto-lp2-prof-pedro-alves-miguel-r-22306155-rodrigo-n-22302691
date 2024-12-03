@@ -47,27 +47,14 @@ public class Cao extends Creature {
     @Override
     public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas) {
 
-        // Se tiver o tipo correto entra no safeHaven
-        if (tipo == 20) {
+        for (Porta porta : portas) {
 
-            for (Porta porta : portas) {
+            if (porta.getX() == x && porta.getY() == y) {
+                return true;
 
-                if (porta.getX() == x && porta.getY() == y) {
-                    return true;
-
-                }
             }
         }
-
         return false;
-    }
-
-
-    @Override
-    public String toString() {
-
-        return id + " | Cão | " + nome + " @ " + coordenadas();
-
     }
 
 
@@ -75,6 +62,14 @@ public class Cao extends Creature {
     public String info() {
 
         return tipoCriaturaChar(tipo) + ":" + id;
+
+    }
+
+
+    @Override
+    public String toString() {
+
+        return id + " | Cão | " + nome + " @ " + coordenadas();
 
     }
 
