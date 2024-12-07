@@ -15,6 +15,18 @@ public class Lixivia extends Equipment{
     }
 
 
+    void descrementaLitros(){
+
+        if(litros > 0){
+            litros -= 0.3f;
+        }
+
+        if(litros < 0){
+            litros = 0;
+        }
+    }
+
+
     // Verifica se a arma é defensiva
     @Override
     boolean tipoArma(){ return true; }

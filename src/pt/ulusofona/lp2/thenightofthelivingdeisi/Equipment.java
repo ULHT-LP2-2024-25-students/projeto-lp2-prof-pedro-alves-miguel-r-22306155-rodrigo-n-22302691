@@ -92,6 +92,24 @@ public abstract class Equipment extends ItemTabuleiro {
         return partes;
     }
 
+    public boolean isEscudo(){
+        return this.tipo == 0;
+    }
+
+    public boolean isEspada(){
+        return this.tipo == 1;
+    }
+
+    public boolean isPistola(){
+        return this.tipo == 2;
+    }
+
+    public boolean isLixivia(){
+        return this.tipo == 3;
+    }
+
+
+
     // To String
     abstract public String toString();
 

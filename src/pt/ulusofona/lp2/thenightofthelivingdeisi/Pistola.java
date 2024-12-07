@@ -7,17 +7,26 @@ public class Pistola extends Equipment{
 
 
 
-
     // Construtores
     public Pistola(int id, int tipo, int posicaoX, int posicaoY){
         super(id, tipo, posicaoX, posicaoY);
         municao = 3;
     }
 
+    public boolean decrementaBalas(){
+
+        if(municao > 0){
+            municao--;
+            return true;
+        }
+
+        return false;
+    }
 
     // Verifica se a arma é defensiva
     @Override
-    boolean tipoArma(){ return false; }
+    public boolean tipoArma(){ return false; }
+
 
     @Override
     public String info() {

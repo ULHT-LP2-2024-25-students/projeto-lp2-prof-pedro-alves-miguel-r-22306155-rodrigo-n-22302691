@@ -19,7 +19,7 @@ public abstract class Creature extends ItemTabuleiro {
     protected Equipment equipment;
     protected HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
     protected String textoEquipamento = "";
-
+    protected boolean transformado;
 
 
 
@@ -201,18 +201,41 @@ public abstract class Creature extends ItemTabuleiro {
         return partes;
     }
 
+    // Se for humano retorna true
+    public boolean isHumano(){
+        return this.tipo == 20;
+    }
 
-    abstract public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day);
+    // Se for zombie retorna true
+    public boolean isZombie(){
+        return this.tipo == 10;
+    }
+
+    public boolean isCao(){
+        return this.categoria == 3;
+    }
 
 
+    abstract public boolean move(int xO, int yO, int xD, int yD, boolean day);
+
+    // Defende
+    public abstract boolean defender(Creature creature);
+
+    // Ataca
+    public abstract boolean atacar(Creature creatureDestino, Board board);
+
+    // Apanha equipamento se for humano
     abstract public boolean apanharEquipamento(Equipment equipamento);
 
-
+    // Vai para o safeHaven se for Humano
     abstract public boolean podeIrParaSafeHaven(int x, int y, ArrayList<Porta> portas);
 
-
+    // Abs info
     abstract public String info();
 
-    // Abs
+    // Abs ToString
     abstract public String toString();
+
+
+
 }

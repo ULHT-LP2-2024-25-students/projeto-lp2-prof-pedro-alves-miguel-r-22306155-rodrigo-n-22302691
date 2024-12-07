@@ -15,7 +15,7 @@ public class Cao extends Creature {
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day) {
+    public boolean move(int xO, int yO, int xD, int yD, boolean day) {
 
         // Calcula a distancia
         int distanciaX = Math.abs(xD - xO);
@@ -31,9 +31,23 @@ public class Cao extends Creature {
 
 
         // Verefica se pode andar
-        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
-        return distanciaDiagonal <= 4;
+        double distancia = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+        return distancia <= 4;
 
+    }
+
+
+    // Criatura Ataca
+    @Override
+    public boolean atacar(Creature creature, Board board){
+        return false;
+    }
+
+
+    // Criatura Defende
+    @Override
+    public boolean defender(Creature creature){
+        return false;
     }
 
 

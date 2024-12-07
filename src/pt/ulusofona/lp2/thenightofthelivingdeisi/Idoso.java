@@ -15,7 +15,7 @@ public class Idoso extends Creature {
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day){
+    public boolean move(int xO, int yO, int xD, int yD, boolean day){
 
         if(!day && tipo == 20){
 
@@ -32,6 +32,82 @@ public class Idoso extends Creature {
         double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
         return distanciaDiagonal == 2;
 
+    }
+
+
+    // Criatura Ataca
+    @Override
+    public boolean atacar(Creature alvo, Board board) {
+
+        if (this.isHumano() && equipment != null) {
+            return atacarComoHumano(alvo, board);
+        }
+
+        if (this.isZombie()) {
+            return atacarComoZombie(alvo);
+        }
+
+        return false;
+    }
+
+    public boolean atacarComoHumano(Creature alvo, Board board){
+
+        if(alvo.isHumano()){
+            return false;
+        }
+
+        if(alvo.isZombie()){
+
+            if(!equipment.tipoArma()){
+
+                if(equipment.isEspada()){
+
+                    // Mata o zombie e remove do tabuleiro
+                    board.removeItem(alvo.getX(), alvo.getY());
+                    board.removeItem(getX(),getY());
+                    board.setItem(alvo.getX(),alvo.getY(),this);
+                    return true;
+                }
+
+                if (equipment.isPistola()) {
+
+                    // Mata o zombie e remove do tabuleiro
+                    board.removeItem(alvo.getX(), alvo.getY());
+                    board.removeItem(getX(),getY());
+                    board.setItem(alvo.getX(),alvo.getY(),this);
+                    // Decrementa o numero de balas se existir municao
+                    Pistola pistola = (Pistola) equipment;
+                    return pistola.decrementaBalas();
+                }
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+
+    public boolean atacarComoZombie(Creature alvo){
+
+        if(alvo.isZombie()){
+            return false;
+        }
+
+        if(alvo.isHumano()){
+
+            alvo.transformado = true;
+            alvo.tipo = 10;
+            alvo.equipment = null;
+        }
+
+        return false;
+    }
+
+
+    // Criatura Defende
+    @Override
+    public boolean defender(Creature creature){
+        return false;
     }
 
 
@@ -71,8 +147,13 @@ public class Idoso extends Creature {
     @Override
     public String toString() {
 
-        return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+        // Se nao tiver transformado
+        if (!transformado) {
+            return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+        }
 
+        // Se tiver transformado
+        return id + " | Adulto | Zombie (Transformado) | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
     }
 
 }

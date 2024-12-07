@@ -14,7 +14,7 @@ public class Vampiro extends Creature{
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, Equipment equipment, boolean day){
+    public boolean move(int xO, int yO, int xD, int yD, boolean day){
 
         if(day){
 
@@ -31,6 +31,31 @@ public class Vampiro extends Creature{
         double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
         return distanciaDiagonal <= 2;
 
+    }
+
+
+    // Criatura Ataca
+    @Override
+    public boolean atacar(Creature alvo, Board board){
+
+        if(alvo.isZombie()){
+            return false;
+        }
+
+        if(alvo.isHumano()){
+
+            alvo.transformado = true;
+            alvo.tipo = 10;
+            return true;
+        }
+
+        return false;
+    }
+
+    // Criatura Defende
+    @Override
+    public boolean defender(Creature creature){
+        return false;
     }
 
 

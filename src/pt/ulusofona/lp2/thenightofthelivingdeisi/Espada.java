@@ -9,6 +9,7 @@ public class Espada extends Equipment {
 
 
 
+
     // Override
     @Override
     boolean tipoArma(){
@@ -16,7 +17,6 @@ public class Espada extends Equipment {
         return false;
 
     }
-
 
     @Override
     public String info() {
