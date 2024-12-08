@@ -11,7 +11,7 @@ public class Lixivia extends Equipment{
     // Construtores
     public Lixivia(int id, int tipo, int posicaoX, int posicaoY){
         super(id, tipo, posicaoX, posicaoY);
-        litros = 1.0f;
+        this.litros = 1.0f;
     }
 
 

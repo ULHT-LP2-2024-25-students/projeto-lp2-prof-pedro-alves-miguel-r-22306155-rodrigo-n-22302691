@@ -109,7 +109,6 @@ public abstract class Equipment extends ItemTabuleiro {
     }
 
 
-
     // To String
     abstract public String toString();
 

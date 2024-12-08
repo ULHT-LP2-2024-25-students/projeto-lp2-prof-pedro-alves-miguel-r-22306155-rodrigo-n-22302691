@@ -365,7 +365,7 @@ public class GameManager {
 
 
         // Só se pode mover se o ID da criatura for igual ao currentID
-        if (creature.getTipo() != currentID) {
+        if (creature == null || creature.getTipo() != currentID) {
             return false;
         }
 

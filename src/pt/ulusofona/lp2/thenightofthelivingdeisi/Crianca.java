@@ -144,12 +144,7 @@ public class Crianca extends Creature {
     public String toString() {
 
         // Se nao tiver transformado
-        if (!transformado) {
-            return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
-        }
-
-        // Se tiver transformado
-        return id + " | Criança | Zombie (Transformado) | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+        return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
     }
 
 }

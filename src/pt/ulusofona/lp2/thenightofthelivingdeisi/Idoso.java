@@ -151,12 +151,7 @@ public class Idoso extends Creature {
     public String toString() {
 
         // Se nao tiver transformado
-        if (!transformado) {
-            return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
-        }
-
-        // Se tiver transformado
-        return id + " | Idoso | Zombie (Transformado) | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+        return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
     }
 
 }

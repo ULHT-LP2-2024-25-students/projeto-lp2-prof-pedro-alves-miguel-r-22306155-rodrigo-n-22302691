@@ -53,6 +53,13 @@ public abstract class Creature extends ItemTabuleiro {
         if(tipo == 20){
             return "Humano";
         }
+
+        if(transformado){
+
+            textoEquipamento = "";
+            return "Zombie (Transformado)";
+        }
+
         return "Zombie";
     }
 
