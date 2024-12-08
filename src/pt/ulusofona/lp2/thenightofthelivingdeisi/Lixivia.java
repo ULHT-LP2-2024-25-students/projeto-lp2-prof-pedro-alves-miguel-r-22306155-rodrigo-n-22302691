@@ -31,6 +31,21 @@ public class Lixivia extends Equipment{
     @Override
     boolean tipoArma(){ return true; }
 
+    @Override
+    public boolean usarArma() {
+
+        if(litros > 0){
+            litros -= 0.3f;
+            return true;
+        }
+
+        if(litros < 0){
+            litros = 0;
+        }
+
+        return false;
+    }
+
 
     @Override
     public String info() {

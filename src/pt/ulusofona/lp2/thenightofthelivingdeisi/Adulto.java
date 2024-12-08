@@ -61,32 +61,25 @@ public class Adulto extends Creature {
             return false;
         }
 
-        if(alvo.isZombie()){
+        if(alvo.isZombie()) {
 
-            if(!equipment.tipoArma()){
+            if (equipment.isEspada() && equipment.usarArma()) {
 
-                if(equipment.isEspada()){
-
-                    // Mata o zombie e remove do tabuleiro
-                    board.removeItem(alvo.getX(), alvo.getY());
-                    board.removeItem(getX(),getY());
-                    board.setItem(alvo.getX(),alvo.getY(),this);
-                    return true;
-                }
-
-                if (equipment.isPistola()) {
-
-                    // Mata o zombie e remove do tabuleiro
-                    board.removeItem(alvo.getX(), alvo.getY());
-                    board.removeItem(getX(),getY());
-                    board.setItem(alvo.getX(),alvo.getY(),this);
-                    // Decrementa o numero de balas se existir municao
-                    Pistola pistola = (Pistola) equipment;
-                    return pistola.decrementaBalas();
-                }
+                // Mata o zombie e remove do tabuleiro
+                matarZombie(alvo, board);
+                // Ataca com a espada
+                return equipment.usarArma();
             }
 
-            return false;
+            if (equipment.isPistola()) {
+
+                if (equipment.usarArma()) {
+
+                    // Mata o zombie e remove do tabuleiro
+                    matarZombie(alvo, board);
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -102,16 +95,22 @@ public class Adulto extends Creature {
             return false;
         }
 
-        if(alvo.isHumano()){
+        if(alvo.isHumano() && equipment != null){
 
-            alvo.transformado = true;
-            alvo.tipo = 10;
-            alvo.equipment = null;
+            // Defense com qualquer tipo de equipamento
+            if(equipment.usarArma()){
+                return true;
+            }
+
+            // Se tiver com as pistola ou a lixivia, e nao tiver balas ou litros é tranformado em zombie
+            alvo.transformarEmZombie();
             return true;
         }
 
-        return false;
+        alvo.transformarEmZombie();
+        return true;
     }
+
 
 
     // Criatura Defende

@@ -19,6 +19,11 @@ public class Espada extends Equipment {
     }
 
     @Override
+    public boolean usarArma() {
+        return true;
+    }
+
+    @Override
     public String info() {
 
         return "E:" + id;

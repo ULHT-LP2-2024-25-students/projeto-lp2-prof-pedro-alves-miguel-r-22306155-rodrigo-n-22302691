@@ -215,6 +215,20 @@ public abstract class Creature extends ItemTabuleiro {
         return this.categoria == 3;
     }
 
+    public void transformarEmZombie(){
+
+        this.tipo = 10;
+        this.transformado = true;
+        this.equipment = null;
+    }
+
+    public void matarZombie(Creature alvo, Board board){
+
+        board.removeItem(alvo.getX(), alvo.getY());
+        board.removeItem(getX(), getY());
+        board.setItem(alvo.getX(), alvo.getY(), this);
+    }
+
 
     abstract public boolean move(int xO, int yO, int xD, int yD, boolean day);
 

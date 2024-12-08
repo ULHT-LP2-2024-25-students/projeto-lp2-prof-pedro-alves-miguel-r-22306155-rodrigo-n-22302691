@@ -56,32 +56,25 @@ public class Idoso extends Creature {
             return false;
         }
 
-        if(alvo.isZombie()){
+        if(alvo.isZombie()) {
 
-            if(!equipment.tipoArma()){
+            if (equipment.isEspada() && equipment.usarArma()) {
 
-                if(equipment.isEspada()){
-
-                    // Mata o zombie e remove do tabuleiro
-                    board.removeItem(alvo.getX(), alvo.getY());
-                    board.removeItem(getX(),getY());
-                    board.setItem(alvo.getX(),alvo.getY(),this);
-                    return true;
-                }
-
-                if (equipment.isPistola()) {
-
-                    // Mata o zombie e remove do tabuleiro
-                    board.removeItem(alvo.getX(), alvo.getY());
-                    board.removeItem(getX(),getY());
-                    board.setItem(alvo.getX(),alvo.getY(),this);
-                    // Decrementa o numero de balas se existir municao
-                    Pistola pistola = (Pistola) equipment;
-                    return pistola.decrementaBalas();
-                }
+                // Mata o zombie e remove do tabuleiro
+                matarZombie(alvo, board);
+                // Ataca com a espada
+                return equipment.usarArma();
             }
 
-            return false;
+            if (equipment.isPistola()) {
+
+                if (equipment.usarArma()) {
+
+                    // Mata o zombie e remove do tabuleiro
+                    matarZombie(alvo, board);
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -93,14 +86,24 @@ public class Idoso extends Creature {
             return false;
         }
 
-        if(alvo.isHumano()){
-
-            alvo.transformado = true;
-            alvo.tipo = 10;
-            alvo.equipment = null;
+        if(alvo.isCao()){
+            return false;
         }
 
-        return false;
+        if(alvo.isHumano() && equipment != null){
+
+            // Defense com qualquer tipo de equipamento
+            if(equipment.usarArma()){
+                return true;
+            }
+
+            // Se tiver com as pistola ou a lixivia, e nao tiver balas ou litros é tranformado em zombie
+            alvo.transformarEmZombie();
+            return true;
+        }
+
+        alvo.transformarEmZombie();
+        return true;
     }
 
 
@@ -149,11 +152,11 @@ public class Idoso extends Creature {
 
         // Se nao tiver transformado
         if (!transformado) {
-            return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+            return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
         }
 
         // Se tiver transformado
-        return id + " | Adulto | Zombie (Transformado) | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
+        return id + " | Idoso | Zombie (Transformado) | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas();
     }
 
 }

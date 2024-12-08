@@ -8,10 +8,14 @@ public class Escudo extends Equipment{
 
     // retorna true caso seja um equipamento defensivo, caso contrario retorna false
     @Override
-    boolean tipoArma(){
+    public boolean tipoArma(){
         return true;
     }
 
+    @Override
+    public boolean usarArma() {
+        return true;
+    }
 
     @Override
     public String info() {

@@ -117,4 +117,5 @@ public abstract class Equipment extends ItemTabuleiro {
 
     abstract boolean tipoArma();
 
+    public abstract boolean usarArma();
 }

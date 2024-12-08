@@ -44,8 +44,7 @@ public class Vampiro extends Creature{
 
         if(alvo.isHumano()){
 
-            alvo.transformado = true;
-            alvo.tipo = 10;
+            alvo.transformarEmZombie();
             return true;
         }
 
