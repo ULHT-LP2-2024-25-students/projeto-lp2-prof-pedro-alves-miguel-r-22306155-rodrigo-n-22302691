@@ -260,11 +260,17 @@ public class GameManager {
 
 
     // Devolve info da criatura em uma string
-    public String getCreatureInfoAsString(int id){
+    public String getCreatureInfoAsString(int id) {
 
-        return creatures.get(id).toString();
+        Creature creature = creatures.get(id);
 
+        if (creature == null) {
+            return null; // Ou outra mensagem de erro adequada
+        }
+
+        return creature.toString();
     }
+
 
 
     // Devolve info do equipamento em um array
@@ -359,19 +365,20 @@ public class GameManager {
         }
 
 
-        // Obtém a criatura na posição de origem
+        // Obtem a criatura na posicao de origem
         Creature creature = getCreature(xO,yO);
+
+        // Obtem a criatura na posicao de destino
         Creature creatureDestino = getCreature(xD,yD);
+
+        // Obtém equipamento na posição de destino, se existir
+        Equipment equipment = existeEquipamento(xD, yD);
 
 
         // Só se pode mover se o ID da criatura for igual ao currentID
         if (creature == null || creature.getTipo() != currentID) {
             return false;
         }
-
-
-        // Obtém equipamento na posição de destino, se existir
-        Equipment equipment = existeEquipamento(xD, yD);
 
 
         // Verifica se a criatura pode se mover para a posição de destino
@@ -428,6 +435,17 @@ public class GameManager {
             // Verefica se a criatura pode apanhar o equipamento
             if(creature.isHumano() && !creature.apanharEquipamento(equipment)){
                 return false;
+            }
+
+
+            if (creature.isIdoso() && creature.getEquipment() != null) {// Saiu da posição original
+
+                    Equipment equipamentoIdoso = creature.getEquipment();
+                    creature.equipment = null;
+                    board.adicionaEquipment(equipamentoIdoso);
+                    equipamentoIdoso.setX(creature.getX());
+                    equipamentoIdoso.setY(creature.getY());
+                    equipments.put(equipamentoIdoso.getId(), equipamentoIdoso);
             }
 
 

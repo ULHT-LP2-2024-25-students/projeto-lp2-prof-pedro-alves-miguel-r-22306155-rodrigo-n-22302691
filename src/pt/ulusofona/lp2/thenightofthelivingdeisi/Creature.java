@@ -222,6 +222,10 @@ public abstract class Creature extends ItemTabuleiro {
         return this.categoria == 3;
     }
 
+    public boolean isIdoso(){
+        return this.categoria == 2;
+    }
+
     public void transformarEmZombie(){
 
         this.tipo = 10;
