@@ -226,11 +226,12 @@ public abstract class Creature extends ItemTabuleiro {
         return this.categoria == 2;
     }
 
-    public void transformarEmZombie(){
+    public void transformarEmZombie(Board board){
 
         this.tipo = 10;
         this.transformado = true;
         this.equipment = null;
+        board.setItem(posicaoX,posicaoY,this);
     }
 
     public void matarZombie(Creature alvo, Board board){
@@ -240,6 +241,10 @@ public abstract class Creature extends ItemTabuleiro {
         board.setItem(alvo.getX(), alvo.getY(), this);
     }
 
+    @Override
+    public boolean isCreature() {
+        return true;
+    }
 
     abstract public boolean move(int xO, int yO, int xD, int yD, boolean day);
 

@@ -37,7 +37,7 @@ public class Crianca extends Creature {
         }
 
         if (this.isZombie()) {
-            return atacarComoZombie(alvo);
+            return atacarComoZombie(alvo ,board);
         }
 
         return false;
@@ -73,7 +73,7 @@ public class Crianca extends Creature {
         return false;
     }
 
-    public boolean atacarComoZombie(Creature alvo){
+    public boolean atacarComoZombie(Creature alvo, Board board){
 
         if(alvo.isZombie()){
             return false;
@@ -91,11 +91,11 @@ public class Crianca extends Creature {
             }
 
             // Se tiver com as pistola ou a lixivia, e nao tiver balas ou litros é tranformado em zombie
-            alvo.transformarEmZombie();
+            alvo.transformarEmZombie(board);
             return true;
         }
 
-        alvo.transformarEmZombie();
+        alvo.transformarEmZombie(board);
         return true;
     }
 

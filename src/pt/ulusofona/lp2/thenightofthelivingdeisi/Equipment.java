@@ -108,6 +108,10 @@ public abstract class Equipment extends ItemTabuleiro {
         return this.tipo == 3;
     }
 
+    @Override
+    public boolean isCreature() {
+        return false;
+    }
 
     // To String
     abstract public String toString();

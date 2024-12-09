@@ -42,7 +42,7 @@ public class GameManager {
 
     private ArrayList<Creature> safeHaven = new ArrayList<Creature>();
 
-
+    private HashMap<Integer,Creature> creaturasInGame = new HashMap<>();
 
 
     // Metodos
@@ -78,6 +78,7 @@ public class GameManager {
 
         // Lê as informaçoes das criaturas e as cria
         creatures = GameReader.lerCriaturas(scanner, numeroDaLinha, nrCriaturas, worldSize);
+        creaturasInGame = creatures;
         numeroDaLinha += nrCriaturas;
 
 
@@ -520,10 +521,44 @@ public class GameManager {
     }
 
     // Verefica se o jogo acabou
-    public boolean gameIsOver(){
-        return nrJogadas >= 12;
-    }
+    public boolean gameIsOver() {
 
+        boolean allHuman = true;
+        boolean allZombie = true;
+
+        // Percorre todas as células do tabuleiro
+        for (int y = 0; y < board.getTabuleiro().length; y++) {
+
+            for (int x = 0; x < board.getTabuleiro()[y].length; x++) {
+
+                ItemTabuleiro item = board.getItem(x, y);
+
+                // Verifica se o item é uma criatura
+                if (item != null && item.isCreature()) {
+
+                    Creature criatura = (Creature) item; // Agora podemos fazer o cast com segurança
+                    int tipo = criatura.getTipo();
+
+                    // Verifica se o ID não é 10 (zumbi)
+                    if (tipo != 10) {
+                        allZombie = false;
+                    }
+                    // Verifica se o ID não é 20 (humano)
+                    if (tipo != 20) {
+                        allHuman = false;
+                    }
+
+                    // Se já sabemos que não são todos 10 ou todos 20, podemos parar a verificação
+                    if (!allHuman && !allZombie) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // Retorna verdadeiro se todos os IDs forem ou 10 (zumbis) ou 20 (humanos)
+        return true;
+    }
 
 
 
@@ -553,9 +588,9 @@ public class GameManager {
 
         List<Integer> getSafeIds = new ArrayList<>();
 
-        for(Creature safe : safeHaven){
+        for(Creature creature : safeHaven){
 
-            getSafeIds.add(safe.id);
+            getSafeIds.add(creature.id);
 
         }
 

@@ -6,4 +6,5 @@ public abstract class ItemTabuleiro {
 
     abstract public String info();
 
+    public abstract boolean isCreature();
 }

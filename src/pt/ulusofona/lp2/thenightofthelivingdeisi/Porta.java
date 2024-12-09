@@ -1,6 +1,6 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
-public class Porta extends ItemTabuleiro{
+public class Porta extends ItemTabuleiro {
 
     // Atributos
     private int posicaoX;
@@ -18,7 +18,10 @@ public class Porta extends ItemTabuleiro{
     }
 
 
-
+    @Override
+    public boolean isCreature() {
+        return false;
+    }
 
     // Gets
     int getX() { return posicaoX; }
