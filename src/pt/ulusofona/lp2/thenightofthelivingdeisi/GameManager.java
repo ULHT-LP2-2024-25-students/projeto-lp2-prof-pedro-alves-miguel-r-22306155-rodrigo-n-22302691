@@ -1,6 +1,8 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import javax.swing.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -565,12 +567,58 @@ public class GameManager {
 
     // Salva o jogo
     public void saveGame(File file) throws IOException {
+        // Criar um FileWriter e BufferedWriter para escrever no arquivo
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 
+            // 1. Tamanho do tabuleiro
+            writer.write(worldSize[0] + " " + worldSize[1]);
+            writer.newLine();
 
+            writer.write(String.valueOf(initialID));
+            writer.newLine();
+
+            // 2. Número de criaturas
+            writer.write(String.valueOf(nrCriaturas));
+            writer.newLine();
+
+            // 3. Escrever as criaturas
+            for (Creature criatura : creatures.values()) {
+                writer.write(criatura.getId() + " : " +
+                        criatura.getTipo() + " : " +
+                        criatura.getCategoria() + " : " +
+                        criatura.getNome() + " : " +
+                        criatura.getX() + " : " +
+                        criatura.getY());
+                writer.newLine();
+            }
+
+            // 4. Número de equipamentos
+            writer.write(String.valueOf(nrEquipamentos));
+            writer.newLine();
+
+            // 5. Escrever os equipamentos
+            for (Equipment equipamento : equipments.values()) {
+                writer.write(equipamento.getId() + " : " +
+                        equipamento.getTipo() + " : " +
+                        equipamento.getX() + " : " +
+                        equipamento.getY());
+                writer.newLine();
+            }
+
+            // 6. Número de portas
+            writer.write(String.valueOf(portas.size()));
+            writer.newLine();
+
+            // 7. Escrever as portas
+            for (Porta porta : portas) {
+                writer.write(porta.getX() + " : " + porta.getY());
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
+            throw new IOException("Erro ao salvar o jogo no arquivo: " + e.getMessage());
+        }
     }
-
-
-
 
     // Main (;
     public static void main(String[] args) {

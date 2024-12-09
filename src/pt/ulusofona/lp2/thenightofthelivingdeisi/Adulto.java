@@ -55,13 +55,13 @@ public class Adulto extends Creature {
         return false;
     }
 
-    public boolean atacarComoHumano(Creature alvo, Board board){
+    public boolean atacarComoHumano(Creature alvo, Board board) {
 
-        if(alvo.isHumano()){
+        if (alvo.isHumano()) {
             return false;
         }
 
-        if(alvo.isZombie()) {
+        if (alvo.isZombie()) {
 
             // Se tiver espada ataca
             if (this.equipment.isEspada() && this.equipment.usarArma()) {
@@ -74,30 +74,30 @@ public class Adulto extends Creature {
 
             if (this.equipment.isPistola() && this.equipment.usarArma()) {
 
-                    // Mata o zombie e remove do tabuleiro
-                    matarZombie(alvo, board);
-                    this.atualizaPosicao(alvo.getX(), alvo.getY());
-                    return true;
+                // Mata o zombie e remove do tabuleiro
+                matarZombie(alvo, board);
+                this.atualizaPosicao(alvo.getX(), alvo.getY());
+                return true;
             }
         }
 
         return false;
     }
 
-    public boolean atacarComoZombie(Creature alvo){
+    public boolean atacarComoZombie(Creature alvo) {
 
-        if(alvo.isZombie()){
+        if (alvo.isZombie()) {
             return false;
         }
 
-        if(alvo.isCao()){
+        if (alvo.isCao()) {
             return false;
         }
 
-        if(alvo.isHumano() && equipment != null){
+        if (alvo.isHumano() && equipment != null) {
 
             // Defense com qualquer tipo de equipamento
-            if(alvo.equipment.usarArma()){
+            if (alvo.equipment.usarArma()) {
                 return true;
             }
 
@@ -110,7 +110,6 @@ public class Adulto extends Creature {
         alvo.transformarEmZombie();
         return true;
     }
-
 
 
     // Criatura Defende
@@ -159,5 +158,6 @@ public class Adulto extends Creature {
 
         // Se nao tiver transformado
         return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+
     }
 }
