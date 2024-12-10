@@ -176,8 +176,7 @@ public class GameManager {
                         criaturaRemover.add(creature.id);
 
                     }
-                }
-                else {
+                } else {
 
                     board.adicionaEquipment(equipment);
 
@@ -248,7 +247,15 @@ public class GameManager {
             return null; // Criatura não está no tabuleiro
         }
 
-        return criatura.getInfo();
+        String[] info = criatura.getInfo();
+
+        // Verifica se a criatura está no Safe Haven
+        if (safeHaven.contains(criatura)) {
+            // Ajusta o índice 4 para null, conforme esperado pelo teste
+            info[4] = null;
+        }
+
+        return info;
     }
 
 
@@ -403,6 +410,7 @@ public class GameManager {
             // Adiciona a criatura ao safeHaven
             safeHaven.add(creature);
 
+
             // Atualiza jogadas e ID do jogador atual
             nrJogadas++;
             currentID();
@@ -541,6 +549,8 @@ public class GameManager {
     }
 
 
+
+
     // Personalizaçao de menus
     public ArrayList<String> getSurvivors() {
 
@@ -575,13 +585,21 @@ public class GameManager {
     }
 
 
+
+
     public JPanel getCreditsPanel(){
         return null;
     }
 
+
+
+
     public HashMap<String,String> customizeBoard(){
         return new HashMap<>();
     }
+
+
+
 
     public List<Integer> getIdsInSafeHaven(){
 
@@ -654,9 +672,8 @@ public class GameManager {
         }
     }
 
-    // Main (;
-    public static void main(String[] args) {
 
-    }
+    // Main (;
+    public static void main(String[] args) {}
 
 }
