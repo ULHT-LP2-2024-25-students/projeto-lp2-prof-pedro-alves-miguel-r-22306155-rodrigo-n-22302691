@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Idoso extends Creature {
 
@@ -37,10 +38,10 @@ public class Idoso extends Creature {
 
     // Criatura Ataca
     @Override
-    public boolean atacar(Creature alvo, Board board) {
+    public boolean atacar(Creature alvo, Board board, HashMap<Integer, Creature> creatures) {
 
         if (this.isHumano() && equipment != null) {
-            return atacarComoHumano(alvo, board);
+            return atacarComoHumano(alvo, board, creatures);
         }
 
         if (this.isZombie()) {
@@ -50,50 +51,49 @@ public class Idoso extends Creature {
         return false;
     }
 
-    public boolean atacarComoHumano(Creature alvo, Board board){
+    public boolean atacarComoHumano(Creature alvo, Board board, HashMap<Integer, Creature> creatures) {
 
-        if(alvo.isHumano()){
+        if (alvo.isHumano()) {
             return false;
         }
 
-        if(alvo.isZombie()) {
+        if (alvo.isZombie()) {
 
-            if (equipment.isEspada() && equipment.usarArma()) {
+            // Se tiver espada ataca
+            if (this.equipment.isEspada() && this.equipment.usarArma()) {
 
                 // Mata o zombie e remove do tabuleiro
-                matarZombie(alvo, board);
-                // Ataca com a espada
-                return equipment.usarArma();
+                matarZombie(alvo, board, creatures);
+                this.atualizaPosicao(alvo.getX(), alvo.getY());
+                return true;
             }
 
-            if (equipment.isPistola()) {
+            if (this.equipment.isPistola() && this.equipment.usarArma()) {
 
-                if (equipment.usarArma()) {
-
-                    // Mata o zombie e remove do tabuleiro
-                    matarZombie(alvo, board);
-                    return true;
-                }
+                // Mata o zombie e remove do tabuleiro
+                matarZombie(alvo, board, creatures);
+                this.atualizaPosicao(alvo.getX(), alvo.getY());
+                return true;
             }
         }
 
         return false;
     }
 
-    public boolean atacarComoZombie(Creature alvo, Board board){
+    public boolean atacarComoZombie(Creature alvo, Board board) {
 
-        if(alvo.isZombie()){
+        if (alvo.isZombie()) {
             return false;
         }
 
-        if(alvo.isCao()){
+        if (alvo.isCao()) {
             return false;
         }
 
-        if(alvo.isHumano() && equipment != null){
+        if (alvo.isHumano() && equipment != null) {
 
             // Defense com qualquer tipo de equipamento
-            if(equipment.usarArma()){
+            if (alvo.equipment.usarArma()) {
                 return true;
             }
 
@@ -102,6 +102,7 @@ public class Idoso extends Creature {
             return true;
         }
 
+        // É transformado em zombie
         alvo.transformarEmZombie(board);
         return true;
     }

@@ -394,7 +394,7 @@ public class GameManager {
         if(creatureDestino != null) {
 
             // A criatura que se move ataca a criatura na posicao de destino
-            if (creature.atacar(creatureDestino, board)) {
+            if (creature.atacar(creatureDestino, board, creatures)) {
 
                 nrJogadas++;
                 currentID();

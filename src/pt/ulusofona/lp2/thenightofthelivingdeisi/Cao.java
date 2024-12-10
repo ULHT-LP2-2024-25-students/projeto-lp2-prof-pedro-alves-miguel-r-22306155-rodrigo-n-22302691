@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Cao extends Creature {
 
@@ -39,7 +40,7 @@ public class Cao extends Creature {
 
     // Criatura Ataca
     @Override
-    public boolean atacar(Creature creature, Board board){
+    public boolean atacar(Creature creature, Board board, HashMap<Integer, Creature> creatures){
         return false;
     }
 

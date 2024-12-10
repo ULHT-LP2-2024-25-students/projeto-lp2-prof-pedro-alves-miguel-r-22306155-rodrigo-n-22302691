@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Adulto extends Creature {
 
@@ -42,10 +43,10 @@ public class Adulto extends Creature {
 
     // Criatura Ataca
     @Override
-    public boolean atacar(Creature alvo, Board board) {
+    public boolean atacar(Creature alvo, Board board, HashMap<Integer, Creature> creatures) {
 
         if (this.isHumano() && equipment != null) {
-            return atacarComoHumano(alvo, board);
+            return atacarComoHumano(alvo, board, creatures);
         }
 
         if (this.isZombie()) {
@@ -55,7 +56,7 @@ public class Adulto extends Creature {
         return false;
     }
 
-    public boolean atacarComoHumano(Creature alvo, Board board) {
+    public boolean atacarComoHumano(Creature alvo, Board board, HashMap<Integer, Creature> creatures) {
 
         if (alvo.isHumano()) {
             return false;
@@ -67,7 +68,7 @@ public class Adulto extends Creature {
             if (this.equipment.isEspada() && this.equipment.usarArma()) {
 
                 // Mata o zombie e remove do tabuleiro
-                matarZombie(alvo, board);
+                matarZombie(alvo, board, creatures);
                 this.atualizaPosicao(alvo.getX(), alvo.getY());
                 return true;
             }
@@ -75,7 +76,7 @@ public class Adulto extends Creature {
             if (this.equipment.isPistola() && this.equipment.usarArma()) {
 
                 // Mata o zombie e remove do tabuleiro
-                matarZombie(alvo, board);
+                matarZombie(alvo, board, creatures);
                 this.atualizaPosicao(alvo.getX(), alvo.getY());
                 return true;
             }

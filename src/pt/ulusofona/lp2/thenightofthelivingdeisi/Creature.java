@@ -234,11 +234,12 @@ public abstract class Creature extends ItemTabuleiro {
         board.setItem(posicaoX,posicaoY,this);
     }
 
-    public void matarZombie(Creature alvo, Board board){
+    public void matarZombie(Creature alvo, Board board, HashMap<Integer, Creature> creatures){
 
         board.removeItem(alvo.getX(), alvo.getY());
         board.removeItem(getX(), getY());
         board.setItem(alvo.getX(), alvo.getY(), this);
+        creatures.remove(alvo.id);
     }
 
     @Override
@@ -252,7 +253,7 @@ public abstract class Creature extends ItemTabuleiro {
     public abstract boolean defender(Creature creature);
 
     // Ataca
-    public abstract boolean atacar(Creature creatureDestino, Board board);
+    public abstract boolean atacar(Creature creatureDestino, Board board, HashMap<Integer, Creature> creatures);
 
     // Apanha equipamento se for humano
     abstract public boolean apanharEquipamento(Equipment equipamento);

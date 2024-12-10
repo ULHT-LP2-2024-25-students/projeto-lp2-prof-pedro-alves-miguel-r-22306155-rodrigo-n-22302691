@@ -1,6 +1,7 @@
 package pt.ulusofona.lp2.thenightofthelivingdeisi;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Vampiro extends Creature{
 
@@ -36,7 +37,7 @@ public class Vampiro extends Creature{
 
     // Criatura Ataca
     @Override
-    public boolean atacar(Creature alvo, Board board){
+    public boolean atacar(Creature alvo, Board board, HashMap<Integer, Creature> creatures){
 
         if(alvo.isZombie()){
             return false;
