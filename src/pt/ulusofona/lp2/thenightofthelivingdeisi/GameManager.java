@@ -229,11 +229,8 @@ public class GameManager {
     // Devolve uma string com a informaçao do item na posiçao dada
     public String getSquareInfo(int x, int y) {
 
-        if (x < 0 || y < 0 || x >= worldSize[0] || y >= worldSize[1]) {
-            return null;
-        }
-
         ItemTabuleiro tile = board.getTabuleiro()[y][x];
+
         return (tile == null) ? "" : tile.info();
     }
 
@@ -402,6 +399,10 @@ public class GameManager {
 
             // Adiciona a criatura ao safeHaven
             safeHaven.add(creature);
+
+            // Atualiza posicao da criatura
+            creature.getInfo()[4] = null;
+            creature.getInfo()[5] = null;
 
             // Atualiza jogadas e ID do jogador atual
             nrJogadas++;
