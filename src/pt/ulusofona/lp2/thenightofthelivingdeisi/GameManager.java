@@ -394,16 +394,11 @@ public class GameManager {
         if(creatureDestino != null) {
 
             // A criatura que se move ataca a criatura na posicao de destino
-            if (creature.atacar(creatureDestino, board, creatures)) {
+            if (creature.atacarDefender(creatureDestino, board, creatures)) {
 
                 nrJogadas++;
                 currentID();
                 return true;
-            }
-
-            // A criatura na posicao de destino defende o ataque da criatura que se move
-            if (!creatureDestino.defender(creature)) {
-                return false;
             }
 
         }

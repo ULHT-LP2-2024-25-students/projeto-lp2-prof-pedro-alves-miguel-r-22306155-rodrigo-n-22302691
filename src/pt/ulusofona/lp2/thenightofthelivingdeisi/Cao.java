@@ -40,16 +40,10 @@ public class Cao extends Creature {
 
     // Criatura Ataca
     @Override
-    public boolean atacar(Creature creature, Board board, HashMap<Integer, Creature> creatures){
+    public boolean atacarDefender(Creature creature, Board board, HashMap<Integer, Creature> creatures){
         return false;
     }
 
-
-    // Criatura Defende
-    @Override
-    public boolean defender(Creature creature){
-        return false;
-    }
 
 
     @Override

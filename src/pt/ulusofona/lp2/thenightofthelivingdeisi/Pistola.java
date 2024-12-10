@@ -12,6 +12,7 @@ public class Pistola extends Equipment {
     }
 
     // Usa a arma, decrementando a munição
+    @Override
     public boolean usarArma() {
 
         if (municao > 0) {

@@ -43,7 +43,7 @@ public class Adulto extends Creature {
 
     // Criatura Ataca
     @Override
-    public boolean atacar(Creature alvo, Board board, HashMap<Integer, Creature> creatures) {
+    public boolean atacarDefender(Creature alvo, Board board, HashMap<Integer, Creature> creatures) {
 
         if (this.isHumano() && equipment != null) {
             return atacarComoHumano(alvo, board, creatures);
@@ -98,25 +98,18 @@ public class Adulto extends Creature {
         if (alvo.isHumano() && equipment != null) {
 
             // Defense com qualquer tipo de equipamento
-            if (alvo.equipment.usarArma()) {
-                return true;
+            if (!alvo.equipment.usarArma()) {
+
+                alvo.transformarEmZombie(board);
             }
 
             // Se tiver com as pistola ou a lixivia, e nao tiver balas ou litros é tranformado em zombie
-            alvo.transformarEmZombie(board);
             return true;
         }
 
         // É transformado em zombie
         alvo.transformarEmZombie(board);
         return true;
-    }
-
-
-    // Criatura Defende
-    @Override
-    public boolean defender(Creature creature) {
-        return false;
     }
 
 
@@ -157,8 +150,14 @@ public class Adulto extends Creature {
     @Override
     public String toString() {
 
+        if(equipment != null){
+
+            textoEquipamento = equipment.toString();
+
+        }
+
         // Se nao tiver transformado
-        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
+        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + equipment;
 
     }
 }
