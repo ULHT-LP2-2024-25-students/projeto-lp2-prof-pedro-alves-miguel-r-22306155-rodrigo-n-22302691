@@ -253,6 +253,7 @@ public class GameManager {
         if (safeHaven.contains(criatura)) {
             // Ajusta o índice 4 para null, conforme esperado pelo teste
             info[4] = null;
+            info[5] = null;
         }
 
         return info;
@@ -457,6 +458,10 @@ public class GameManager {
 
         }
 
+        creature.atualizaPosicao(xD, yD);
+        board.setItem(xD, yD, creature);
+        board.removeItem(xO, yO);
+
         // Se tinha um equipamento entao vai dropar
         if (equipamentoEquipado != null) {
             if (creature.isIdoso()) {
@@ -466,10 +471,6 @@ public class GameManager {
             }
             equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
         }
-
-        creature.atualizaPosicao(xD, yD);
-        board.setItem(xD, yD, creature);
-        board.removeItem(xO, yO);
 
 
         // Atualiza jogadas e ID do jogador atual

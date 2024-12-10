@@ -90,7 +90,7 @@ public class Adulto extends Creature {
         }
 
         if (alvo.isCao()) {
-            return true;
+            return false;
         }
 
         if (alvo.isHumano() && alvo.equipment != null) {
