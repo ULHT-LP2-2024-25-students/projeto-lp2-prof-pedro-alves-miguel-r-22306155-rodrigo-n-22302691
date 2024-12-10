@@ -133,6 +133,7 @@ public class Idoso extends Creature {
             for (Porta porta : portas) {
 
                 if (porta.getX() == x && porta.getY() == y) {
+                    this.safeHaven = true;
                     return true;
 
                 }

@@ -20,6 +20,7 @@ public abstract class Creature extends ItemTabuleiro {
     protected HashMap<Integer, ArrayList<Equipment>> idPorEquipamento = new HashMap<>();
     protected String textoEquipamento = "";
     protected boolean transformado;
+    protected boolean safeHaven;
 
 
 
@@ -88,7 +89,12 @@ public abstract class Creature extends ItemTabuleiro {
 
     // Posiçao da criatura
     // Coordenadas da criatura
-    String coordenadas(){
+    String coordenadas() {
+
+        if(safeHaven){
+            return "Safe Haven";
+        }
+
         return "(" + posicaoX + ", " + posicaoY + ")";
     }
 
