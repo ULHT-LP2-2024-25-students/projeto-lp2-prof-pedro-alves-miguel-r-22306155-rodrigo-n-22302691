@@ -26,9 +26,14 @@ public class Crianca extends Creature {
         // Verefica se pode andar
         double distancia = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
 
-        if(distancia <= 1){
+        if(distancia <= 1) {
 
-            equipment.atualizaPosicao(xD,yD);
+            if (equipment != null) {
+
+                equipment.atualizaPosicao(xD, yD);
+
+            }
+
             return true;
 
         }

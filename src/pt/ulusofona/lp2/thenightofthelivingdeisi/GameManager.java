@@ -427,6 +427,7 @@ public class GameManager {
 
         // Interage com equipamento
         Equipment equipamentoEquipado = null;
+
         if (equipment != null) {
 
             // Verefica se a criatura pode apanhar o equipamento
@@ -435,23 +436,11 @@ public class GameManager {
             }
 
 
-            if (creature.isIdoso() && creature.getEquipment() != null) {// Saiu da posição original
-
-                    Equipment equipamentoIdoso = creature.getEquipment();
-                    creature.equipment = null;
-                    board.adicionaEquipment(equipamentoIdoso);
-                    equipamentoIdoso.setX(creature.getX());
-                    equipamentoIdoso.setY(creature.getY());
-                    equipments.put(equipamentoIdoso.getId(), equipamentoIdoso);
-            }
-
-
             // Verefica se tem que largar o equipamento ja equipado
             if(creature.getEquipment() != null){
 
                 // Atualiza as coordenadas no item equipado
-                creature.getEquipment().setX(creature.getX());
-                creature.getEquipment().setY(creature.getY());
+                creature.getEquipment().atualizaPosicao(creature.getX(), creature.getY());
 
                 // Diz que tinha um equipamento equipado
                 equipamentoEquipado = creature.getEquipment();
@@ -460,13 +449,12 @@ public class GameManager {
 
 
             if (creature.isHumano()) {
-
                 creature.adicionaEquipamento(equipment, equipments);
+            }
 
-            } else if (creature.isZombie()) {
 
+            if (creature.isZombie()) {
                 creature.destroiEquipamento(equipment, equipments);
-
             }
 
         }
@@ -495,6 +483,7 @@ public class GameManager {
     }
 
 
+
     // Faz retorno ao equipamento em uma certa coordenada se existir
     public Equipment existeEquipamento(int x, int y){
 
@@ -513,6 +502,9 @@ public class GameManager {
         //Faz retorno ao equipamento (;
         return equipment;
     }
+
+
+
 
     // Verefica se o jogo acabou
     public boolean gameIsOver() {

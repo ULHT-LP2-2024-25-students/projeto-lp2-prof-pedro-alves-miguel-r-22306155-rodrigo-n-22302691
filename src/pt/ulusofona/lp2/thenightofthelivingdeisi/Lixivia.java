@@ -22,13 +22,15 @@ public class Lixivia extends Equipment{
     public boolean usarArma() {
 
         if (litros > 0) {
+
             litros -= 0.3f;
             litros = Math.round(litros * 10) / 10.0f;
-            return true;
-        }
 
-        if (litros < 0) {
-            litros = 0;
+            if (litros < 0) {
+                litros = 0;
+            }
+
+            return true;
         }
 
         return false;
