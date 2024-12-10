@@ -76,6 +76,12 @@ public abstract class Equipment extends ItemTabuleiro {
 
     }
 
+    public void atualizaPosicao(int x, int y){
+
+        this.posicaoX = x;
+        this.posicaoY = y;
+    }
+
 
     public String[] getInfo(){
 

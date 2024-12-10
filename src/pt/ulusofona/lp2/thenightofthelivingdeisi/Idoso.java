@@ -31,6 +31,7 @@ public class Idoso extends Creature {
 
         // Verefica se pode andar
         double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+
         return distanciaDiagonal == 2;
 
     }
@@ -90,7 +91,7 @@ public class Idoso extends Creature {
             return false;
         }
 
-        if (alvo.isHumano() && equipment != null) {
+        if (alvo.isHumano() && alvo.equipment != null) {
 
             // Defense com qualquer tipo de equipamento
             if (!alvo.equipment.usarArma()) {
@@ -98,6 +99,7 @@ public class Idoso extends Creature {
                 // Se tiver com as pistola ou a lixivia, e nao tiver balas ou litros é tranformado em zombie
                 alvo.transformarEmZombie(board);
             }
+
             return true;
         }
 

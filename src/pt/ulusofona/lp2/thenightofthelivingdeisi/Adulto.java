@@ -16,28 +16,25 @@ public class Adulto extends Creature {
     @Override
     public boolean move(int xO, int yO, int xD, int yD, boolean day) {
 
-        // Calcula a distancia
+        // Calcula a distância
         int distanciaX = Math.abs(xD - xO);
         int distanciaY = Math.abs(yD - yO);
 
-
-        // Verefica se pode andar
+        // Calcula a distância diagonal
         double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
 
-        // Verefica se anda em xadres
-        if (distanciaDiagonal <= 4) {
+        // Verifica se o movimento é válido
+        if (distanciaDiagonal <= 4 || (distanciaDiagonal > 4 && distanciaY <= 8 && distanciaX == distanciaY)) {
+
+            if (equipment != null) {
+
+                equipment.atualizaPosicao(xD, yD);
+            }
 
             return true;
-
-        }
-        if (distanciaDiagonal > 4 && distanciaY <= 8) {
-
-            return distanciaX == distanciaY;
-
         }
 
         return false;
-
     }
 
 
@@ -100,7 +97,6 @@ public class Adulto extends Creature {
             // Defense com qualquer tipo de equipamento
             if (!alvo.equipment.usarArma()) {
 
-                System.out.println("Nao usou arma");
                 alvo.transformarEmZombie(board);
             }
 

@@ -25,7 +25,15 @@ public class Crianca extends Creature {
 
         // Verefica se pode andar
         double distancia = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
-        return distancia <= 1;
+
+        if(distancia <= 1){
+
+            equipment.atualizaPosicao(xD,yD);
+            return true;
+
+        }
+
+        return false;
 
     }
 
@@ -83,7 +91,7 @@ public class Crianca extends Creature {
             return false;
         }
 
-        if (alvo.isHumano() && equipment != null) {
+        if (alvo.isHumano() && alvo.equipment != null) {
 
             // Defense com qualquer tipo de equipamento
             if (!alvo.equipment.usarArma()) {
