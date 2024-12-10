@@ -143,6 +143,12 @@ public class Idoso extends Creature {
     @Override
     public String toString() {
 
+        if(equipment != null){
+
+            textoEquipamento = " | " + equipment;
+
+        }
+
         // Se nao tiver transformado
         return id + " | Idoso | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
     }

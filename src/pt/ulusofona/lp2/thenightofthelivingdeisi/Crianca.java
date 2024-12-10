@@ -138,6 +138,12 @@ public class Crianca extends Creature {
     @Override
     public String toString() {
 
+        if(equipment != null){
+
+            textoEquipamento = " | " + equipment;
+
+        }
+
         // Se nao tiver transformado
         return id + " | Criança | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
     }

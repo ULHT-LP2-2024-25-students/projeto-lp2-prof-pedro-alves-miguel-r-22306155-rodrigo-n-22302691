@@ -95,11 +95,12 @@ public class Adulto extends Creature {
             return false;
         }
 
-        if (alvo.isHumano() && equipment != null) {
+        if (alvo.isHumano() && alvo.equipment != null) {
 
             // Defense com qualquer tipo de equipamento
             if (!alvo.equipment.usarArma()) {
 
+                System.out.println("Nao usou arma");
                 alvo.transformarEmZombie(board);
             }
 
@@ -152,12 +153,11 @@ public class Adulto extends Creature {
 
         if(equipment != null){
 
-            textoEquipamento = equipment.toString();
-
+            textoEquipamento = " | " + equipment;
         }
 
         // Se nao tiver transformado
-        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + equipment;
+        return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
 
     }
 }

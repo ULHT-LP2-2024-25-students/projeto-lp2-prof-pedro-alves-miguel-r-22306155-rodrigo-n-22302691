@@ -123,8 +123,6 @@ public abstract class Creature extends ItemTabuleiro {
         equipCount++;
         equipments.remove(equipment.getId());
 
-        textoEquipamento = " | " + equipment;
-
     }
 
 
