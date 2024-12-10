@@ -376,7 +376,7 @@ public class GameManager {
 
 
         // Verifica se a criatura pode se mover para a posição de destino
-        if (!creature.move(xO, yO, xD, yD, isDay())){
+        if (!creature.move(xO, yO, xD, yD, isDay(), board)){
             return false;
         }
 
@@ -430,7 +430,6 @@ public class GameManager {
             // Verefica se tem que largar o equipamento ja equipado
             if(creature.getEquipment() != null){
 
-                // Atualiza as coordenadas no item equipado
                 creature.getEquipment().atualizaPosicao(creature.getX(), creature.getY());
 
                 // Diz que tinha um equipamento equipado
@@ -450,20 +449,19 @@ public class GameManager {
 
         }
 
+        // Se tinha um equipamento entao vai dropar
+        if (equipamentoEquipado != null) {
+            if (creature.isIdoso()) {
+                board.adicionaEquipment(equipamentoEquipado);
+            } else {
+                board.adicionaEquipment(equipamentoEquipado);
+            }
+            equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
+        }
 
-        // Atualiza a posição da criatura
         creature.atualizaPosicao(xD, yD);
         board.setItem(xD, yD, creature);
         board.removeItem(xO, yO);
-
-
-        // Se tinha um equipamento entao vai dropar
-        if(equipamentoEquipado != null){
-
-            board.adicionaEquipment(equipamentoEquipado);
-            equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
-
-        }
 
 
         // Atualiza jogadas e ID do jogador atual

@@ -14,7 +14,7 @@ public class Adulto extends Creature {
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, boolean day) {
+    public boolean move(int xO, int yO, int xD, int yD, boolean day, Board board) {
 
         // Calcula a distância
         int distanciaX = Math.abs(xD - xO);
@@ -26,9 +26,10 @@ public class Adulto extends Creature {
         // Verifica se o movimento é válido
         if (distanciaDiagonal <= 4 || (distanciaDiagonal > 4 && distanciaY <= 8 && distanciaX == distanciaY)) {
 
-            if (equipment != null) {
 
-                equipment.atualizaPosicao(xD, yD);
+            if (this.equipment != null) {
+
+                this.equipment.atualizaPosicao(xD, yD);
             }
 
             return true;
@@ -89,7 +90,7 @@ public class Adulto extends Creature {
         }
 
         if (alvo.isCao()) {
-            return false;
+            return true;
         }
 
         if (alvo.isHumano() && alvo.equipment != null) {

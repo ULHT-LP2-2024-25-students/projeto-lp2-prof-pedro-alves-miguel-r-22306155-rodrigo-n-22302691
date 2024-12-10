@@ -16,7 +16,7 @@ public class Crianca extends Creature {
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, boolean day){
+    public boolean move(int xO, int yO, int xD, int yD, boolean day, Board board){
 
         // Calcula a distancia
         int distanciaX = Math.abs(xD - xO);
@@ -28,9 +28,9 @@ public class Crianca extends Creature {
 
         if(distancia <= 1) {
 
-            if (equipment != null) {
+            if (this.equipment != null) {
 
-                equipment.atualizaPosicao(xD, yD);
+                this.equipment.atualizaPosicao(xD, yD);
 
             }
 
@@ -93,7 +93,7 @@ public class Crianca extends Creature {
         }
 
         if (alvo.isCao()) {
-            return false;
+            return true;
         }
 
         if (alvo.isHumano() && alvo.equipment != null) {

@@ -245,7 +245,7 @@ public abstract class Creature extends ItemTabuleiro {
         return true;
     }
 
-    abstract public boolean move(int xO, int yO, int xD, int yD, boolean day);
+    abstract public boolean move(int xO, int yO, int xD, int yD, boolean day, Board board);
 
     // Ataca / Defende
     public abstract boolean atacarDefender(Creature creatureDestino, Board board, HashMap<Integer, Creature> creatures);

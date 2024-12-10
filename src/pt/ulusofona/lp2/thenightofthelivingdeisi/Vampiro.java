@@ -15,7 +15,7 @@ public class Vampiro extends Creature{
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, boolean day){
+    public boolean move(int xO, int yO, int xD, int yD, boolean day, Board board){
 
         if(day){
 

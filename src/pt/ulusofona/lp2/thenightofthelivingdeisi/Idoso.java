@@ -16,7 +16,7 @@ public class Idoso extends Creature {
 
     // Override
     @Override
-    public boolean move(int xO, int yO, int xD, int yD, boolean day){
+    public boolean move(int xO, int yO, int xD, int yD, boolean day, Board board){
 
         if(!day && tipo == 20){
 
@@ -32,10 +32,18 @@ public class Idoso extends Creature {
         // Verefica se pode andar
         double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
 
-        return distanciaDiagonal == 2;
+        if(distanciaDiagonal == 2){
+
+            if(this.equipment != null){
+
+                // O idoso quando se move perde o equipamento e deixa o equipamento onde o apanhou
+                this.equipment = null;
+            }
+            return true;
+        }
+        return false;
 
     }
-
 
     // Criatura Ataca / Defende
     @Override
@@ -88,7 +96,7 @@ public class Idoso extends Creature {
         }
 
         if (alvo.isCao()) {
-            return false;
+            return true;
         }
 
         if (alvo.isHumano() && alvo.equipment != null) {
