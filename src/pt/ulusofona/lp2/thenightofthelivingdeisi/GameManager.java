@@ -411,8 +411,7 @@ public class GameManager {
         // Se o safeHaven tiver na posicao de destino a criatura entra no esconderijo
         if (creature.podeIrParaSafeHaven(xD, yD, portas)) {
 
-            // Atualiza posicao e remove do tabuleiro
-            creature.atualizaPosicao(xD, yD);
+            //Remove do tabuleiro
             board.removeItem(xO, yO);
 
             // Adiciona a criatura ao safeHaven
@@ -523,10 +522,10 @@ public class GameManager {
     // Verefica se o jogo acabou
     public boolean gameIsOver() {
 
-        boolean allHuman = true;
-        boolean allZombie = true;
+        boolean existemHumanos = false; // Verifica se todas as criaturas são humanas
+        boolean existemZombies = false; // Verifica se todas as criaturas são zumbis
 
-        // Percorre todas as células do tabuleiro
+        // Percorre o tabuleiro para determinar se o jogo está terminado
         for (int y = 0; y < board.getTabuleiro().length; y++) {
 
             for (int x = 0; x < board.getTabuleiro()[y].length; x++) {
@@ -536,45 +535,69 @@ public class GameManager {
                 // Verifica se o item é uma criatura
                 if (item != null && item.isCreature()) {
 
-                    Creature criatura = (Creature) item; // Agora podemos fazer o cast com segurança
-                    int tipo = criatura.getTipo();
+                    Creature criatura = (Creature) item;
 
-                    // Verifica se o ID não é 10 (zumbi)
-                    if (tipo != 10) {
-                        allZombie = false;
-                    }
-                    // Verifica se o ID não é 20 (humano)
-                    if (tipo != 20) {
-                        allHuman = false;
+                    // Se a crituras for humano entao ainda existem criaturas humanas
+                    if (criatura.isHumano()) {
+
+                        existemHumanos = true;
+
                     }
 
-                    // Se já sabemos que não são todos 10 ou todos 20, podemos parar a verificação
-                    if (!allHuman && !allZombie) {
+                    // Se a criatura for zombie entao ainda existem criaturas zombies
+                    if (criatura.isZombie()) {
+
+                        existemZombies = true;
+
+                    }
+
+                        // Se há mistura, o jogo não acabou
+                    if (existemHumanos && existemZombies) {
+
                         return false;
+
                     }
                 }
             }
         }
 
-        // Retorna verdadeiro se todos os IDs forem ou 10 (zumbis) ou 20 (humanos)
         return true;
     }
 
 
-
     // Personalizaçao de menus
-    public ArrayList<String> getSurvivors(){
+    public ArrayList<String> getSurvivors() {
 
-        ArrayList<String> survivors = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
 
-        for(Creature creature : creatures.values()){
+        // Adiciona o número de turnos/jogadas
+        result.add("Nr. de turnos terminados:");
+        result.add("" + nrJogadas);
 
-            if(creature.getTipo() == 1){
-                survivors.add(creature.toString());
+        // Adiciona os humanos vivos
+        result.add("");
+        result.add("OS VIVOS");
+        for (Creature creature : creatures.values()) {
+            if (!creature.isZombie()) { // Verifica se é um humano
+                result.add(creature.getId() + " " + creature.getNome());
             }
         }
-        return survivors;
+
+        // Adiciona os zumbis
+        result.add("");
+        result.add("OS OUTROS");
+        for (Creature creature : creatures.values()) {
+            if (creature.isZombie()) { // Verifica se é um zumbi
+                result.add(creature.getId() + " (antigamente conhecido como " + creature.getNome() + ")");
+            }
+        }
+
+        // Linha final para demarcar o fim
+        result.add("-----");
+
+        return result;
     }
+
 
     public JPanel getCreditsPanel(){
         return null;
