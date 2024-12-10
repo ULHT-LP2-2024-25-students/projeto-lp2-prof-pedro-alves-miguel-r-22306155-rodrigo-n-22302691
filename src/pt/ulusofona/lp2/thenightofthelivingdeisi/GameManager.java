@@ -244,7 +244,7 @@ public class GameManager {
 
         Creature criatura = creatures.get(id);
 
-        if (criatura == null || safeHaven.contains(criatura)) {
+        if (criatura == null) {
             return null; // Criatura não está no tabuleiro
         }
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.desktop.AboutEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 
 public class TestGameManager {
 
@@ -89,9 +90,9 @@ public class TestGameManager {
 
         GameManager game = new GameManager();
         game.loadGame(new File("test-files", "Jogo.txt"));
-        int[] worldSizeAtual = game.getWorldSize();
-        int[] wordSizeEsperado = {6, 6};
-        Assertions.assertEquals(wordSizeEsperado, worldSizeAtual, "O tamanho do tabuleiro deveria ser 6 por 6");
+        String worldSizeAtual = Arrays.toString(game.getWorldSize());
+        String wordSizeEsperado = String.valueOf("[7, 7]");
+        Assertions.assertEquals(wordSizeEsperado, worldSizeAtual, "O tamanho do tabuleiro deveria ser 7 por 7");
     }
 
     @Test
@@ -111,8 +112,19 @@ public class TestGameManager {
         game.loadGame(new File("test-files", "Jogo.txt"));
         int currentIdAtual = game.getCurrentTeamId();
         game.move(5, 3, 5, 4);
+        currentIdAtual = game.getCurrentTeamId();
         int currentIdEsperado = 20;
         Assertions.assertEquals(currentIdEsperado, currentIdAtual, "Agora deveriam ser os humanos a jogar");
+    }
+
+    @Test
+    public void getSquareInfo() throws InvalidFileException {
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        String squareInfoAtual = game.getSquareInfo(-1,0);
+        String squareInfoEsperado = null;
+        Assertions.assertEquals(squareInfoEsperado,squareInfoAtual);
     }
 }
 
