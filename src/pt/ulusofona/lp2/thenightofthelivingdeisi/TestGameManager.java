@@ -83,5 +83,36 @@ public class TestGameManager {
         Assertions.assertEquals(moveEsperado, terceiroMovimento,
                 "O humano deveria conseguir defender-se do zumbi na posição (4,4).");
     }
+
+    @Test
+    public void testGetWorldSize() throws InvalidFileException {
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        int[] worldSizeAtual = game.getWorldSize();
+        int[] wordSizeEsperado = {6, 6};
+        Assertions.assertEquals(wordSizeEsperado, worldSizeAtual, "O tamanho do tabuleiro deveria ser 6 por 6");
     }
+
+    @Test
+    public void testGetInicialID() throws InvalidFileException {
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        int inicialIdAtual = game.getInitialTeamId();
+        int inicialIdEsperado = 10;
+        Assertions.assertEquals(inicialIdEsperado,inicialIdAtual, "Deveriam ser os zombies primeiro a jogar");
+    }
+
+    @Test
+    public void testGetCurrentID() throws InvalidFileException {
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        int currentIdAtual = game.getCurrentTeamId();
+        game.move(5, 3, 5, 4);
+        int currentIdEsperado = 20;
+        Assertions.assertEquals(currentIdEsperado, currentIdAtual, "Agora deveriam ser os humanos a jogar");
+    }
+}
 

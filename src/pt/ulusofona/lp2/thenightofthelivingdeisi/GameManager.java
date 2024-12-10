@@ -229,37 +229,28 @@ public class GameManager {
     // Devolve uma string com a informaçao do item na posiçao dada
     public String getSquareInfo(int x, int y) {
 
-        // Pega o item do tabuleiro
-        ItemTabuleiro tile = board.getTabuleiro()[y][x];
-
-        // Verefica se o tile esta empty
-        if (tile == null){
-
-            return "";
-
-        }
-
-        // Faz return
-        return tile.info();
-
-    }
-
-
-    // Devolve info da criatura em um array
-    public String[] getCreatureInfo(int id){
-
-        // Verefica se existe a criatura
-        if(creatures.get(id) == null){
+        if (x < 0 || y < 0 || x >= worldSize[0] || y >= worldSize[1]) {
             return null;
         }
 
-        // Guarda a criatura
+        ItemTabuleiro tile = board.getTabuleiro()[y][x];
+        return (tile == null) ? "" : tile.info();
+    }
+
+
+
+    // Devolve info da criatura em um array
+    public String[] getCreatureInfo(int id) {
+
         Creature criatura = creatures.get(id);
 
-        // Cria a String
-        return criatura.getInfo();
+        if (criatura == null || safeHaven.contains(criatura)) {
+            return null; // Criatura não está no tabuleiro
+        }
 
+        return criatura.getInfo();
     }
+
 
 
     // Devolve info da criatura em uma string
