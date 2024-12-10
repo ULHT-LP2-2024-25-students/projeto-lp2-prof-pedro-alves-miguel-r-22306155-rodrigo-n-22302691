@@ -170,8 +170,7 @@ public class GameManager {
                         itemsAdicionar.add(equipment);
                         criaturaAdicionar.add(creature.id);
 
-                    }
-                    else {
+                    } else {
 
                         itemsRemover.add(equipment);
                         criaturaRemover.add(creature.id);
@@ -228,6 +227,10 @@ public class GameManager {
 
     // Devolve uma string com a informaçao do item na posiçao dada
     public String getSquareInfo(int x, int y) {
+
+        if (x < 0 || x >= worldSize[1] || y < 0 || y >= worldSize[0]) {
+            return null;
+        }
 
         ItemTabuleiro tile = board.getTabuleiro()[y][x];
 
@@ -399,10 +402,6 @@ public class GameManager {
 
             // Adiciona a criatura ao safeHaven
             safeHaven.add(creature);
-
-            // Atualiza posicao da criatura
-            creature.getInfo()[4] = null;
-            creature.getInfo()[5] = null;
 
             // Atualiza jogadas e ID do jogador atual
             nrJogadas++;
