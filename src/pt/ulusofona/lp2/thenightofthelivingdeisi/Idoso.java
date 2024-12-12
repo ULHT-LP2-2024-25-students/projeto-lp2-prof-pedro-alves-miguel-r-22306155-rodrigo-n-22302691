@@ -32,17 +32,7 @@ public class Idoso extends Creature {
         // Verefica se pode andar
         double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
 
-        if(distanciaDiagonal == 2){
-
-            if(this.equipment != null){
-
-                // O idoso quando se move perde o equipamento e deixa o equipamento onde o apanhou
-                this.equipment = null;
-            }
-            return true;
-        }
-        return false;
-
+        return distanciaDiagonal == 2;
     }
 
     // Criatura Ataca / Defende

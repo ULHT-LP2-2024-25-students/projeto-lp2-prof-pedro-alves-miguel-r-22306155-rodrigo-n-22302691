@@ -269,5 +269,11 @@ public abstract class Creature extends ItemTabuleiro {
     abstract public String toString();
 
 
+    public void removeEquipamento() {
 
+        if(this.equipment != null) {
+            this.equipment = null;
+        }
+
+    }
 }
