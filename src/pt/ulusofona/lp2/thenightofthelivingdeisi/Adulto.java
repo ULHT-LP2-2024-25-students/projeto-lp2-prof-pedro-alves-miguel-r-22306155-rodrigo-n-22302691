@@ -150,6 +150,10 @@ public class Adulto extends Creature {
         if(equipment != null){
 
             textoEquipamento = " | " + equipment;
+
+        } else {
+
+            textoEquipamento = "";
         }
 
         // Se nao tiver transformado
