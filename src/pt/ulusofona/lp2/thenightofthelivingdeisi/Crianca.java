@@ -150,9 +150,7 @@ public class Crianca extends Creature {
     public String toString() {
 
         if(equipment != null){
-
             textoEquipamento = " | " + equipment;
-
         }
 
         // Se nao tiver transformado

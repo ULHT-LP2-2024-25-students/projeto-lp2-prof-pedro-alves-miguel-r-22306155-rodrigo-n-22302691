@@ -145,6 +145,9 @@ public class Idoso extends Creature {
 
             textoEquipamento = " | " + equipment;
 
+        } else {
+
+            textoEquipamento = "";
         }
 
         // Se nao tiver transformado
