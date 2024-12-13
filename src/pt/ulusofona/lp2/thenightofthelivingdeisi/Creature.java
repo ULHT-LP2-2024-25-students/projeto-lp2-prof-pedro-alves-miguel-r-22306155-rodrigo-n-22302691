@@ -195,6 +195,11 @@ public abstract class Creature extends ItemTabuleiro {
 
     }
 
+    public void removeEquipamento(){
+
+        this.equipment = null;
+    }
+
     public String[] getInfo(){
 
         String[] partes = new String[7];
@@ -268,12 +273,4 @@ public abstract class Creature extends ItemTabuleiro {
     // Abs ToString
     abstract public String toString();
 
-
-    public void removeEquipamento() {
-
-        if(this.equipment != null) {
-            this.equipment = null;
-        }
-
-    }
 }

@@ -39,7 +39,7 @@ public class Vampiro extends Creature{
     @Override
     public boolean atacarDefender(Creature alvo, Board board, HashMap<Integer, Creature> creatures){
 
-        if(alvo.isZombie()){
+        if(alvo.isZombie() || alvo.isCao()){
             return false;
         }
 

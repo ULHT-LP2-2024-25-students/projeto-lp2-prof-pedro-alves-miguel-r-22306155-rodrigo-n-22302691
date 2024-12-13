@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class GameManager {
 
     // Constantes
-    private final int NR_SEM_INTERACAO = 8;
+    private static final int NR_SEM_INTERACAO = 8;
 
 
 
@@ -384,6 +384,7 @@ public class GameManager {
         // Obtém equipamento na posição de destino, se existir
         Equipment equipment = existeEquipamento(xD, yD);
 
+
         // Só se pode mover se o ID da criatura for igual ao currentID
         if (creature == null || creature.getTipo() != currentID) {
             return false;
@@ -395,22 +396,23 @@ public class GameManager {
         }
 
         // Se não houver nenhuma criatura na posição de destino, então não vai haver ataque nem defesa
-        if (creatureDestino != null) {
+        if (creatureDestino != null && creature.atacarDefender(creatureDestino, board, creatures)) {
 
             // A criatura que se move ataca a criatura na posição de destino
-            if (creature.atacarDefender(creatureDestino, board, creatures)) {
 
-                nrJogadas++;
-                nrJogadasSemInteracao = 0;
+            // Atualiza as informaçoes da jogada
+            nrJogadas++;
+            nrJogadasSemInteracao = 0;
 
-                currentID();
+            // Muda o turno
+            currentID();
 
-                return true;
-
-            }
+            // Fas return
+            return true;
 
         } else {
 
+            // Aumenta o numero de jogadas sem interaçao
             nrJogadasSemInteracao++;
 
         }
@@ -438,6 +440,18 @@ public class GameManager {
         // Interage com o equipamento se existir
         Equipment equipamentoEquipado = null;
 
+
+        // Verifica se o idoso tem um equipamento
+        if (creature.isIdoso() && creature.getEquipment() != null) {
+
+
+            equipamentoEquipado = creature.getEquipment();
+            equipamentoEquipado.atualizaPosicao(xO, yO);
+            board.adicionaEquipment(equipamentoEquipado);
+            equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
+            creature.removeEquipamento();
+        }
+
         if (equipment != null) {
 
             // Verifica se a criatura pode apanhar o equipamento
@@ -445,6 +459,7 @@ public class GameManager {
                 return false;
             }
 
+            // Verifica se tem equipamento
             if(creature.getEquipment() != null){
 
                 creature.getEquipment().atualizaPosicao(creature.getX(), creature.getY());
@@ -452,19 +467,24 @@ public class GameManager {
                 equipamentoEquipado = creature.getEquipment();
             }
 
+
             if (creature.isHumano()) {
                 creature.adicionaEquipamento(equipment, equipments);
             }
+
 
             if (creature.isZombie()) {
                 creature.destroiEquipamento(equipment, equipments);
             }
         }
 
+
+
         // Atualiza a posição da criatura
         creature.atualizaPosicao(xD, yD);
         board.setItem(xD, yD, creature);
         board.removeItem(xO, yO);
+
 
         // Se tinha um equipamento então vai dropar
         if (equipamentoEquipado != null) {
@@ -473,12 +493,14 @@ public class GameManager {
             equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
         }
 
+
         // Atualiza jogadas e ID do jogador atual
         nrJogadas++;
         currentID();
 
         return true;
     }
+
 
     // Faz retorno ao equipamento em uma certa coordenada se existir
     public Equipment existeEquipamento(int x, int y) {

@@ -85,27 +85,24 @@ public class Adulto extends Creature {
 
     public boolean atacarComoZombie(Creature alvo, Board board) {
 
-        if (alvo.isZombie()) {
+        // Verifica se o alvo já é um zombie ou um cão
+        if (alvo.isZombie() || alvo.isCao()) {
             return false;
         }
 
-        if (alvo.isCao()) {
-            return false;
-        }
-
+        // Se o alvo é humano com equipamento
         if (alvo.isHumano() && alvo.equipment != null) {
 
-            // Defense com qualquer tipo de equipamento
+            // Usa o equipamento para se defender mas se nao tiver conseguir denfender é transformado em zombie
             if (!alvo.equipment.usarArma()) {
 
                 alvo.transformarEmZombie(board);
             }
 
-            // Se tiver com as pistola ou a lixivia, e nao tiver balas ou litros é tranformado em zombie
             return true;
         }
 
-        // É transformado em zombie
+        // Transforma em zombie
         alvo.transformarEmZombie(board);
         return true;
     }
