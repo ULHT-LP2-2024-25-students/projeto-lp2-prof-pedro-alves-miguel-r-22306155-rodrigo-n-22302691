@@ -4,11 +4,8 @@ import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.io.File;
-import java.util.List;
-import java.util.Scanner;
 
 public class GameManager {
 
@@ -566,7 +563,6 @@ public class GameManager {
 
 
 
-    // Personalizaçao de menus
     public ArrayList<String> getSurvivors() {
 
         ArrayList<String> result = new ArrayList<>();
@@ -575,22 +571,35 @@ public class GameManager {
         result.add("Nr. de turnos terminados:");
         result.add("" + nrJogadas);
 
+        // Lista para humanos e zumbis
+        ArrayList<Creature> humanos = new ArrayList<>();
+        ArrayList<Creature> zumbis = new ArrayList<>();
+
+        // Separa as criaturas em humanos e zumbis
+        for (Creature creature : creatures.values()) {
+            if (creature.isHumano()) {
+                humanos.add(creature);
+            } else if (creature.isZombie()) {
+                zumbis.add(creature);
+            }
+        }
+
+        // Ordena as listas pelo ID
+        humanos.sort(Comparator.comparingInt(Creature::getId));
+        zumbis.sort(Comparator.comparingInt(Creature::getId));
+
         // Adiciona os humanos vivos
         result.add("");
         result.add("OS VIVOS");
-        for (Creature creature : creatures.values()) {
-            if (!creature.isZombie()) { // Verifica se é um humano
-                result.add(creature.getId() + " " + creature.getNome());
-            }
+        for (Creature humano : humanos) {
+            result.add(humano.getId() + " " + humano.getNome());
         }
 
         // Adiciona os zumbis
         result.add("");
         result.add("OS OUTROS");
-        for (Creature creature : creatures.values()) {
-            if (creature.isZombie()) { // Verifica se é um zumbi
-                result.add(creature.getId() + " (antigamente conhecido como " + creature.getNome() + ")");
-            }
+        for (Creature zombie : zumbis) {
+            result.add(zombie.getId() + " (antigamente conhecido como " + zombie.getNome() + ")");
         }
 
         // Linha final para demarcar o fim
@@ -598,6 +607,7 @@ public class GameManager {
 
         return result;
     }
+
 
 
 
