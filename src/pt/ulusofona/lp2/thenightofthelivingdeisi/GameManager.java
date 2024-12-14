@@ -48,8 +48,7 @@ public class GameManager {
 
     private ArrayList<Creature> safeHaven = new ArrayList<Creature>();
 
-    private int nrJogadasSemInteracao = 0;
-
+    private int nrJogadasSemInteracao;
 
 
 
@@ -59,6 +58,7 @@ public class GameManager {
 
         // Cada vez que le um novo ficheiro reinicia variaveis globais
         nrJogadas = 0;
+        nrJogadasSemInteracao = 0;
 
         // Vai reiniciar o numero de linhas lidas
         int numeroDaLinha = 0;
@@ -526,7 +526,7 @@ public class GameManager {
     // Verefica se o jogo acabou
     public boolean gameIsOver() {
 
-        if(nrJogadasSemInteracao >= NR_SEM_INTERACAO){
+        if(nrJogadasSemInteracao == NR_SEM_INTERACAO){
 
             return true;
 
