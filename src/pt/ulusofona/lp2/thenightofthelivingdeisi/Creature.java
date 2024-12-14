@@ -195,6 +195,11 @@ public abstract class Creature extends ItemTabuleiro {
 
     }
 
+    public boolean consegueDefender() {
+
+       return this.equipment.usarArma();
+    }
+
     public void removeEquipamento(){
 
         this.equipment = null;
@@ -259,7 +264,7 @@ public abstract class Creature extends ItemTabuleiro {
     abstract public boolean move(int xO, int yO, int xD, int yD, boolean day, Board board);
 
     // Ataca / Defende
-    public abstract boolean atacarDefender(Creature creatureDestino, Board board, HashMap<Integer, Creature> creatures);
+    abstract public boolean atacarDefender(Creature creatureDestino, Board board, HashMap<Integer, Creature> creatures);
 
     // Apanha equipamento se for humano
     abstract public boolean apanharEquipamento(Equipment equipamento);

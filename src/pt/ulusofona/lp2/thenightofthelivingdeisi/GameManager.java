@@ -369,23 +369,19 @@ public class GameManager {
 
 
     public boolean move(int xO, int yO, int xD, int yD) {
-
         // Verifica se a posição de destino está dentro do tabuleiro
         if (!board.positionInBoard(xD, yD)) {
             return false;
         }
 
-        // Obtem a criatura na posição de origem
+        // Obtem a criatura na posição de origem e destino
         Creature creature = getCreature(xO, yO);
-
-        // Obtem a criatura na posição de destino
         Creature creatureDestino = getCreature(xD, yD);
 
         // Obtém equipamento na posição de destino, se existir
         Equipment equipment = existeEquipamento(xD, yD);
 
-
-        // Só se pode mover se o ID da criatura for igual ao currentID
+        // Verifica se o ID da criatura é igual ao currentID
         if (creature == null || creature.getTipo() != currentID) {
             return false;
         }
@@ -395,55 +391,39 @@ public class GameManager {
             return false;
         }
 
-        // Se não houver nenhuma criatura na posição de destino, então não vai haver ataque nem defesa
-        if (creatureDestino != null && creature.atacarDefender(creatureDestino, board, creatures)) {
+        // Se houver criatura no destino, realiza ataque/defesa
+        if (creatureDestino != null) {
+            if (creature.atacarDefender(creatureDestino, board, creatures)) {
 
-            // A criatura que se move ataca a criatura na posição de destino
-
-            // Atualiza as informaçoes da jogada
-            nrJogadas++;
-            nrJogadasSemInteracao = 0;
-
-            // Muda o turno
-            currentID();
-
-            // Fas return
-            return true;
-
-        } else {
-
-            // Aumenta o numero de jogadas sem interaçao
-            nrJogadasSemInteracao++;
-
+                nrJogadasSemInteracao = creatureDestino.consegueDefender() ? nrJogadasSemInteracao + 1 : 0;
+                nrJogadas++;
+                currentID();
+                return true;
+            } else {
+                nrJogadasSemInteracao++;
+            }
         }
 
-        // Se o safeHaven tiver na posição de destino, a criatura entra no esconderijo
+        // Verifica se o safeHaven está na posição de destino
         if (creature.podeIrParaSafeHaven(xD, yD, portas)) {
 
-            // Remove do tabuleiro
             board.removeItem(xO, yO);
-
-            // Adiciona a criatura ao safeHaven
             safeHaven.add(creature);
-
-            // Atualiza jogadas e ID do jogador atual
             nrJogadas++;
             currentID();
             return true;
         }
 
-        // Verifica se o destino está vazio ou tem equipamento interagível
+        // Verifica se o destino está vazio
         if (!board.squareVazio(xD, yD)) {
             return false;
         }
 
-        // Interage com o equipamento se existir
+        // Gerencia interação com equipamentos
         Equipment equipamentoEquipado = null;
 
-
-        // Verifica se o idoso tem um equipamento
+        // Idoso deixa equipamento se possuir
         if (creature.isIdoso() && creature.getEquipment() != null) {
-
 
             equipamentoEquipado = creature.getEquipment();
             equipamentoEquipado.atualizaPosicao(xO, yO);
@@ -453,53 +433,48 @@ public class GameManager {
         }
 
         if (equipment != null) {
-
-            // Verifica se a criatura pode apanhar o equipamento
+            // Humanos podem apanhar equipamento
             if (creature.isHumano() && !creature.apanharEquipamento(equipment)) {
                 return false;
             }
 
-            // Verifica se tem equipamento
-            if(creature.getEquipment() != null){
+            // Equipamento equipado anteriormente é gerenciado
+            if (creature.getEquipment() != null) {
 
                 creature.getEquipment().atualizaPosicao(creature.getX(), creature.getY());
-                // Diz que tinha um equipamento equipado
                 equipamentoEquipado = creature.getEquipment();
             }
 
-
+            // Humanos adicionam equipamento
             if (creature.isHumano()) {
                 creature.adicionaEquipamento(equipment, equipments);
             }
 
-
+            // Zumbis destroem equipamento
             if (creature.isZombie()) {
                 creature.destroiEquipamento(equipment, equipments);
             }
         }
 
-
-
-        // Atualiza a posição da criatura
+        // Atualiza a posição da criatura no tabuleiro
         creature.atualizaPosicao(xD, yD);
         board.setItem(xD, yD, creature);
         board.removeItem(xO, yO);
 
-
-        // Se tinha um equipamento então vai dropar
+        // Dropa equipamento equipado anteriormente, se existir
         if (equipamentoEquipado != null) {
 
             board.adicionaEquipment(equipamentoEquipado);
             equipments.put(equipamentoEquipado.getId(), equipamentoEquipado);
         }
 
-
-        // Atualiza jogadas e ID do jogador atual
+        // Atualiza jogadas e muda turno
         nrJogadas++;
         currentID();
 
         return true;
     }
+
 
 
     // Faz retorno ao equipamento em uma certa coordenada se existir
@@ -620,11 +595,16 @@ public class GameManager {
 
 
 
-    public HashMap<String,String> customizeBoard(){
-        return new HashMap<>();
+    public HashMap<String,String> customizeBoard() {
+
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("title", "Goofy");
+
+        return map;
+
+
     }
-
-
 
 
     public List<Integer> getIdsInSafeHaven(){
