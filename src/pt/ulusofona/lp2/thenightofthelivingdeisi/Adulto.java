@@ -97,8 +97,10 @@ public class Adulto extends Creature {
             if (!alvo.equipment.usarArma()) {
 
                 alvo.transformarEmZombie(board);
+
             }
 
+            alvo.defendeu = true;
             return true;
         }
 

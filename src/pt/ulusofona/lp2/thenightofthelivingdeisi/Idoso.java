@@ -95,6 +95,7 @@ public class Idoso extends Creature {
                 alvo.transformarEmZombie(board);
             }
 
+            alvo.defendeu = true;
             return true;
         }
 

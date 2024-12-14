@@ -21,6 +21,7 @@ public abstract class Creature extends ItemTabuleiro {
     protected String textoEquipamento = "";
     protected boolean transformado;
     protected boolean safeHaven;
+    protected boolean defendeu;
 
 
 
@@ -191,13 +192,13 @@ public abstract class Creature extends ItemTabuleiro {
 
     public Equipment getEquipment(){
 
-        return equipment;
+        return this.equipment;
 
     }
 
-    public boolean consegueDefender() {
+    public boolean getDefesa() {
 
-       return this.equipment.usarArma();
+        return this.defendeu;
     }
 
     public void removeEquipamento(){
