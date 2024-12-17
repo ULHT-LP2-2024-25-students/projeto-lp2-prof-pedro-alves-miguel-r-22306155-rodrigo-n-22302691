@@ -165,5 +165,31 @@ public class TestGameManager {
         Assertions.assertEquals(listaEsparado,listaAtual, "Deveria ser o id 8");
     }
 
+    @Test
+    public void testGetCreatureInfo() throws InvalidFileException {
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        String resultadoAtual = Arrays.toString(game.getCreatureInfo(5));
+        String resultadoEsperado = "[5, Criança, Zombie, Babe, 1, 1, null]";
+
+        Assertions.assertEquals(resultadoEsperado,resultadoAtual,
+                "Deveria ter sido [5, Criança, Zombie, Babe, 1, 1, null] e foi " + resultadoAtual);
+
+    }
+
+    @Test
+    public void testGetEquipmentInfo() throws InvalidFileException {
+
+        GameManager game = new GameManager();
+        game.loadGame(new File("test-files", "Jogo.txt"));
+        String resultadoAtual = Arrays.toString(game.getEquipmentInfo(-3));
+        String resultadoEsperado = "[-3, 2, 2, 1, null]";
+
+        Assertions.assertEquals(resultadoEsperado,resultadoAtual,
+                "Deveria ter sido [-3, 2, 2, 1, null] e foi " + resultadoAtual);
+
+    }
+
 }
 
