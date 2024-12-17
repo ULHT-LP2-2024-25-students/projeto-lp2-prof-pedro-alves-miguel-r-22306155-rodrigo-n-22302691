@@ -30,7 +30,6 @@ public class Cao extends Creature {
 
         }
 
-
         // Verefica se pode andar
         double distancia = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
         return distancia <= 4;

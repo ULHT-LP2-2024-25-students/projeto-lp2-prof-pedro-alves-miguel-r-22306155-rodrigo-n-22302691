@@ -21,10 +21,10 @@ public class Adulto extends Creature {
         int distanciaY = Math.abs(yD - yO);
 
         // Calcula a distância diagonal
-        double distanciaDiagonal = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
+        double distancia = Math.pow(distanciaX, 2.0) + Math.pow(distanciaY, 2.0);
 
         // Verifica se o movimento é válido
-        if (distanciaDiagonal <= 4 || (distanciaDiagonal > 4 && distanciaY <= 8 && distanciaX == distanciaY)) {
+        if (distancia <= 4 || (distancia > 4 && distancia <= 8 && distanciaX == distanciaY)) {
 
 
             if (this.equipment != null) {
@@ -158,7 +158,6 @@ public class Adulto extends Creature {
             textoEquipamento = "";
         }
 
-        // Se nao tiver transformado
         return id + " | Adulto | " + tipoCriatura(tipo) + " | " + nome + " | " + tipoEquipamento(tipo) + " @ " + coordenadas() + textoEquipamento;
 
     }

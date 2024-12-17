@@ -13,8 +13,6 @@ public class GameManager {
     private static final int NR_SEM_INTERACAO = 8;
 
 
-
-
     // Informaçoes do ficheiro
     // Tamanho do tabuleiro
     private int[] worldSize = new int[2];
@@ -34,7 +32,7 @@ public class GameManager {
     private int nrJogadas;
 
     // Dados de cada porta do tabuleiro
-    private ArrayList<Porta> portas = new ArrayList<Porta>();
+    private ArrayList<Porta> portas = new ArrayList<>();
     private int nrPortas;
 
     // tabuleiro
@@ -43,7 +41,7 @@ public class GameManager {
     //Informaçoes do jogo
     private int currentID;
 
-    private ArrayList<Creature> safeHaven = new ArrayList<Creature>();
+    private ArrayList<Creature> safeHaven = new ArrayList<>();
 
     private int nrJogadasSemInteracao;
 
@@ -508,7 +506,6 @@ public class GameManager {
 
 
 
-
     // Verefica se o jogo acabou
     public boolean gameIsOver() {
 
@@ -567,11 +564,6 @@ public class GameManager {
 
         ArrayList<String> result = new ArrayList<>();
 
-        // Adiciona o número de turnos/jogadas
-        result.add("Nr. de turnos terminados:");
-        result.add("" + nrJogadas);
-
-        // Lista para humanos e zumbis
         ArrayList<Creature> humanos = new ArrayList<>();
         ArrayList<Creature> zumbis = new ArrayList<>();
 
@@ -587,6 +579,10 @@ public class GameManager {
         // Ordena as listas pelo ID
         humanos.sort(Comparator.comparingInt(Creature::getId));
         zumbis.sort(Comparator.comparingInt(Creature::getId));
+
+        // Adiciona o número de turnos/jogadas
+        result.add("Nr. de turnos terminados:");
+        result.add("" + nrJogadas);
 
         // Adiciona os humanos vivos
         result.add("");
@@ -608,29 +604,6 @@ public class GameManager {
         return result;
     }
 
-
-
-
-
-    public JPanel getCreditsPanel(){
-        return null;
-    }
-
-
-
-
-    public HashMap<String,String> customizeBoard() {
-
-        HashMap<String, String> map = new HashMap<>();
-
-        map.put("title", "Goofy");
-
-        return map;
-
-
-    }
-
-
     public List<Integer> getIdsInSafeHaven(){
 
         List<Integer> getSafeIds = new ArrayList<>();
@@ -645,9 +618,6 @@ public class GameManager {
     }
 
 
-
-
-    // Salva o jogo
     public void saveGame(File file) throws IOException {
         // Criar um FileWriter e BufferedWriter para escrever no arquivo
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -701,6 +671,23 @@ public class GameManager {
             throw new IOException("Erro ao salvar o jogo no arquivo: " + e.getMessage());
         }
     }
+
+    public JPanel getCreditsPanel(){
+        return null;
+    }
+
+
+    public HashMap<String,String> customizeBoard() {
+
+        HashMap<String, String> map = new HashMap<>();
+
+        map.put("title", "Apocalypse in the backrooms");
+
+        return map;
+
+
+    }
+
 
 
     // Main (;
