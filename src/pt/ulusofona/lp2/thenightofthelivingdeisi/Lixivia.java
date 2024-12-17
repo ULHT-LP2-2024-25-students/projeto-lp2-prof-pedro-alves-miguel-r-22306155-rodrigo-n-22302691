@@ -16,7 +16,7 @@ public class Lixivia extends Equipment{
 
     // Verifica se a arma é defensiva
     @Override
-    boolean tipoArma(){ return true; }
+    public boolean tipoArma(){ return true; }
 
     @Override
     public boolean usarArma() {

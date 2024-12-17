@@ -12,7 +12,7 @@ public class Espada extends Equipment {
 
     // Override
     @Override
-    boolean tipoArma(){
+    public boolean tipoArma(){
 
         return false;
 
