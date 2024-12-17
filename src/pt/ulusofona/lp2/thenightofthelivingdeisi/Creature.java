@@ -50,7 +50,7 @@ public abstract class Creature extends ItemTabuleiro {
 
     // Metodos
     // Tipo de criatura
-    String tipoCriatura(int tipo){
+    public String tipoCriatura(int tipo){
 
         if(tipo == 20){
             return "Humano";
@@ -67,7 +67,7 @@ public abstract class Creature extends ItemTabuleiro {
 
 
     // Tipo de criatura em char
-    String tipoCriaturaChar(int tipo){
+    public String tipoCriaturaChar(int tipo){
 
         if(tipo == 20){
             return "H";
@@ -78,7 +78,7 @@ public abstract class Creature extends ItemTabuleiro {
 
 
     //O equipamento do tipo se tem ou destruiu
-    String tipoEquipamento(int tipo){
+    public String tipoEquipamento(int tipo){
         if(tipo == 20){
             return "+" + equipCount;
         }
@@ -90,7 +90,7 @@ public abstract class Creature extends ItemTabuleiro {
 
     // Posiçao da criatura
     // Coordenadas da criatura
-    String coordenadas() {
+    public String coordenadas() {
 
         if(safeHaven){
             return "Safe Haven";
@@ -101,7 +101,7 @@ public abstract class Creature extends ItemTabuleiro {
 
 
     // Atualiza posicao da criatura
-    void atualizaPosicao(int posicaoX, int posicaoY) {
+    public void atualizaPosicao(int posicaoX, int posicaoY) {
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }
@@ -115,7 +115,7 @@ public abstract class Creature extends ItemTabuleiro {
 
     // Equipamento
     // Adiciona o equipamento no hashMap
-    void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
+    public void adicionaEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
 
         // Atualiza o historico de equipamentos
         if(idPorEquipamento.get(equipment.tipo) == null){
@@ -134,7 +134,7 @@ public abstract class Creature extends ItemTabuleiro {
 
 
     // Destroi o equipamento
-    void destroiEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
+    public void destroiEquipamento(Equipment equipment, HashMap<Integer,Equipment> equipments){
 
         equipCount++;
         equipments.remove(equipment.getId());
@@ -179,7 +179,7 @@ public abstract class Creature extends ItemTabuleiro {
     }
 
 
-    int getId(){
+    public int getId(){
         return this.id;
     }
 

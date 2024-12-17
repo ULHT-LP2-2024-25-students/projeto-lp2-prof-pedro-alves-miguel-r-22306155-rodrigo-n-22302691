@@ -19,7 +19,7 @@ public class Board {
 
 
     // Metodos
-    boolean squareVazio(int x, int y) {
+    public boolean squareVazio(int x, int y) {
 
         return tabuleiro[y][x] == null || tabuleiro[y][x].info().split(":")[0].equals("E");
 
@@ -32,13 +32,13 @@ public class Board {
 
 
     // Gets
-    ItemTabuleiro[][] getTabuleiro(){ return tabuleiro; }
+    public ItemTabuleiro[][] getTabuleiro(){ return tabuleiro; }
 
 
 
 
     // Adicionar/Remover
-    void adicionaCreature(Creature creature) {
+    public void adicionaCreature(Creature creature) {
 
         if (creature != null) {
 
@@ -48,7 +48,7 @@ public class Board {
 
     }
 
-    void adicionaEquipment(Equipment equipment) {
+    public void adicionaEquipment(Equipment equipment) {
 
         if (equipment != null) {
 
@@ -58,19 +58,19 @@ public class Board {
 
     }
 
-    void setItem(int x, int y, ItemTabuleiro item) {
+    public void setItem(int x, int y, ItemTabuleiro item) {
 
         tabuleiro[y][x] = item;
 
     }
 
-    void removeItem(int x, int y){
+    public void removeItem(int x, int y){
 
         tabuleiro[y][x] = null;
 
     }
 
-    ItemTabuleiro getItem(int x, int y){
+    public ItemTabuleiro getItem(int x, int y){
 
         return tabuleiro[y][x];
     }
